@@ -58,9 +58,19 @@
                         <i class="bi bi-calendar-check me-2"></i>
                         <span>{{ _('Entrada') }}: <b>{{ r.fechaEntrada }}</b></span>
                     </div>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center mb-1">
                         <i class="bi bi-calendar-x me-2"></i>
                         <span>{{ _('Salida') }}: <b>{{ r.fechaSalida }}</b></span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-headset me-2 text-info"></i>
+                        <span>{{ _('Atendido por') }}: 
+                            {% if r.recepcionista %}
+                                <b class="text-info">{{ r.recepcionista.usuario }}</b>
+                            {% else %}
+                                <i class="text-muted">{{ _('Pendiente') }}</i>
+                            {% endif %}
+                        </span>
                     </div>
                 </div>
 
@@ -147,6 +157,17 @@
                                     <div class="text-end">
                                         <div class="text-muted small">{{ _('Personas') }}</div>
                                         <span class="badge bg-dark">{{ r.cantidadPersonas or 1 }}</span>
+                                    </div>
+                                </div>
+                                <hr class="my-2 border-secondary opacity-25">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <div class="text-muted small">{{ _('Atendido por') }}</div>
+                                        {% if r.recepcionista %}
+                                            <span class="fw-bold text-info"><i class="bi bi-person-badge me-1"></i>{{ r.recepcionista.usuario }}</span>
+                                        {% else %}
+                                            <span class="text-muted fst-italic">{{ _('Pendiente de atención') }}</span>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

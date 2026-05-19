@@ -38,5 +38,5 @@ class Config:
 
     # Credenciales de Administrador (desde .env)
     ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME') or 'admin'
-    ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD') or 'admin123456'
+    ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD') or 'hotelgales#'
 

@@ -55,8 +55,8 @@ def index():
         c.recepcionistas_atendieron = []
         for r in c.reservas:
             # Mostramos todo (incluyendo canceladas) como solicitó el usuario
-            if r.atendido_por:
-                user_atendio = User.query.get(r.atendido_por)
+            if r.recepcionista_id:
+                user_atendio = User.query.get(r.recepcionista_id)
                 if user_atendio:
                     # Calcular el total de la reserva para mostrarlo en la tarjeta
                     total_reserva = 0

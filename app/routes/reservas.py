@@ -92,8 +92,8 @@ def nueva():
             return redirect(url_for('reservas.index'))
 
         # Crear la reserva
-        # FILTRO: Solo guardar 'atendido_por' si el usuario NO es un cliente
-        atendido_por_id = current_user.id if current_user.rol != 'cliente' else None
+        # FILTRO: Solo guardar 'recepcionista_id' si el usuario NO es un cliente
+        recepcionista_id_val = current_user.id if current_user.rol != 'cliente' else None
         
         nueva_reserva = Reserva(
             cedulaCliente=cedula_cliente,
@@ -102,7 +102,7 @@ def nueva():
             fechaSalida=fecha_salida,
             cantidadPersonas=cantidad_personas,
             estadoReserva='pendiente',
-            atendido_por=atendido_por_id  # Solo guarda si es recepcionista o admin
+            recepcionista_id=recepcionista_id_val  # Solo guarda si es recepcionista o admin
         )
         
         db.session.add(nueva_reserva)
@@ -160,6 +160,10 @@ def cambiar_estado(id):
             elif nuevo_estado in ['finalizada', 'cancelada']:
                 reserva.habitacion.estadoHabitacion = 'disponible'
             flash(f'Estado actualizado a: {nuevo_estado}', 'success')
+            
+        # Registrar o actualizar el recepcionista que atendió la reserva
+        if current_user.rol != 'cliente':
+            reserva.recepcionista_id = current_user.id
             
         db.session.commit()
     else:

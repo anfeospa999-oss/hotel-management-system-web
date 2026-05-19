@@ -2,13 +2,19 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+*.pyc
+
+# Bases de datos SQLite
+*.db
+*.sqlite3
+
+# Entornos Virtuales
 .env
 .venv/
 env/
 venv/
 ENV/
-
-
 
 # IDEs
 .vscode/

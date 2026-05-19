@@ -9,11 +9,11 @@ class Reserva(db.Model):
     fechaSalida = db.Column(db.Date, nullable=False)
     cantidadPersonas = db.Column(db.Integer)
     estadoReserva = db.Column(db.String(20), default='pendiente')
-    atendido_por = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)  # ID del usuario que atendió
+    recepcionista_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=True)  # ID del usuario que atendió
     
     pagos = db.relationship('Pago', backref='reserva', lazy=True)
     facturas = db.relationship('Factura', backref='reserva', lazy=True)
     consumos = db.relationship('Consumo', backref='reserva', lazy=True)
     
     # Relación con el usuario que atendió
-    usuario_atendio = db.relationship('User', backref='reservas_atendidas', lazy=True)
+    recepcionista = db.relationship('User', backref='reservas_atendidas', lazy=True)
