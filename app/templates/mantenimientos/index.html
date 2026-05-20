@@ -2,6 +2,38 @@
 
 {% block titulo_pagina %}Mantenimiento de Habitaciones{% endblock %}
 
+{% block extra_css %}
+<style>
+/* Modo Claro (por defecto) */
+.btn-outline-dark-royal {
+    color: #0c1433 !important;
+    border-color: #0c1433 !important;
+    background-color: transparent !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-outline-dark-royal:hover {
+    color: #ffffff !important;
+    background-color: #0c1433 !important;
+    border-color: #0c1433 !important;
+}
+
+/* Modo Oscuro */
+body.dark-mode .btn-outline-dark-royal {
+    color: #f8fafc !important;
+    border-color: #f8fafc !important;
+    background-color: transparent !important;
+}
+
+body.dark-mode .btn-outline-dark-royal:hover {
+    color: #0c1433 !important;
+    background-color: #f8fafc !important;
+    border-color: #f8fafc !important;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h3 class="fw-bold mb-0">
