@@ -25,7 +25,10 @@ class Config:
         else:
             import os
             basedir = os.path.abspath(os.path.dirname(__file__))
-            db_url = 'sqlite:///' + os.path.join(basedir, 'instance', 'flaskdb.sqlite')
+            instance_path = os.path.join(basedir, 'instance')
+            if not os.path.exists(instance_path):
+                os.makedirs(instance_path)
+            db_url = 'sqlite:///' + os.path.join(instance_path, 'flaskdb.sqlite')
             
     SQLALCHEMY_DATABASE_URI = db_url
     SQLALCHEMY_TRACK_MODIFICATIONS = False
