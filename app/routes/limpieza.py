@@ -68,6 +68,10 @@ def completar_tarea(id):
         
     tarea.estado = 'finalizado'
     tarea.fechaFinalizacion = datetime.utcnow()
+    
+    if tarea.personal:
+        tarea.personal.estado_limpieza = 'disponible'
+        
     db.session.commit()
     flash(f'Tarea de la habitación {tarea.habitacion.numeroHabitacion} marcada como completada.', 'success')
     return redirect(url_for('limpieza.mis_tareas'))
@@ -82,6 +86,10 @@ def iniciar_tarea(id):
         return redirect(url_for('limpieza.mis_tareas'))
         
     tarea.estado = 'en curso'
+    
+    if tarea.personal:
+        tarea.personal.estado_limpieza = 'ocupado'
+        
     db.session.commit()
     flash(f'Has iniciado la limpieza de la habitación {tarea.habitacion.numeroHabitacion}.', 'info')
     return redirect(url_for('limpieza.mis_tareas'))
