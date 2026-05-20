@@ -72,6 +72,9 @@ def completar_tarea(id):
     if tarea.personal:
         tarea.personal.estado_limpieza = 'disponible'
         
+    if tarea.habitacion:
+        tarea.habitacion.estadoHabitacion = 'disponible'
+        
     db.session.commit()
     flash(f'Tarea de la habitación {tarea.habitacion.numeroHabitacion} marcada como completada.', 'success')
     return redirect(url_for('limpieza.mis_tareas'))
@@ -89,6 +92,9 @@ def iniciar_tarea(id):
     
     if tarea.personal:
         tarea.personal.estado_limpieza = 'ocupado'
+        
+    if tarea.habitacion:
+        tarea.habitacion.estadoHabitacion = 'limpieza'
         
     db.session.commit()
     flash(f'Has iniciado la limpieza de la habitación {tarea.habitacion.numeroHabitacion}.', 'info')
