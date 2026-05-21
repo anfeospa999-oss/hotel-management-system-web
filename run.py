@@ -29,5 +29,4 @@ with app.app_context():
         print("[!] La aplicación intentará continuar, pero algunas funciones pueden fallar.")
 
 if __name__ == '__main__':
-    #+++++++++++socketio.run(app, host="0.0.0.0", port=80, debug=True, allow_unsafe_werkzeug=True)
-    app.run(host="127.0.0.1", port=5001, debug=True)
+    app.run(host="0.0.0.0", port=5001, debug=True)

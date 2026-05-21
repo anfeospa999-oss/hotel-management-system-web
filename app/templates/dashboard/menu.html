@@ -238,18 +238,17 @@
 
         // Datos desde Flask
         const datosHab = {
-            disponible: {{ datos_graficas.habitaciones.disponible }
-    },
-        ocupada: {{ datos_graficas.habitaciones.ocupada }},
-        mantenimiento: {{ datos_graficas.habitaciones.mantenimiento }}
-    };
+            disponible: {{ datos_graficas.habitaciones.disponible }},
+            ocupada: {{ datos_graficas.habitaciones.ocupada }},
+            mantenimiento: {{ datos_graficas.habitaciones.mantenimiento }}
+        };
 
-    const datosRes = {
-        pendiente: {{ datos_graficas.reservas.pendiente }},
-    en_curso: { { datos_graficas.reservas['en curso'] } },
-    finalizada: { { datos_graficas.reservas.finalizada } },
-    cancelada: { { datos_graficas.reservas.cancelada } }
-    };
+        const datosRes = {
+            pendiente: {{ datos_graficas.reservas.pendiente }},
+            en_curso: {{ datos_graficas.reservas['en curso'] }},
+            finalizada: {{ datos_graficas.reservas.finalizada }},
+            cancelada: {{ datos_graficas.reservas.cancelada }}
+        };
 
     // Configuración común de animaciones para sentirlo Premium
     const commonOptions = {
