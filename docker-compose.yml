@@ -5,8 +5,6 @@ services:
     build: .
     expose:
       - "81"
-    volumes:
-      - .:/app
     environment:
       - FLASK_APP=${FLASK_APP}
       - FLASK_ENV=${FLASK_ENV}
