@@ -215,7 +215,7 @@ def historial_recepcionistas():
     if fecha:
         try:
             fecha_dt = datetime.strptime(fecha, '%Y-%m-%d').date()
-            query = query.join(Reserva, User.id == Reserva.atendido_por).filter(Reserva.fechaEntrada == fecha_dt).distinct()
+            query = query.join(Reserva, User.id == Reserva.recepcionista_id).filter(Reserva.fechaEntrada == fecha_dt).distinct()
         except ValueError:
             pass
             
@@ -243,7 +243,7 @@ def ver_historial_recepcionista(id):
     
     # Reservas atendidas por este recepcionista
     from app.models.reserva import Reserva
-    historial = Reserva.query.filter_by(atendido_por=id).order_by(Reserva.fechaEntrada.desc()).all()
+    historial = Reserva.query.filter_by(recepcionista_id=id).order_by(Reserva.fechaEntrada.desc()).all()
     
     from app.models.cliente import Cliente
     cliente_info = Cliente.query.get(recepcionista.cedula) if recepcionista.cedula else None
