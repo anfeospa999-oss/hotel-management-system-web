@@ -147,8 +147,14 @@ def nueva():
         
         # Crear notificación para el cliente
         from app.models.notificacion import Notificacion
+        # Si es el cliente quien crea la reserva, usar current_user.id, si es staff, buscar el usuario del cliente
+        if current_user.rol == 'cliente':
+            usuario_id = current_user.id
+        else:
+            usuario_id = User.query.filter_by(cedula=cedula_cliente).first().id
+        
         Notificacion.crear_notificacion(
-            usuario_id=current_user.id if current_user.rol != 'cliente' else User.query.filter_by(cedula=cedula_cliente).first().id,
+            usuario_id=usuario_id,
             tipo='reserva',
             titulo='¡Reserva Creada!',
             mensaje=f'Tu reserva para la habitación {habitacion.numeroHabitacion} ha sido creada exitosamente.',
@@ -228,8 +234,14 @@ def cancelar(id):
     
     # Crear notificación para el cliente
     from app.models.notificacion import Notificacion
+    # Si es el cliente quien cancela, usar current_user.id, si es staff, buscar el usuario del cliente
+    if current_user.rol == 'cliente':
+        usuario_id = current_user.id
+    else:
+        usuario_id = User.query.filter_by(cedula=reserva.cedulaCliente).first().id
+    
     Notificacion.crear_notificacion(
-        usuario_id=User.query.filter_by(cedula=reserva.cedulaCliente).first().id,
+        usuario_id=usuario_id,
         tipo='cancelacion',
         titulo='Reserva Cancelada',
         mensaje=f'Tu reserva #{id} ha sido cancelada.',
