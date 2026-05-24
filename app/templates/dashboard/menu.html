@@ -128,6 +128,147 @@
     </div>
 </div>
 
+<!-- ── SECCIÓN ESPECÍFICA PARA CLIENTES ── -->
+{% if current_user.rol == 'cliente' and datos_cliente %}
+<div class="row mb-4">
+    <!-- Reserva Actual -->
+    <div class="col-md-6">
+        <div class="info-card">
+            <div class="card-header">
+                <i class="bi bi-calendar-check text-gold" style="font-size: 1.2rem;"></i>
+                <span class="fw-bold">{{ _('Mi Reserva Actual') }}</span>
+            </div>
+            <div class="card-body">
+                {% if datos_cliente.reserva_actual %}
+                <div class="alert alert-{{ 'success' if datos_cliente.reserva_actual.estadoReserva == 'confirmada' else 'warning' }}">
+                    <h6 class="alert-heading">{{ _('Habitación') }} {{ datos_cliente.reserva_actual.habitacion.numeroHabitacion }}</h6>
+                    <p class="mb-1"><strong>{{ _('Entrada') }}:</strong> {{ datos_cliente.reserva_actual.fechaEntrada }}</p>
+                    <p class="mb-1"><strong>{{ _('Salida') }}:</strong> {{ datos_cliente.reserva_actual.fechaSalida }}</p>
+                    <p class="mb-0"><strong>{{ _('Estado') }}:</strong> 
+                        <span class="badge bg-{{ 'success' if datos_cliente.reserva_actual.estadoReserva == 'confirmada' else 'warning' }}">
+                            {{ datos_cliente.reserva_actual.estadoReserva|upper }}
+                        </span>
+                    </p>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="bi bi-calendar-x text-muted mb-2" style="font-size: 2rem;"></i>
+                    <p class="text-muted">{{ _('No tienes reservas activas') }}</p>
+                    <a href="{{ url_for('habitaciones.index') }}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-door-closed"></i> {{ _('Ver Habitaciones') }}
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Estadísticas Personales -->
+    <div class="col-md-6">
+        <div class="info-card">
+            <div class="card-header">
+                <i class="bi bi-graph-up text-gold" style="font-size: 1.2rem;"></i>
+                <span class="fw-bold">{{ _('Mis Estadísticas') }}</span>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-4">
+                        <div class="stat-box">
+                            <h3 class="text-primary">{{ datos_cliente.total_reservas }}</h3>
+                            <small class="text-muted">{{ _('Total Reservas') }}</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-box">
+                            <h3 class="text-success">{{ datos_cliente.reservas_finalizadas }}</h3>
+                            <small class="text-muted">{{ _('Completadas') }}</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-box">
+                            <h3 class="text-danger">{{ datos_cliente.reservas_canceladas }}</h3>
+                            <small class="text-muted">{{ _('Canceladas') }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <!-- Historial de Reservas -->
+    <div class="col-md-6">
+        <div class="info-card">
+            <div class="card-header">
+                <i class="bi bi-clock-history text-gold" style="font-size: 1.2rem;"></i>
+                <span class="fw-bold">{{ _('Historial de Reservas') }}</span>
+            </div>
+            <div class="card-body">
+                {% if datos_cliente.historial_reservas %}
+                <div class="list-group list-group-flush">
+                    {% for reserva in datos_cliente.historial_reservas %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{{ _('Habitación') }} {{ reserva.habitacion.numeroHabitacion }}</strong>
+                            <br><small class="text-muted">{{ reserva.fechaEntrada }} - {{ reserva.fechaSalida }}</small>
+                        </div>
+                        <span class="badge bg-{{ 'success' if reserva.estadoReserva == 'finalizada' else 'warning' if reserva.estadoReserva == 'pendiente' else 'danger' }}">
+                            {{ reserva.estadoReserva|upper }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <a href="{{ url_for('reservas.index') }}" class="btn btn-outline-primary btn-sm w-100 mt-2">
+                    {{ _('Ver todas') }}
+                </a>
+                {% else %}
+                <p class="text-muted text-center">{{ _('Sin historial de reservas') }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Mis Comentarios -->
+    <div class="col-md-6">
+        <div class="info-card">
+            <div class="card-header">
+                <i class="bi bi-chat-dots text-gold" style="font-size: 1.2rem;"></i>
+                <span class="fw-bold">{{ _('Mis Comentarios') }}</span>
+            </div>
+            <div class="card-body">
+                {% if datos_cliente.comentarios %}
+                <div class="list-group list-group-flush">
+                    {% for comentario in datos_cliente.comentarios %}
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            <strong>{{ _('Habitación') }} {{ comentario.habitacion.numeroHabitacion }}</strong>
+                            <div>
+                                {% for i in range(1, 6) %}
+                                    {% if i <= comentario.calificacion %}
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                    {% else %}
+                                        <i class="bi bi-star text-muted"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <small class="text-muted">{{ comentario.comentario[:50] }}{% if comentario.comentario|length > 50 %}...{% endif %}</small>
+                    </div>
+                    {% endfor %}
+                </div>
+                <a href="{{ url_for('comentarios.mis_comentarios') }}" class="btn btn-outline-primary btn-sm w-100 mt-2">
+                    {{ _('Ver todos') }}
+                </a>
+                {% else %}
+                <p class="text-muted text-center">{{ _('Aún no has dejado comentarios') }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 <!-- ── SECCIÓN DE GRÁFICAS (SOLO PARA STAFF) ── -->
 {% if current_user.rol != 'cliente' and datos_graficas %}
 <div class="row mb-4">

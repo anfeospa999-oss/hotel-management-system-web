@@ -163,6 +163,46 @@ def menu():
     """Ruta del menú principal (después de autenticarse)"""
     from app.models.reserva import Reserva
     from app.models.habitacion import Habitacion
+    from app.models.comentario import Comentario
+    
+    # Datos para el dashboard de clientes
+    datos_cliente = {}
+    if current_user.rol == 'cliente':
+        # Reserva actual del cliente
+        reserva_actual = Reserva.query.filter(
+            Reserva.cedulaCliente == current_user.cedula,
+            Reserva.estadoReserva.in_(['pendiente', 'confirmada'])
+        ).first()
+        
+        # Historial de reservas del cliente
+        historial_reservas = Reserva.query.filter(
+            Reserva.cedulaCliente == current_user.cedula
+        ).order_by(Reserva.idReserva.desc()).limit(5).all()
+        
+        # Comentarios del cliente
+        comentarios_cliente = Comentario.query.filter(
+            Comentario.cedulaCliente == current_user.cedula
+        ).order_by(Comentario.fechaComentario.desc()).limit(3).all()
+        
+        # Estadísticas del cliente
+        total_reservas = Reserva.query.filter_by(cedulaCliente=current_user.cedula).count()
+        reservas_finalizadas = Reserva.query.filter(
+            Reserva.cedulaCliente == current_user.cedula,
+            Reserva.estadoReserva == 'finalizada'
+        ).count()
+        reservas_canceladas = Reserva.query.filter(
+            Reserva.cedulaCliente == current_user.cedula,
+            Reserva.estadoReserva == 'cancelada'
+        ).count()
+        
+        datos_cliente = {
+            'reserva_actual': reserva_actual,
+            'historial_reservas': historial_reservas,
+            'comentarios': comentarios_cliente,
+            'total_reservas': total_reservas,
+            'reservas_finalizadas': reservas_finalizadas,
+            'reservas_canceladas': reservas_canceladas
+        }
     
     # Datos para las gráficas (solo para staff)
     datos_graficas = {}
@@ -184,7 +224,7 @@ def menu():
             'cancelada': sum(1 for r in reservas if r.estadoReserva == 'cancelada')
         }
 
-    return render_template('dashboard/menu.html', datos_graficas=datos_graficas)
+    return render_template('dashboard/menu.html', datos_graficas=datos_graficas, datos_cliente=datos_cliente)
 
 @bp.route('/logout')
 @login_required
@@ -221,8 +261,11 @@ def perfil():
             if password != confirmar:
                 flash('Las contraseñas no coinciden', 'error')
                 return redirect(url_for('auth.perfil'))
-            if len(password) < 6:
-                flash('La contraseña debe tener al menos 6 caracteres', 'error')
+            if len(password) < 8 or len(password) > 30:
+                flash('La contraseña debe tener entre 8 y 30 caracteres', 'error')
+                return redirect(url_for('auth.perfil'))
+            if not re.search(r"[A-Za-z]", password) or not re.search(r"\d", password):
+                flash('La contraseña debe contener al menos una letra y un número', 'error')
                 return redirect(url_for('auth.perfil'))
             current_user.password = generate_password_hash(password)
 
@@ -268,4 +311,87 @@ def set_language(lang):
     from flask import session, current_app
     if lang in current_app.config['LANGUAGES']:
         session['language'] = lang
-    return redirect(request.referrer or url_for('auth.menu'))
+    return redirect(request.referrer or url_for('auth.login'))
+
+@bp.route('/recuperar-contrasena', methods=['GET', 'POST'])
+def recuperar_contrasena():
+    """Solicitar recuperación de contraseña"""
+    if current_user.is_authenticated:
+        return redirect(url_for('auth.menu'))
+    
+    if request.method == 'POST':
+        email = request.form.get('email')
+        
+        if not email:
+            flash('Por favor ingresa tu correo electrónico', 'error')
+            return redirect(url_for('auth.recuperar_contrasena'))
+        
+        # Buscar usuario por email a través del cliente
+        from app.models.cliente import Cliente
+        cliente = Cliente.query.filter_by(email=email.lower()).first()
+        
+        if cliente:
+            user = User.query.filter_by(cedula=cliente.cedula).first()
+            if user:
+                # Generar token de recuperación
+                from app.models.password_reset import PasswordResetToken
+                token = PasswordResetToken.generate_token(user.id)
+                
+                # En desarrollo, mostrar el token en pantalla
+                # En producción, aquí se enviaría el email
+                flash(f'Token de recuperación (desarrollo): {token}', 'info')
+                flash('Se ha enviado un correo con instrucciones para recuperar tu contraseña', 'success')
+                return redirect(url_for('auth.restablecer_contrasena', token=token))
+        
+        # Por seguridad, siempre mostrar el mismo mensaje incluso si el email no existe
+        flash('Si el correo está registrado, recibirás instrucciones para recuperar tu contraseña', 'info')
+        return redirect(url_for('auth.login'))
+    
+    return render_template('auth/recuperar_contrasena.html')
+
+@bp.route('/restablecer-contrasena/<token>', methods=['GET', 'POST'])
+def restablecer_contrasena(token):
+    """Restablecer contraseña con token"""
+    if current_user.is_authenticated:
+        return redirect(url_for('auth.menu'))
+    
+    from app.models.password_reset import PasswordResetToken
+    reset_token = PasswordResetToken.verify_token(token)
+    
+    if not reset_token:
+        flash('El enlace de recuperación es inválido o ha expirado', 'error')
+        return redirect(url_for('auth.recuperar_contrasena'))
+    
+    if request.method == 'POST':
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+        
+        if not password or not confirm_password:
+            flash('Por favor completa todos los campos', 'error')
+            return redirect(url_for('auth.restablecer_contrasena', token=token))
+        
+        if password != confirm_password:
+            flash('Las contraseñas no coinciden', 'error')
+            return redirect(url_for('auth.restablecer_contrasena', token=token))
+        
+        if len(password) < 8:
+            flash('La contraseña debe tener al menos 8 caracteres', 'error')
+            return redirect(url_for('auth.restablecer_contrasena', token=token))
+        
+        if not re.search(r"[A-Za-z]", password) or not re.search(r"\d", password):
+            flash('La contraseña debe contener al menos una letra y un número', 'error')
+            return redirect(url_for('auth.restablecer_contrasena', token=token))
+        
+        # Actualizar contraseña
+        user = reset_token.user
+        user.password = generate_password_hash(password)
+        
+        # Marcar token como usado
+        reset_token.mark_as_used()
+        
+        db.session.commit()
+        
+        flash('¡Contraseña actualizada con éxito! Ahora puedes iniciar sesión', 'success')
+        return redirect(url_for('auth.login'))
+    
+    return render_template('auth/restablecer_contrasena.html', token=token)

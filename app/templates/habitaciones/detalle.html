@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% block titulo_pagina %}{{ _('Detalle Habitación') }} {{ hab.numeroHabitacion }}{% endblock %}
+
+{% block content %}
+<div class="content-card">
+  <div class="content-card-header">
+    <h5 class="mb-0">
+      <i class="bi bi-door-closed me-2"></i>{{ _('Habitación') }} {{ hab.numeroHabitacion }}
+    </h5>
+    <a href="{{ url_for('habitaciones.index') }}" class="btn btn-sm btn-outline-secondary">
+      <i class="bi bi-arrow-left"></i> {{ _('Volver') }}
+    </a>
+  </div>
+  <div class="content-card-body">
+    <div class="row">
+      <!-- Información principal -->
+      <div class="col-md-8">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <h6 class="text-muted">{{ _('Tipo de Habitación') }}</h6>
+                <h4>{{ hab.tipo.nombreTipo }}</h4>
+              </div>
+              <div class="col-md-6 text-md-end">
+                <h6 class="text-muted">{{ _('Precio por Noche') }}</h6>
+                <h4 class="text-primary">{{ hab.precioNoche | cop }}</h4>
+              </div>
+            </div>
+            
+            <hr>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <h6 class="text-muted">{{ _('Estado') }}</h6>
+                <span class="badge 
+                  {% if hab.estadoHabitacion == 'disponible' %}bg-success
+                  {% elif hab.estadoHabitacion == 'ocupada' %}bg-danger
+                  {% elif hab.estadoHabitacion == 'limpieza' %}bg-warning text-dark
+                  {% else %}bg-secondary{% endif %} fs-6">
+                  {{ hab.estadoHabitacion|upper }}
+                </span>
+              </div>
+              <div class="col-md-6">
+                <h6 class="text-muted">{{ _('Calificación') }}</h6>
+                <div>
+                  {% if comentarios %}
+                  <span class="badge bg-primary fs-5">{{ "%.1f"|format(promedio) }}</span>
+                  <small class="text-muted ms-1">{{ _('de 5') }}</small>
+                  <div class="text-muted small">{{ comentarios|length }} {{ _('comentarios') }}</div>
+                  {% else %}
+                  <span class="text-muted">{{ _('Sin calificaciones') }}</span>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comentarios recientes -->
+        <div class="card shadow-sm">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h6 class="mb-0"><i class="bi bi-chat-quote me-2"></i>{{ _('Comentarios Recientes') }}</h6>
+            <a href="{{ url_for('comentarios.ver_comentarios_habitacion', id_habitacion=hab.idHabitacion) }}" class="btn btn-sm btn-link">
+              {{ _('Ver todos') }}
+            </a>
+          </div>
+          <div class="card-body">
+            {% if comentarios %}
+            <div class="row row-cols-1 g-3">
+              {% for comentario in comentarios %}
+              <div class="col">
+                <div class="card bg-light">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <div>
+                        <h6 class="mb-1">{{ comentario.cliente.nombre }} {{ comentario.cliente.apellido }}</h6>
+                        <small class="text-muted">{{ comentario.fechaComentario.strftime('%d/%m/%Y') }}</small>
+                      </div>
+                      <div>
+                        {% for i in range(1, 6) %}
+                          {% if i <= comentario.calificacion %}
+                            <i class="bi bi-star-fill text-warning"></i>
+                          {% else %}
+                            <i class="bi bi-star text-muted"></i>
+                          {% endif %}
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <p class="card-text text-muted mb-0 small">{{ comentario.comentario }}</p>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-muted text-center mb-0">{{ _('Esta habitación aún no tiene comentarios.') }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- Acciones -->
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h6 class="mb-3">{{ _('Acciones') }}</h6>
+            
+            {% if current_user.rol == 'cliente' %}
+              {% if hab.estadoHabitacion == 'disponible' and not tiene_reserva_activa %}
+              <a href="{{ url_for('reservas.nueva', habitacion_id=hab.idHabitacion) }}" class="btn btn-primary w-100 mb-2">
+                <i class="bi bi-calendar-check"></i> {{ _('Reservar Ahora') }}
+              </a>
+              {% elif tiene_reserva_activa %}
+              <button class="btn btn-secondary w-100 mb-2" disabled>
+                <i class="bi bi-info-circle"></i> {{ _('Ya tienes una reserva activa') }}
+              </button>
+              {% else %}
+              <button class="btn btn-secondary w-100 mb-2" disabled>
+                <i class="bi bi-x-circle"></i> {{ _('No disponible') }}
+              </button>
+              {% endif %}
+              
+              {% if not ya_comento %}
+              <a href="{{ url_for('comentarios.nuevo_comentario', id_habitacion=hab.idHabitacion) }}" class="btn btn-outline-primary w-100 mb-2">
+                <i class="bi bi-pencil-square"></i> {{ _('Dejar un Comentario') }}
+              </a>
+              {% else %}
+              <a href="{{ url_for('comentarios.ver_comentarios_habitacion', id_habitacion=hab.idHabitacion) }}" class="btn btn-outline-secondary w-100 mb-2">
+                <i class="bi bi-chat-dots"></i> {{ _('Ver Comentarios') }}
+              </a>
+              {% endif %}
+            {% endif %}
+            
+            <a href="{{ url_for('comentarios.ver_comentarios_habitacion', id_habitacion=hab.idHabitacion) }}" class="btn btn-outline-info w-100">
+              <i class="bi bi-star"></i> {{ _('Ver todas las calificaciones') }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
