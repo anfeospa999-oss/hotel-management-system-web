@@ -88,14 +88,14 @@
                 </div>
 
 
-                <form method="post" action="{{ url_for('auth.register') }}" id="register-form">
-
-                    <!-- PASO 1: DATOS PERSONALES -->
+                <form method="post" action="{{ url_for('auth.register') }}" id="register-form">                    <!-- PASO 1: DATOS PERSONALES -->
                     <div id="step-1">
                         <div class="form-group">
                             <label for="cedula">{{ _('CÉDULA / ID') }}</label>
-                            <input type="number" id="cedula" name="cedula"
-                                placeholder="{{ _('Número de identificación') }}" required>
+                            <input type="text" id="cedula" name="cedula"
+                                placeholder="{{ _('Número de identificación') }}" 
+                                inputmode="numeric" pattern="\d{5,15}"
+                                title="{{ _('La cédula o ID debe tener entre 5 y 15 dígitos numéricos') }}" required>
                         </div>
 
                         <div class="row">
@@ -120,15 +120,14 @@
 
                         <div class="form-group">
                             <label for="email">{{ _('CORREO ELECTRÓNICO') }}</label>
-                            <input type="email" id="email" name="email" placeholder="{{ _('ejemplo@gmail.com') }}"
-                                pattern="^[a-zA-Z0-9._%+\-]+@gmail\.com$" title="{{ _('Debe ser un correo de @gmail.com') }}" required>
+                            <input type="email" id="email" name="email" placeholder="{{ _('ejemplo@correo.com') }}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="telefono">{{ _('TELÉFONO DE CONTACTO') }}</label>
-                            <input type="tel" id="telefono" name="telefono" placeholder="{{ _('Ej: 3101234567') }}"
-                                pattern="\d{10}" maxlength="10"
-                                title="{{ _('Debe contener exactamente 10 dígitos numéricos') }}" required>
+                            <input type="tel" id="telefono" name="telefono" placeholder="{{ _('Ej: +573101234567') }}"
+                                pattern="^\+?\d{7,15}$" maxlength="16"
+                                title="{{ _('El teléfono debe tener entre 7 y 15 dígitos numéricos (puede empezar con +)') }}" required>
                         </div>
 
                         <button type="button" class="btn-auth" onclick="nextStep()">
@@ -141,19 +140,24 @@
                         <div class="form-group">
                             <label for="usuario">{{ _('NOMBRE DE USUARIO') }}</label>
                             <input type="text" id="usuario" name="usuario" placeholder="{{ _('Para iniciar sesión') }}"
-                                minlength="8" maxlength="15" required>
+                                minlength="4" maxlength="20" pattern="^[a-zA-Z0-9._\-]{4,20}$"
+                                title="{{ _('Entre 4 y 20 caracteres (solo letras, números, puntos, guiones o guiones bajos)') }}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="password">{{ _('CONTRASEÑA') }}</label>
                             <input type="password" id="password" name="password"
-                                placeholder="{{ _('Entre 6 y 15 caracteres') }}" minlength="6" maxlength="15" required>
+                                placeholder="{{ _('Mínimo 8 caracteres, con letras y números') }}" 
+                                minlength="8" maxlength="30" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W_]{8,30}$"
+                                title="{{ _('La contraseña debe tener al menos 8 caracteres y contener al menos una letra y un número') }}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="confirm_password">{{ _('REPETIR CONTRASEÑA') }}</label>
                             <input type="password" id="confirm_password" name="confirm_password"
-                                placeholder="{{ _('Confirma tu clave') }}" minlength="6" maxlength="15" required>
+                                placeholder="{{ _('Confirma tu clave') }}" 
+                                minlength="8" maxlength="30" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W_]{8,30}$"
+                                title="{{ _('La contraseña debe tener al menos 8 caracteres y contener al menos una letra y un número') }}" required>
                         </div>
 
                         <div style="display: flex; gap: 10px;">

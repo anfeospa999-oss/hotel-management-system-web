@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.exc import IntegrityError
 import re
 from app import db
 from app.models.users import User
@@ -53,6 +54,7 @@ def register():
         confirm_password = request.form.get('confirm_password')
         
         # Limpiar espacios en blanco al inicio y final
+        cedula = cedula.strip() if cedula else ''
         nombre = nombre.strip() if nombre else ''
         apellido = apellido.strip() if apellido else ''
         email = email.strip().lower() if email else ''
@@ -64,9 +66,14 @@ def register():
             flash('Por favor completa todos los campos', 'error')
             return redirect(url_for('auth.register'))
         
-        # Validar email (solo gmail.com)
-        if not re.match(r"^[a-z0-9._%+\-]+@gmail\.com$", email):
-            flash('El correo electrónico debe ser una cuenta de @gmail.com', 'error')
+        # Validar cédula / ID (solo números, de 5 a 15 dígitos)
+        if not cedula.isdigit() or not (5 <= len(cedula) <= 15):
+            flash('La cédula o ID debe contener únicamente dígitos numéricos y tener entre 5 y 15 dígitos.', 'error')
+            return redirect(url_for('auth.register'))
+        
+        # Validar email (cualquier dominio válido, no solo gmail.com)
+        if not re.match(r"^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$", email):
+            flash('Por favor ingresa un correo electrónico válido.', 'error')
             return redirect(url_for('auth.register'))
         
         # Validar nombre y apellido (solo letras, máx 30 caracteres)
@@ -74,23 +81,23 @@ def register():
             flash('El nombre y apellido deben contener solo letras y máximo 30 caracteres', 'error')
             return redirect(url_for('auth.register'))
 
-        # Validar teléfono (exactamente 10 dígitos)
-        if not re.match(r"^\d{10}$", telefono):
-            flash('El teléfono debe tener exactamente 10 dígitos numéricos', 'error')
+        # Validar teléfono (entre 7 y 15 dígitos numéricos, opcionalmente con + inicial)
+        if not re.match(r"^\+?\d{7,15}$", telefono):
+            flash('El teléfono debe tener entre 7 y 15 dígitos numéricos (puede empezar con +)', 'error')
             return redirect(url_for('auth.register'))
         
-        # Validar usuario (máx 15 caracteres)
-        if len(usuario) > 15:
-            flash('El usuario debe tener máximo 15 caracteres', 'error')
+        # Validar usuario (entre 4 y 20 caracteres, letras, números, puntos, guiones y guiones bajos)
+        if not re.match(r"^[a-zA-Z0-9._\-]{4,20}$", usuario):
+            flash('El nombre de usuario debe tener entre 4 y 20 caracteres y solo contener letras, números, puntos, guiones o guiones bajos.', 'error')
             return redirect(url_for('auth.register'))
         
-        if len(usuario) < 8:
-            flash('El usuario debe tener al menos 8 caracteres', 'error')
+        # Validar contraseña (entre 8 y 30 caracteres, al menos una letra y un número)
+        if len(password) < 8 or len(password) > 30:
+            flash('La contraseña debe tener entre 8 y 30 caracteres', 'error')
             return redirect(url_for('auth.register'))
         
-        # Validar contraseña (entre 6 y 15 caracteres)
-        if len(password) < 6 or len(password) > 15:
-            flash('La contraseña debe tener entre 6 y 15 caracteres', 'error')
+        if not re.search(r"[A-Za-z]", password) or not re.search(r"\d", password):
+            flash('La contraseña debe contener al menos una letra y un número', 'error')
             return redirect(url_for('auth.register'))
         
         if password != confirm_password:
@@ -103,8 +110,15 @@ def register():
             return redirect(url_for('auth.register'))
             
         from app.models.cliente import Cliente
+        
+        # Verificar si la cédula ya existe
         if Cliente.query.get(cedula):
             flash('Esta cédula ya está registrada', 'error')
+            return redirect(url_for('auth.register'))
+
+        # Verificar si el correo electrónico ya existe
+        if Cliente.query.filter_by(email=email).first():
+            flash('El correo electrónico ya está registrado', 'error')
             return redirect(url_for('auth.register'))
         
         try:
@@ -130,9 +144,15 @@ def register():
             
             flash('¡Bienvenido! Cuenta creada con éxito. Ahora puedes iniciar sesión.', 'success')
             return redirect(url_for('auth.login'))
+        except IntegrityError as e:
+            db.session.rollback()
+            current_app.logger.warning(f"Error de integridad al registrar usuario: {str(e)}")
+            flash('La cédula, el correo o el nombre de usuario ya están registrados.', 'error')
+            return redirect(url_for('auth.register'))
         except Exception as e:
             db.session.rollback()
-            flash('Error técnico al crear la cuenta', 'error')
+            current_app.logger.error(f"Error técnico al registrar usuario: {str(e)}")
+            flash('Ocurrió un error técnico al crear la cuenta. Por favor intente más tarde.', 'error')
             return redirect(url_for('auth.register'))
     
     return render_template('auth/register.html')

@@ -2,9 +2,11 @@
 Rutas para gestionar usuarios - Solo administrador
 """
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash
+from sqlalchemy.exc import IntegrityError
+import re
 from app import db
 from app.models.users import User
 from app.utils.roles import ROLES
@@ -47,45 +49,49 @@ def listar_usuarios():
             flash('Por favor completa todos los campos obligatorios (Usuario, Contraseña, Cédula, Nombre, Apellido)', 'error')
             return redirect(url_for('usuarios.listar_usuarios'))
         
-        # Validaciones de longitud y formato
-        import re
+        # Limpiar espacios en blanco
+        cedula = cedula.strip() if cedula else ''
+        nombre = nombre.strip() if nombre else ''
+        apellido = apellido.strip() if apellido else ''
+        email = email.strip().lower() if email else ''
+        telefono = telefono.strip() if telefono else ''
+        usuario = usuario.strip() if usuario else ''
+
+        # Validar cédula / ID (solo números, de 5 a 15 dígitos)
+        if not cedula.isdigit() or not (5 <= len(cedula) <= 15):
+            flash('La cédula o ID debe contener únicamente dígitos numéricos y tener entre 5 y 15 dígitos.', 'error')
+            return redirect(url_for('usuarios.listar_usuarios'))
+
+        # Validar email si se proporciona
+        if email:
+            if not re.match(r"^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$", email):
+                flash('Por favor ingresa un correo electrónico válido.', 'error')
+                return redirect(url_for('usuarios.listar_usuarios'))
+            
+            # Verificar si el correo ya está registrado en Cliente
+            from app.models.cliente import Cliente
+            if Cliente.query.filter_by(email=email).first():
+                flash('El correo electrónico ya está registrado', 'error')
+                return redirect(url_for('usuarios.listar_usuarios'))
+
+        # Validar teléfono si se proporciona
+        if telefono:
+            if not re.match(r"^\+?\d{7,15}$", telefono):
+                flash('El teléfono debe tener entre 7 y 15 dígitos numéricos (puede empezar con +)', 'error')
+                return redirect(url_for('usuarios.listar_usuarios'))
         
-        if len(str(cedula)) > 11:
-            flash('La cédula no puede tener más de 11 dígitos', 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
-
-        if len(nombre) > 30:
-            flash('El nombre no puede tener más de 30 caracteres', 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
-        if not re.match(r'^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+$', nombre):
-            flash('El nombre solo puede contener letras', 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
-
-        if len(apellido) > 30:
-            flash('El apellido no puede tener más de 30 caracteres', 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
-        if not re.match(r'^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+$', apellido):
-            flash('El apellido solo puede contener letras', 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
-
-        if email and len(email) > 25:
-            flash('El email no puede tener más de 25 caracteres', 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
-
-        if telefono and (len(telefono) != 10 or not telefono.isdigit()):
-            flash('El teléfono debe tener exactamente 10 números', 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
-
-        if direccion and len(direccion) > 30:
-            flash('La dirección no puede tener más de 30 caracteres', 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
-
-        if len(usuario) < 3 or len(usuario) > 30:
-            flash('El usuario debe tener entre 3 y 30 caracteres', 'error')
+        # Validar usuario (entre 4 y 20 caracteres)
+        if not re.match(r"^[a-zA-Z0-9._\-]{4,20}$", usuario):
+            flash('El nombre de usuario debe tener entre 4 y 20 caracteres y solo contener letras, números, puntos, guiones o guiones bajos.', 'error')
             return redirect(url_for('usuarios.listar_usuarios'))
         
-        if len(password) < 6 or len(password) > 15:
-            flash('La contraseña debe tener entre 6 y 15 caracteres', 'error')
+        # Validar contraseña (entre 8 y 30 caracteres, al menos una letra y un número)
+        if len(password) < 8 or len(password) > 30:
+            flash('La contraseña debe tener entre 8 y 30 caracteres', 'error')
+            return redirect(url_for('usuarios.listar_usuarios'))
+        
+        if not re.search(r"[A-Za-z]", password) or not re.search(r"\d", password):
+            flash('La contraseña debe contener al menos una letra y un número', 'error')
             return redirect(url_for('usuarios.listar_usuarios'))
         
         if password != confirm_password:
@@ -129,8 +135,14 @@ def listar_usuarios():
             db.session.commit()
             flash(f'Usuario {usuario} creado exitosamente como {rol}', 'success')
             return redirect(url_for('usuarios.listar_usuarios'))
+        except IntegrityError as e:
+            db.session.rollback()
+            current_app.logger.warning(f"Error de integridad al crear usuario admin: {str(e)}")
+            flash('La cédula, el correo o el nombre de usuario ya están registrados.', 'error')
+            return redirect(url_for('usuarios.listar_usuarios'))
         except Exception as e:
             db.session.rollback()
+            current_app.logger.error(f"Error técnico al crear usuario admin: {str(e)}")
             flash('Error al crear el usuario', 'error')
             return redirect(url_for('usuarios.listar_usuarios'))
     
@@ -203,7 +215,7 @@ def historial_recepcionistas():
     if fecha:
         try:
             fecha_dt = datetime.strptime(fecha, '%Y-%m-%d').date()
-            query = query.join(Reserva, User.id == Reserva.recepcionista_id).filter(Reserva.fechaEntrada == fecha_dt).distinct()
+            query = query.join(Reserva, User.id == Reserva.atendido_por).filter(Reserva.fechaEntrada == fecha_dt).distinct()
         except ValueError:
             pass
             
@@ -231,7 +243,7 @@ def ver_historial_recepcionista(id):
     
     # Reservas atendidas por este recepcionista
     from app.models.reserva import Reserva
-    historial = Reserva.query.filter_by(recepcionista_id=id).order_by(Reserva.fechaEntrada.desc()).all()
+    historial = Reserva.query.filter_by(atendido_por=id).order_by(Reserva.fechaEntrada.desc()).all()
     
     from app.models.cliente import Cliente
     cliente_info = Cliente.query.get(recepcionista.cedula) if recepcionista.cedula else None
