@@ -5,6 +5,7 @@ from app.models.reserva import Reserva
 from app.models.habitacion import Habitacion
 from app.models.pago import Pago
 from app.models.factura import Factura
+from app.models.users import User
 from app.utils.decorators import requiere_permiso
 from datetime import datetime
 
