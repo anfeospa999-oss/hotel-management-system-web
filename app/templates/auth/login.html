@@ -80,6 +80,7 @@
                 </form>
 
                 <div class="auth-footer">
+                    <p><a href="{{ url_for('auth.recuperar_contrasena') }}">{{ _('¿Olvidaste tu contraseña?') }}</a></p>
                     <p>{{ _('¿No tiene una cuenta?') }} 
                         <a href="{{ url_for('auth.register') }}">{{ _('Regístrese aquí') }}</a>
                     </p>

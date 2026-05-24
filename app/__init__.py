@@ -37,6 +37,9 @@ def create_app():
     from app.models.factura import Factura
     from app.models.consumo import Consumo
     from app.models.tarea_limpieza import TareaLimpieza
+    from app.models.comentario import Comentario
+    from app.models.password_reset import PasswordResetToken
+    from app.models.notificacion import Notificacion
 
     @login_manager.user_loader
     def load_user(id):
@@ -59,6 +62,8 @@ def create_app():
     from app.routes.consumos import bp as consumos_bp
     from app.routes.limpieza import bp as limpieza_bp
     from app.routes.reportes import bp as reportes_bp
+    from app.routes.comentarios import bp as comentarios_bp
+    from app.routes.notificaciones import bp as notificaciones_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(usuarios_bp)
@@ -76,6 +81,8 @@ def create_app():
     app.register_blueprint(consumos_bp)
     app.register_blueprint(limpieza_bp)
     app.register_blueprint(reportes_bp)
+    app.register_blueprint(comentarios_bp)
+    app.register_blueprint(notificaciones_bp)
 
     # Filtro personalizado para Pesos Colombianos (COP)
     @app.template_filter('cop')

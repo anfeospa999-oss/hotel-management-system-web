@@ -7,11 +7,123 @@ from app.utils.decorators import requiere_permiso
 
 bp = Blueprint('habitaciones', __name__, url_prefix='/habitaciones')
 
+@bp.route('/publica')
+def publica():
+    """Vista pública de habitaciones para usuarios no autenticados"""
+    habitaciones_todas = Habitacion.query.all()
+    
+    # Obtener parámetros de búsqueda y filtros
+    busqueda = request.args.get('busqueda', '')
+    tipo_habitacion = request.args.get('tipo', '')
+    precio_min = request.args.get('precio_min', '')
+    precio_max = request.args.get('precio_max', '')
+    estado = request.args.get('estado', 'disponible')  # Por defecto mostrar solo disponibles
+    
+    # Aplicar filtros
+    query = Habitacion.query
+    
+    # Búsqueda por número de habitación
+    if busqueda:
+        try:
+            num_hab = int(busqueda)
+            query = query.filter(Habitacion.numeroHabitacion == num_hab)
+        except ValueError:
+            pass
+    
+    # Filtro por tipo de habitación
+    if tipo_habitacion:
+        query = query.filter(Habitacion.idTipoHabitacion == tipo_habitacion)
+    
+    # Filtro por precio mínimo
+    if precio_min:
+        try:
+            query = query.filter(Habitacion.precioNoche >= float(precio_min))
+        except ValueError:
+            pass
+    
+    # Filtro por precio máximo
+    if precio_max:
+        try:
+            query = query.filter(Habitacion.precioNoche <= float(precio_max))
+        except ValueError:
+            pass
+    
+    # Filtro por estado (por defecto solo disponibles para vista pública)
+    if estado:
+        query = query.filter(Habitacion.estadoHabitacion == estado)
+    
+    habitaciones_todas = query.all()
+    
+    # Obtener tipos de habitación para el filtro
+    tipos = TipoHabitacion.query.all()
+    
+    # Calcular promedio de calificaciones para cada habitación
+    from app.models.comentario import Comentario
+    for hab in habitaciones_todas:
+        comentarios = Comentario.query.filter_by(idHabitacion=hab.idHabitacion).all()
+        if comentarios:
+            hab.promedio = sum(c.calificacion for c in comentarios) / len(comentarios)
+            hab.num_comentarios = len(comentarios)
+        else:
+            hab.promedio = 0
+            hab.num_comentarios = 0
+
+    return render_template('habitaciones/publica.html', 
+                           habitaciones=habitaciones_todas,
+                           tipos=tipos,
+                           busqueda=busqueda,
+                           tipo_habitacion=tipo_habitacion,
+                           precio_min=precio_min,
+                           precio_max=precio_max,
+                           estado=estado)
+
 @bp.route('/')
 @login_required
 @requiere_permiso('ver_habitaciones')
 def index():
     habitaciones_todas = Habitacion.query.all()
+    
+    # Obtener parámetros de búsqueda y filtros
+    busqueda = request.args.get('busqueda', '')
+    tipo_habitacion = request.args.get('tipo', '')
+    precio_min = request.args.get('precio_min', '')
+    precio_max = request.args.get('precio_max', '')
+    estado = request.args.get('estado', '')
+    
+    # Aplicar filtros
+    query = Habitacion.query
+    
+    # Búsqueda por número de habitación
+    if busqueda:
+        try:
+            num_hab = int(busqueda)
+            query = query.filter(Habitacion.numeroHabitacion == num_hab)
+        except ValueError:
+            pass
+    
+    # Filtro por tipo de habitación
+    if tipo_habitacion:
+        query = query.filter(Habitacion.idTipoHabitacion == tipo_habitacion)
+    
+    # Filtro por precio mínimo
+    if precio_min:
+        try:
+            query = query.filter(Habitacion.precioNoche >= float(precio_min))
+        except ValueError:
+            pass
+    
+    # Filtro por precio máximo
+    if precio_max:
+        try:
+            query = query.filter(Habitacion.precioNoche <= float(precio_max))
+        except ValueError:
+            pass
+    
+    # Filtro por estado
+    if estado:
+        query = query.filter(Habitacion.estadoHabitacion == estado)
+    
+    habitaciones_todas = query.all()
     
     # Filtrar habitaciones para el equipo de limpieza
     if current_user.rol == 'servicio_limpieza':
@@ -35,10 +147,19 @@ def index():
             Reserva.estadoReserva.in_(['pendiente', 'confirmada'])
         ).first()
         tiene_reserva_activa = reserva is not None
+    
+    # Obtener tipos de habitación para el filtro
+    tipos = TipoHabitacion.query.all()
 
     return render_template('habitaciones/index.html', 
                            habitaciones=habitaciones, 
-                           tiene_reserva_activa=tiene_reserva_activa)
+                           tiene_reserva_activa=tiene_reserva_activa,
+                           tipos=tipos,
+                           busqueda=busqueda,
+                           tipo_habitacion=tipo_habitacion,
+                           precio_min=precio_min,
+                           precio_max=precio_max,
+                           estado=estado)
 
 @bp.route('/nueva', methods=['GET', 'POST'])
 @login_required
@@ -109,6 +230,47 @@ def eliminar(id):
     db.session.commit()
     flash('Habitación eliminada correctamente', 'info')
     return redirect(url_for('habitaciones.index'))
+
+@bp.route('/detalle/<int:id>')
+@login_required
+def detalle(id):
+    """Ver detalles de una habitación específica"""
+    hab = Habitacion.query.get_or_404(id)
+    from app.models.comentario import Comentario
+    
+    # Obtener comentarios de la habitación
+    comentarios = Comentario.query.filter_by(idHabitacion=id).order_by(Comentario.fechaComentario.desc()).limit(10).all()
+    
+    # Calcular promedio de calificaciones
+    if comentarios:
+        promedio = sum(c.calificacion for c in comentarios) / len(comentarios)
+    else:
+        promedio = 0
+    
+    # Verificar si el cliente actual ya comentó esta habitación
+    ya_comento = False
+    if current_user.rol == 'cliente':
+        ya_comento = Comentario.query.filter_by(
+            idHabitacion=id,
+            cedulaCliente=current_user.cedula
+        ).first() is not None
+    
+    # Verificar si el cliente actual tiene una reserva activa
+    tiene_reserva_activa = False
+    if current_user.rol == 'cliente':
+        from app.models.reserva import Reserva
+        reserva = Reserva.query.filter(
+            Reserva.cedulaCliente == current_user.cedula,
+            Reserva.estadoReserva.in_(['pendiente', 'confirmada'])
+        ).first()
+        tiene_reserva_activa = reserva is not None
+    
+    return render_template('habitaciones/detalle.html', 
+                          hab=hab, 
+                          comentarios=comentarios,
+                          promedio=promedio,
+                          ya_comento=ya_comento,
+                          tiene_reserva_activa=tiene_reserva_activa)
 
 @bp.route('/estado/<int:id>/<string:nuevo_estado>')
 @login_required

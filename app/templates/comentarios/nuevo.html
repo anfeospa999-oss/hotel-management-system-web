@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block titulo_pagina %}{{ _('Nuevo Comentario') }}{% endblock %}
+
+{% block content %}
+<div class="content-card">
+  <div class="content-card-header">
+    <h5 class="mb-0">
+      <i class="bi bi-pencil-square me-2"></i>{{ _('Dejar un Comentario') }}
+    </h5>
+    <a href="{{ url_for('comentarios.ver_comentarios_habitacion', id_habitacion=habitacion.idHabitacion) }}" class="btn btn-sm btn-outline-secondary">
+      <i class="bi bi-arrow-left"></i> {{ _('Cancelar') }}
+    </a>
+  </div>
+  <div class="content-card-body">
+    <div class="card bg-light mb-4">
+      <div class="card-body">
+        <h5 class="mb-1">{{ _('Habitación') }} {{ habitacion.numeroHabitacion }}</h5>
+        <p class="text-muted mb-0">{{ habitacion.tipo.nombreTipo }} - {{ habitacion.precioNoche | cop }} / {{ _('noche') }}</p>
+      </div>
+    </div>
+
+    <form method="post" action="{{ url_for('comentarios.nuevo_comentario', id_habitacion=habitacion.idHabitacion) }}">
+      <div class="mb-4">
+        <label class="form-label fw-bold">{{ _('Calificación') }}</label>
+        <div class="d-flex gap-2">
+          {% for i in range(1, 6) %}
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="calificacion" value="{{ i }}" id="star{{ i }}" required>
+            <label class="form-check-label" for="star{{ i }}">
+              <i class="bi bi-star{% if i == 1 %}-fill{% endif %} text-warning fs-4"></i>
+              {{ i }}
+            </label>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="comentario" class="form-label fw-bold">{{ _('Tu Comentario') }}</label>
+        <textarea class="form-control" id="comentario" name="comentario" rows="5" 
+                  placeholder="{{ _('Comparte tu experiencia en esta habitación...') }}"
+                  minlength="10" maxlength="500" required></textarea>
+        <div class="form-text">{{ _('Mínimo 10 caracteres, máximo 500 caracteres') }}</div>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-send"></i> {{ _('Publicar Comentario') }}
+        </button>
+        <a href="{{ url_for('comentarios.ver_comentarios_habitacion', id_habitacion=habitacion.idHabitacion) }}" class="btn btn-outline-secondary">
+          {{ _('Cancelar') }}
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

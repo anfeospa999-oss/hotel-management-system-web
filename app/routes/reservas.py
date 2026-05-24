@@ -12,16 +12,20 @@ bp = Blueprint('reservas', __name__, url_prefix='/reservas')
 
 @bp.route('/')
 @login_required
-@requiere_permiso('ver_reservas')
 def index():
-    fecha_filtro = request.args.get('fecha')
-    query = Reserva.query
-    
-    # 1. Aplicar filtros de rol
+    # Permitir que los clientes vean sus propias reservas sin permiso especial
     if current_user.rol == 'cliente':
-        query = query.filter_by(cedulaCliente=current_user.cedula)
+        query = Reserva.query.filter_by(cedulaCliente=current_user.cedula)
+    else:
+        # Staff requiere permiso para ver todas las reservas
+        if not current_user.tiene_permisos('ver_reservas'):
+            flash('No tienes permiso para ver reservas', 'error')
+            return redirect(url_for('auth.menu'))
+        query = Reserva.query
     
-    # 2. Aplicar filtro de fecha si existe
+    fecha_filtro = request.args.get('fecha')
+    
+    # Aplicar filtro de fecha si existe
     if fecha_filtro:
         try:
             fecha_dt = datetime.strptime(fecha_filtro, '%Y-%m-%d').date()
@@ -29,16 +33,25 @@ def index():
         except ValueError:
             pass
 
-    # 3. Ordenar por más reciente primero (ID descendente)
+    # Ordenar por más reciente primero (ID descendente)
     reservas = query.order_by(Reserva.idReserva.desc()).all()
     
     return render_template('reservas/index.html', reservas=reservas, fecha_filtro=fecha_filtro)
 
 @bp.route('/nueva', methods=['GET', 'POST'])
 @login_required
-@requiere_permiso('crear_reservas')
 def nueva():
-    habitaciones_disponibles = Habitacion.query.filter_by(estadoHabitacion='disponible').all()
+    # Permitir que los clientes creen sus propias reservas
+    if current_user.rol == 'cliente':
+        habitaciones_disponibles = Habitacion.query.filter_by(estadoHabitacion='disponible').all()
+    else:
+        # Staff requiere permiso para crear reservas
+        from app.utils.decorators import requiere_permiso
+        if not current_user.tiene_permisos('crear_reservas'):
+            flash('No tienes permiso para crear reservas', 'error')
+            return redirect(url_for('auth.menu'))
+        habitaciones_disponibles = Habitacion.query.filter_by(estadoHabitacion='disponible').all()
+    
     from app.models.cliente import Cliente
     clientes = Cliente.query.all()
     
@@ -131,6 +144,16 @@ def nueva():
         db.session.add(nuevo_pago)
         db.session.commit()
         
+        # Crear notificación para el cliente
+        from app.models.notificacion import Notificacion
+        Notificacion.crear_notificacion(
+            usuario_id=current_user.id if current_user.rol != 'cliente' else User.query.filter_by(cedula=cedula_cliente).first().id,
+            tipo='reserva',
+            titulo='¡Reserva Creada!',
+            mensaje=f'Tu reserva para la habitación {habitacion.numeroHabitacion} ha sido creada exitosamente.',
+            link=url_for('reservas.index')
+        )
+        
         flash('¡Reserva creada con éxito!', 'success')
         return redirect(url_for('reservas.index'))
 
@@ -201,6 +224,16 @@ def cancelar(id):
     reserva.estadoReserva = 'cancelada'
     reserva.habitacion.estadoHabitacion = 'disponible'
     db.session.commit()
+    
+    # Crear notificación para el cliente
+    from app.models.notificacion import Notificacion
+    Notificacion.crear_notificacion(
+        usuario_id=User.query.filter_by(cedula=reserva.cedulaCliente).first().id,
+        tipo='cancelacion',
+        titulo='Reserva Cancelada',
+        mensaje=f'Tu reserva #{id} ha sido cancelada.',
+        link=url_for('reservas.index')
+    )
     
     flash(f'Reserva #{id} cancelada correctamente.', 'info')
     return redirect(url_for('reservas.index'))

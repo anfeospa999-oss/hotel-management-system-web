@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block titulo_pagina %}{{ _('Mis Comentarios') }}{% endblock %}
+
+{% block content %}
+<div class="content-card">
+  <div class="content-card-header">
+    <h5 class="mb-0">
+      <i class="bi bi-chat-dots me-2"></i>{{ _('Mis Comentarios') }}
+    </h5>
+  </div>
+  <div class="content-card-body">
+    {% if comentarios %}
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      {% for comentario in comentarios %}
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <h6 class="mb-1">{{ _('Habitación') }} {{ comentario.habitacion.numeroHabitacion }}</h6>
+                <small class="text-muted">{{ comentario.fechaComentario.strftime('%d/%m/%Y %H:%M') }}</small>
+              </div>
+              <div>
+                {% for i in range(1, 6) %}
+                  {% if i <= comentario.calificacion %}
+                    <i class="bi bi-star-fill text-warning"></i>
+                  {% else %}
+                    <i class="bi bi-star text-muted"></i>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+            <p class="card-text text-muted mb-3">{{ comentario.comentario }}</p>
+            <div class="d-flex gap-2">
+              <a href="{{ url_for('comentarios.ver_comentarios_habitacion', id_habitacion=comentario.idHabitacion) }}" class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-eye"></i> {{ _('Ver en habitación') }}
+              </a>
+              <form action="{{ url_for('comentarios.eliminar_comentario', id=comentario.idComentario) }}" method="post" class="d-inline">
+                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('{{ _('¿Estás seguro de eliminar este comentario?') }}')">
+                  <i class="bi bi-trash"></i> {{ _('Eliminar') }}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+      <i class="bi bi-chat-square-dots text-muted mb-3" style="font-size: 3rem;"></i>
+      <p class="text-muted">{{ _('Aún no has dejado ningún comentario.') }}</p>
+      <a href="{{ url_for('habitaciones.index') }}" class="btn btn-primary">
+        <i class="bi bi-door-closed"></i> {{ _('Ver Habitaciones') }}
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

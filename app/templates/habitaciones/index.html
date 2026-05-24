@@ -13,6 +13,58 @@
     {% endif %}
   </div>
   <div class="content-card-body">
+    <!-- Filtros de búsqueda -->
+    {% if current_user.rol == 'cliente' %}
+    <div class="card bg-light mb-4">
+      <div class="card-body">
+        <form action="{{ url_for('habitaciones.index') }}" method="GET" class="row g-3">
+          <div class="col-md-3">
+            <label class="form-label small">{{ _('Buscar por número') }}</label>
+            <input type="text" name="busqueda" class="form-control form-control-sm" value="{{ busqueda }}" placeholder="{{ _('Número') }}">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label small">{{ _('Tipo de habitación') }}</label>
+            <select name="tipo" class="form-select form-select-sm">
+              <option value="">{{ _('Todos') }}</option>
+              {% for tipo in tipos %}
+              <option value="{{ tipo.idTipoHabitacion }}" {% if tipo_habitacion == tipo.idTipoHabitacion|string %}selected{% endif %}>
+                {{ tipo.nombreTipo }}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label small">{{ _('Precio mínimo') }}</label>
+            <input type="number" name="precio_min" class="form-control form-control-sm" value="{{ precio_min }}" placeholder="{{ _('Min') }}">
+          </div>
+          <div class="col-md-2">
+            <label class="form-label small">{{ _('Precio máximo') }}</label>
+            <input type="number" name="precio_max" class="form-control form-control-sm" value="{{ precio_max }}" placeholder="{{ _('Max') }}">
+          </div>
+          <div class="col-md-2">
+            <label class="form-label small">{{ _('Estado') }}</label>
+            <select name="estado" class="form-select form-select-sm">
+              <option value="">{{ _('Todos') }}</option>
+              <option value="disponible" {% if estado == 'disponible' %}selected{% endif %}>{{ _('Disponible') }}</option>
+              <option value="ocupada" {% if estado == 'ocupada' %}selected{% endif %}>{{ _('Ocupada') }}</option>
+              <option value="mantenimiento" {% if estado == 'mantenimiento' %}selected{% endif %}>{{ _('Mantenimiento') }}</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-primary btn-sm">
+                <i class="bi bi-search"></i> {{ _('Buscar') }}
+              </button>
+              <a href="{{ url_for('habitaciones.index') }}" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-x-circle"></i> {{ _('Limpiar filtros') }}
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    {% endif %}
+
     <div class="row row-cols-1 row-cols-md-3 g-4">
       {% for hab in habitaciones %}
       <div class="col">
@@ -21,7 +73,9 @@
           {% elif hab.estadoHabitacion == 'ocupada' %}border-danger
           {% else %}border-warning{% endif %} shadow-sm">
           <div class="card-body text-center">
-            <h2 class="fw-bold">{{ hab.numeroHabitacion }}</h2>
+            <a href="{{ url_for('habitaciones.detalle', id=hab.idHabitacion) }}" class="text-decoration-none">
+              <h2 class="fw-bold text-dark">{{ hab.numeroHabitacion }}</h2>
+            </a>
             <p class="text-muted mb-1">{{ hab.tipo.nombreTipo }}</p>
             <div class="my-2">
               {% if hab.estadoHabitacion == 'disponible' %}

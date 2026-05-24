@@ -13,6 +13,14 @@
                 <span>Inicio</span>
             </a>
         </li>
+        {% if current_user.rol == 'cliente' %}
+        <li>
+            <a href="{{ url_for('notificaciones.index') }}" class="{% if request.endpoint == 'notificaciones.index' %}active{% endif %}">
+                <i class="bi bi-bell"></i>
+                <span>Notificaciones</span>
+            </a>
+        </li>
+        {% endif %}
         {% if current_user.es_administrador() %}
         <li>
             <a href="{{ url_for('usuarios.listar_usuarios') }}" class="{% if request.endpoint == 'usuarios.listar_usuarios' %}active{% endif %}">
