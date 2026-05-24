@@ -8,6 +8,10 @@ __pycache__/
 # Bases de datos SQLite
 *.db
 *.sqlite3
+*.sqlite
+
+# Biblioteca Flask
+Biblioteca Flask/
 
 # Entornos Virtuales
 .env
