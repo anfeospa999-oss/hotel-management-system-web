@@ -1,4 +1,4 @@
-# 🏨 Hotel Gales — Hotel Management System
+# 🏨 Hotel Gales — Sistema de Gestion Hotelera
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![Flask](https://img.shields.io/badge/Flask-3.0-black)
