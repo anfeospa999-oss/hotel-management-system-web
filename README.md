@@ -285,6 +285,7 @@ Este proyecto fue desarrollado de forma colaborativa durante la formación como 
 
 - **Andrés Felipe Ospina** — [@anfeospa999-oss](https://github.com/anfeospa999-oss)
 - **Diyer Diaz** — [@diyerdiaz](https://github.com/diyerdiaz)
+-  **Juan Sarmiento** — [@JuanSar2107]((https://github.com/JuanSar2107))
 
 ---
 
