@@ -12,31 +12,28 @@
 
 <div align="center">
 
-| 🖥 Sistema de Escritorio | 🌐 Sistema Web |
-|:-:|:-:|
-| Java · Swing · PostgreSQL | Flask · PostgreSQL · Bootstrap |
-| [Hotel Gales — Sistema de Gestión Hotelera de Escritorio](https://github.com/anfeospa999-oss/hotel-management-system-desktop) | **Este repositorio** |
+| 🖥️ Versión de Escritorio | 🌐 Versión Web |
+|:---|:---|
+| **Tecnologías** | **Tecnologías** |
+| • Java 24 | • Flask |
+| • PostgreSQL | • PostgreSQL |
+| • Swing | • Bootstrap |
+| • Apache NetBeans | • HTML / CSS / JavaScript |
+| **Repositorio** | **Repositorio** |
+| [github.com/anfeospa999-oss/hotel-management-system-desktop](https://github.com/anfeospa999-oss/hotel-management-system-desktop) | Este repositorio |
 
 </div>
 
----
-
-## 🌐 Ecosistema Hotel Gales
-
-**Hotel Gales** está compuesto por dos aplicaciones que comparten el mismo objetivo, la misma base de datos y la misma identidad visual:
-
-| | Aplicación | Tecnologías | Repositorio |
-|:-:|-----------|-------------|-------------|
-| 🖥 | **Sistema de Escritorio** — Aplicación nativa Java | Java, Swing, PostgreSQL, FlatLaf | [Ver repositorio](https://github.com/anfeospa999-oss/hotel-management-system-desktop) |
-| 🌐 | **Sistema Web** — Acceso desde navegador | Flask, PostgreSQL, Bootstrap, HTML/CSS/JS | Este repositorio |
-
-Ambas versiones fueron desarrolladas como proyecto de formación en el **SENA (Servicio Nacional de Aprendizaje)** y forman parte de un mismo ecosistema de gestión hotelera.
+<p align="center">
+  <em>Dos plataformas. Un mismo sistema. Una sola identidad.</em>
+</p>
 
 ---
 
 ## 📑 Índice
 
 - [Descripción General](#-descripción-general)
+- [Características principales](#-características-principales)
 - [Información del Proyecto](#-información-del-proyecto)
 - [Funcionalidades](#-funcionalidades)
 - [Capturas del Sistema](#-capturas-del-sistema)
@@ -48,6 +45,7 @@ Ambas versiones fueron desarrolladas como proyecto de formación en el **SENA (S
 - [Variables de Entorno](#-variables-de-entorno)
 - [Equipo de Desarrollo](#-equipo-de-desarrollo)
 - [Mi Participación](#-mi-participación)
+- [Estado del proyecto](#-estado-del-proyecto)
 - [Próximas Mejoras](#-próximas-mejoras)
 - [Licencia](#-licencia)
 
@@ -59,7 +57,24 @@ Ambas versiones fueron desarrolladas como proyecto de formación en el **SENA (S
 
 El sistema integra autenticación segura con Flask-Login, reportes financieros, generación de facturas con códigos QR, panel administrativo interactivo con Chart.js, internacionalización español/inglés y un sistema completo de notificaciones, proporcionando una solución integral para la gestión operativa de un hotel desde cualquier navegador.
 
-Desarrollado como proyecto de formación en el **SENA (Servicio Nacional de Aprendizaje)**.
+Desarrollado como proyecto académico durante la formación en Análisis y Desarrollo de Software del **SENA**.
+
+---
+
+### ✨ Características principales
+
+✔ Arquitectura MVC por Blueprints &nbsp;&nbsp;&nbsp;&nbsp; ✔ Autenticación por roles  
+✔ Dashboard con gráficos Chart.js &nbsp;&nbsp;&nbsp;&nbsp; ✔ CRUD completo  
+✔ Facturación con códigos QR &nbsp;&nbsp;&nbsp;&nbsp; ✔ PostgreSQL  
+✔ Internacionalización ES/EN &nbsp;&nbsp;&nbsp;&nbsp; ✔ Despliegue con Docker
+
+---
+
+<p align="center">
+  <img src="screenshots/dashboard.png" alt="Dashboard Principal" width="750">
+  <br>
+  <em>Panel de control principal del sistema</em>
+</p>
 
 ---
 
@@ -183,44 +198,18 @@ Desarrollado como proyecto de formación en el **SENA (Servicio Nacional de Apre
 
 ## 🛠 Tecnologías
 
-| Categoría | Tecnología | Versión |
-|-----------|-----------|---------|
-| **Lenguaje** | Python | 3.11+ |
-| **Framework Web** | Flask | 3.0.0 |
-| **Base de Datos** | PostgreSQL | 16 |
-| **ORM** | SQLAlchemy | 2.0.22 |
-| **Autenticación** | Flask-Login | 0.6.3 |
-| **Internacionalización** | Flask-Babel | 4.0.0 |
-| **Motor de Plantillas** | Jinja2 | 3.1.2 |
-| **Hashing** | Werkzeug | 3.0.0 |
-| **Driver BD** | psycopg2-binary | 2.9.9 |
-| **QR** | qrcode / Pillow | 7.4.2 / 10.0.1 |
-| **Zonas Horarias** | pytz | 2023.3 |
-| **Variables de Entorno** | python-dotenv | 1.0.0 |
+<div align="center">
 
-### Frontend
+| Categoría | Tecnología |
+|:----------|:-----------|
+| **Backend** | Python 3.11+ / Flask 3.0 |
+| **Frontend** | Bootstrap 5.3 + Chart.js |
+| **Base de datos** | PostgreSQL 16 |
+| **ORM** | SQLAlchemy |
+| **Contenerización** | Docker + Docker Compose |
+| **Despliegue** | Coolify |
 
-| Categoría | Tecnología | Versión |
-|-----------|-----------|---------|
-| **Framework CSS** | Bootstrap | 5.3 |
-| **Iconos** | Bootstrap Icons | — |
-| **Iconos** | Font Awesome | 6 |
-| **Gráficos** | Chart.js | — |
-| **Alertas** | SweetAlert2 | — |
-| **Barra de Carga** | NProgress | — |
-| **PDF** | html2pdf.js | — |
-| **Escáner QR** | html5-qrcode | — |
-| **Tipografía** | Google Fonts (Poppins) | — |
-
-### Infraestructura
-
-| Tecnología | Propósito |
-|-----------|-----------|
-| **Docker** | Contenerización |
-| **Docker Compose** | Orquestación multi-contenedor |
-| **PostgreSQL** | Base de datos en producción |
-| **SQLite** | Base de datos en desarrollo |
-| **Coolify** | Plataforma de despliegue |
+</div>
 
 ---
 
@@ -383,6 +372,20 @@ Como parte del equipo de desarrollo, mis contribuciones se enfocaron en el desar
 
 ---
 
+## 📈 Estado del proyecto
+
+✅ **Desarrollo activo**
+
+✔ CRUD completos &nbsp;&nbsp;&nbsp;&nbsp; ✔ Dashboard con gráficos  
+✔ Facturación con QR &nbsp;&nbsp;&nbsp;&nbsp; ✔ Internacionalización ES/EN
+
+🚧 **Próximamente**
+
+🔲 Pasarela de pagos &nbsp;&nbsp;&nbsp;&nbsp; 🔲 API REST  
+🔲 Pruebas automatizadas &nbsp;&nbsp;&nbsp;&nbsp; 🔲 CI/CD
+
+---
+
 ## 📄 Licencia
 
 Este proyecto fue desarrollado con fines académicos durante la formación como Tecnólogo en Análisis y Desarrollo de Software del SENA. Puede utilizarse como referencia para fines educativos respetando los créditos de los autores.
@@ -392,9 +395,10 @@ Este proyecto fue desarrollado con fines académicos durante la formación como 
 <p align="center">
   <strong>Hotel Gales</strong><br>
   <sub>Sistema de Gestión Hotelera Web</sub><br><br>
-  Aplicación web del ecosistema Hotel Gales.<br>
+  Versión web del ecosistema Hotel Gales.<br>
   Proyecto hermano de la <a href="https://github.com/anfeospa999-oss/hotel-management-system-desktop">versión de escritorio</a>.<br><br>
-  Hotel Gales es un ecosistema compuesto por dos aplicaciones<br>
-  desarrolladas durante la formación del SENA.<br><br>
+  Hotel Gales forma parte de un ecosistema compuesto por una<br>
+  aplicación web y una aplicación de escritorio que comparten<br>
+  la misma identidad visual y funcional.<br><br>
   Desarrollado con ❤️ para el SENA — Colombia 🇨🇴
 </p>
