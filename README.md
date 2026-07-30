@@ -336,6 +336,7 @@ Proyecto desarrollado como parte del programa de formación del **SENA** (Servic
 |-----------|-----|---------------|
 | **Andrés Felipe Ospina** | Desarrollador | Corrección de errores, migraciones BD, optimización de reservas, notificaciones, panel de administración, autenticación, UI/UX |
 | **Diyer Diaz** | Desarrollador | Desarrollo principal, módulos core, infraestructura, despliegue |
+| **Juan Sarmiento** | Desarrollador | — |
 
 ---
 
