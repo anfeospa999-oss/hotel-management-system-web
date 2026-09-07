@@ -114,9 +114,6 @@ La experiencia adquirida abarca desde el modelado de bases de datos relacionales
   <img src="screenshots/demo.gif" alt="Demostración animada del sistema Hotel Gales" width="750">
 </p>
 
-> Próximamente se añadirá una demostración animada del sistema en funcionamiento.
-> *Estructura preparada para reemplazar con un GIF real.*
-
 Puedes probar el sistema en vivo en: **https://htg.proyecto.lol/**
 
 ---
