@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="row mb-4">
+<div class="row mb-4 gy-3">
     <div class="col-md-4">
         <div class="info-card">
             <div class="card-header">
@@ -130,7 +130,7 @@
 
 <!-- ── SECCIÓN ESPECÍFICA PARA CLIENTES ── -->
 {% if current_user.rol == 'cliente' and datos_cliente %}
-<div class="row mb-4">
+<div class="row mb-4 gy-3">
     <!-- Reserva Actual -->
     <div class="col-md-6">
         <div class="info-card">
@@ -196,9 +196,9 @@
     </div>
 </div>
 
-<div class="row mb-4">
+<div class="row mb-4 gy-3">
     <!-- Historial de Reservas -->
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="info-card">
             <div class="card-header">
                 <i class="bi bi-clock-history text-gold" style="font-size: 1.2rem;"></i>
@@ -228,50 +228,12 @@
             </div>
         </div>
     </div>
-
-    <!-- Mis Comentarios -->
-    <div class="col-md-6">
-        <div class="info-card">
-            <div class="card-header">
-                <i class="bi bi-chat-dots text-gold" style="font-size: 1.2rem;"></i>
-                <span class="fw-bold">{{ _('Mis Comentarios') }}</span>
-            </div>
-            <div class="card-body">
-                {% if datos_cliente.comentarios %}
-                <div class="list-group list-group-flush">
-                    {% for comentario in datos_cliente.comentarios %}
-                    <div class="list-group-item">
-                        <div class="d-flex justify-content-between">
-                            <strong>{{ _('Habitación') }} {{ comentario.habitacion.numeroHabitacion }}</strong>
-                            <div>
-                                {% for i in range(1, 6) %}
-                                    {% if i <= comentario.calificacion %}
-                                        <i class="bi bi-star-fill text-warning"></i>
-                                    {% else %}
-                                        <i class="bi bi-star text-muted"></i>
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <small class="text-muted">{{ comentario.comentario[:50] }}{% if comentario.comentario|length > 50 %}...{% endif %}</small>
-                    </div>
-                    {% endfor %}
-                </div>
-                <a href="{{ url_for('comentarios.mis_comentarios') }}" class="btn btn-outline-primary btn-sm w-100 mt-2">
-                    {{ _('Ver todos') }}
-                </a>
-                {% else %}
-                <p class="text-muted text-center">{{ _('Aún no has dejado comentarios') }}</p>
-                {% endif %}
-            </div>
-        </div>
-    </div>
 </div>
 {% endif %}
 
 <!-- ── SECCIÓN DE GRÁFICAS (SOLO PARA STAFF) ── -->
 {% if current_user.rol != 'cliente' and datos_graficas %}
-<div class="row mb-4">
+<div class="row mb-4 gy-3">
     <div class="col-md-6">
         <div class="info-card">
             <div class="card-header">

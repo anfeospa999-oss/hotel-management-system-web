@@ -195,8 +195,18 @@
 
     const toggle = document.getElementById('sidebarToggle');
     const sidebar = document.getElementById('sidebar');
+    const closeSidebarBtn = document.getElementById('closeSidebarBtn');
     if (toggle && sidebar) {
-      toggle.addEventListener('click', () => sidebar.classList.toggle('collapsed'));
+      toggle.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          sidebar.classList.toggle('mobile-open');
+        } else {
+          sidebar.classList.toggle('collapsed');
+        }
+      });
+    }
+    if (closeSidebarBtn && sidebar) {
+      closeSidebarBtn.addEventListener('click', () => sidebar.classList.remove('mobile-open'));
     }
     document.querySelectorAll('.sidebar-link').forEach(link => {
       if (link.href === window.location.href) link.classList.add('active');
