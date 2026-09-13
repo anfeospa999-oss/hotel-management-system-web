@@ -1,7 +1,7 @@
 from flask import Flask, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_babel import Babel
+from flask_babel import Babel, gettext as _
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -91,22 +91,29 @@ def create_app():
             return "$ {:,.0f} COP".format(value).replace(',', '.')
         except (ValueError, TypeError):
             return value
+
+    @app.template_filter('trans')
+    def trans_filter(value):
+        if not value:
+            return value
+        normalized = str(value).replace('_', ' ').strip()
+        if normalized.isupper():
+            return _(normalized).upper()
+        return _(normalized.title())
             
     # --- Manejo global de Errores (Evita que la app colapse) ---
     @app.errorhandler(404)
     def page_not_found(e):
-        return "<h1>404 - Página no encontrada</h1><p>Lo sentimos, la página que buscas no existe.</p><a href='/'>Volver al inicio</a>", 404
+        return "<h1>404 - " + _('Página no encontrada') + "</h1><p>" + _('Lo sentimos, la página que buscas no existe.') + "</p><a href='/'>" + _('Volver al inicio') + "</a>", 404
 
     @app.errorhandler(500)
     def internal_server_error(e):
-        # Aquí se maneja cualquier error interno o colapso
-        db.session.rollback() # Revertimos cualquier transacción fallida
-        return "<h1>500 - Error Interno del Servidor</h1><p>Ha ocurrido un problema inesperado. Por favor, inténtalo más tarde.</p><a href='/'>Volver al inicio</a>", 500
+        db.session.rollback()
+        return "<h1>500 - " + _('Error Interno del Servidor') + "</h1><p>" + _('Ha ocurrido un problema inesperado. Por favor, inténtalo más tarde.') + "</p><a href='/'>" + _('Volver al inicio') + "</a>", 500
 
     @app.errorhandler(Exception)
     def handle_exception(e):
-        # Maneja cualquier otra excepción no controlada
         db.session.rollback()
-        return f"<h1>Error Inesperado</h1><p>La aplicación pudo recuperarse de un error: {str(e)}</p><a href='/'>Volver al inicio</a>", 500
+        return f"<h1>" + _('Error Inesperado') + f"</h1><p>" + _('La aplicación pudo recuperarse de un error') + f": {str(e)}</p><a href='/'>" + _('Volver al inicio') + "</a>", 500
         
     return app

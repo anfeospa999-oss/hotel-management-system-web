@@ -8,7 +8,7 @@
     <h1>{{ _('¡Bienvenido,') }} {{ current_user.usuario }}!</h1>
     <p>{{ _('Sistema de Gestión del Hotel') }}</p>
     <div class="role-badge">
-        <i class="bi bi-shield-check"></i> {{ current_user.rol|upper }}
+        <i class="bi bi-shield-check"></i> {{ current_user.rol|trans|upper }}
     </div>
 </div>
 
@@ -21,7 +21,7 @@
             </div>
             <div class="card-body">
                 <p><strong>{{ _('Usuario') }}:</strong> {{ current_user.usuario }}</p>
-                <p><strong>{{ _('Rol') }}:</strong> {{ current_user.rol|title }}</p>
+                <p><strong>{{ _('Rol') }}:</strong> {{ current_user.rol|trans }}</p>
                 <p><strong>{{ _('Miembro desde') }}:</strong> {{ current_user.created_at.strftime('%d/%m/%Y') }}</p>
             </div>
         </div>
@@ -146,7 +146,7 @@
                     <p class="mb-1"><strong>{{ _('Salida') }}:</strong> {{ datos_cliente.reserva_actual.fechaSalida }}</p>
                     <p class="mb-0"><strong>{{ _('Estado') }}:</strong> 
                         <span class="badge bg-{{ 'success' if datos_cliente.reserva_actual.estadoReserva == 'confirmada' else 'warning' }}">
-                            {{ datos_cliente.reserva_actual.estadoReserva|upper }}
+                            {{ datos_cliente.reserva_actual.estadoReserva|trans|upper }}
                         </span>
                     </p>
                 </div>
@@ -214,7 +214,7 @@
                             <br><small class="text-muted">{{ reserva.fechaEntrada }} - {{ reserva.fechaSalida }}</small>
                         </div>
                         <span class="badge bg-{{ 'success' if reserva.estadoReserva == 'finalizada' else 'warning' if reserva.estadoReserva == 'pendiente' else 'danger' }}">
-                            {{ reserva.estadoReserva|upper }}
+                            {{ reserva.estadoReserva|trans|upper }}
                         </span>
                     </div>
                     {% endfor %}
@@ -319,7 +319,7 @@
                 </div>
                 <div class="col-md-4" style="border-left: 2px solid #f0f0f0; padding-left: 2rem;">
                     <p style="font-weight: 600; color: #333; margin-bottom: 0.5rem;">{{ _('Tu Rol') }}:</p>
-                    <p style="font-size: 1.1rem; font-weight: 600; color: #667eea;">{{ current_user.rol|title }}</p>
+                    <p style="font-size: 1.1rem; font-weight: 600; color: #667eea;">{{ current_user.rol|trans }}</p>
                 </div>
             </div>
         </div>

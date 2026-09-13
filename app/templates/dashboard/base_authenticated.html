@@ -45,33 +45,33 @@
                             id="roleSimulatorDropdown" 
                             data-bs-toggle="dropdown" 
                             aria-expanded="false" 
-                            title="Simulador de Roles (Super Admin)"
+                            title="{{ _('Simulador de Roles (Super Admin)') }}"
                             style="width: 40px; height: 40px; border-color: #d4af37;">
                         <i class="bi bi-shield-lock-fill text-warning"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end shadow-lg sim-dropdown-menu" aria-labelledby="roleSimulatorDropdown">
-                        <li class="dropdown-header text-uppercase font-monospace text-warning fw-bold small" style="font-size: 0.7rem;">Simular Vista de Rol</li>
+                        <li class="dropdown-header text-uppercase font-monospace text-warning fw-bold small" style="font-size: 0.7rem;">{{ _('Simular Vista de Rol') }}</li>
                         <li>
                             <a class="dropdown-item sim-dropdown-item d-flex justify-content-between align-items-center {% if current_user.rol == 'administrador' %}active{% endif %}" href="{{ url_for('auth.simular_rol', nuevo_role='administrador') }}">
-                                <span><i class="bi bi-shield-fill-check me-2"></i>Administrador</span>
+                                <span><i class="bi bi-shield-fill-check me-2"></i>{{ _('Administrador') }}</span>
                                 {% if current_user.rol == 'administrador' %}<i class="bi bi-check-lg"></i>{% endif %}
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item sim-dropdown-item d-flex justify-content-between align-items-center {% if current_user.rol == 'recepcionista' %}active{% endif %}" href="{{ url_for('auth.simular_rol', nuevo_role='recepcionista') }}">
-                                <span><i class="bi bi-person-workspace me-2"></i>Recepcionista</span>
+                                <span><i class="bi bi-person-workspace me-2"></i>{{ _('Recepcionista') }}</span>
                                 {% if current_user.rol == 'recepcionista' %}<i class="bi bi-check-lg"></i>{% endif %}
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item sim-dropdown-item d-flex justify-content-between align-items-center {% if current_user.rol == 'servicio_limpieza' %}active{% endif %}" href="{{ url_for('auth.simular_rol', nuevo_role='servicio_limpieza') }}">
-                                <span><i class="bi bi-stars me-2"></i>Limpieza</span>
+                                <span><i class="bi bi-stars me-2"></i>{{ _('Limpieza') }}</span>
                                 {% if current_user.rol == 'servicio_limpieza' %}<i class="bi bi-check-lg"></i>{% endif %}
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item sim-dropdown-item d-flex justify-content-between align-items-center {% if current_user.rol == 'cliente' %}active{% endif %}" href="{{ url_for('auth.simular_rol', nuevo_role='cliente') }}">
-                                <span><i class="bi bi-person-fill-check me-2"></i>Cliente</span>
+                                <span><i class="bi bi-person-fill-check me-2"></i>{{ _('Cliente') }}</span>
                                 {% if current_user.rol == 'cliente' %}<i class="bi bi-check-lg"></i>{% endif %}
                             </a>
                         </li>
@@ -79,7 +79,7 @@
                         <li><hr class="dropdown-divider"></li>
                         <li>
                             <a class="dropdown-item sim-dropdown-item text-danger d-flex align-items-center" href="{{ url_for('auth.simular_rol', nuevo_role='restaurar') }}">
-                                <i class="bi bi-arrow-counterclockwise me-2"></i>Restaurar Original
+                                <i class="bi bi-arrow-counterclockwise me-2"></i>{{ _('Restaurar Original') }}
                             </a>
                         </li>
                         {% endif %}
@@ -119,9 +119,9 @@
                 <span class="badge bg-gold text-dark px-2 px-md-3 py-2 fs-6">
                     <i class="bi bi-person-circle"></i> <span class="d-none d-sm-inline">{{ current_user.usuario }}</span>
                     <span class="ms-1 badge bg-dark d-none d-md-inline-block">
-                        {{ current_user.rol }}
+                        {{ current_user.rol|trans }}
                         {% if current_user.rol != current_user.real_rol %}
-                            <span class="text-warning font-monospace" style="font-size: 0.75rem; font-weight: bold;">(Simulado)</span>
+                            <span class="text-warning font-monospace" style="font-size: 0.75rem; font-weight: bold;">{{ _('(Simulado)') }}</span>
                         {% endif %}
                     </span>
                 </span>

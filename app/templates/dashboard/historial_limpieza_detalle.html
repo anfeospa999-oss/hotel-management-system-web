@@ -97,7 +97,7 @@
                                         {% elif tarea.estado == 'en curso' %}bg-info-subtle text-info
                                         {% elif tarea.estado == 'finalizado' %}bg-success-subtle text-success
                                         {% else %}bg-danger-subtle text-danger{% endif %} px-2">
-                                        {{ tarea.estado | upper }}
+                                        {{ tarea.estado | trans | upper }}
                                     </span>
                                 </td>
                                 <td class="pe-4">

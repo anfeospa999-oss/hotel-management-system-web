@@ -100,7 +100,7 @@
             {% else %}
                 <a href="{{ url_for('reservas.nueva', habitacion_id=hab.idHabitacion) }}"
                    class="btn btn-sm btn-outline-primary {% if hab.estadoHabitacion != 'disponible' or tiene_reserva_activa %}disabled{% endif %}"
-                   {% if tiene_reserva_activa %}title="Ya tienes una reserva activa"{% endif %}>
+                   {% if tiene_reserva_activa %}title="{{ _('Ya tienes una reserva activa') }}"{% endif %}>
                   <i class="bi bi-calendar-check"></i> {{ _('Reservar') }}
                 </a>
                 

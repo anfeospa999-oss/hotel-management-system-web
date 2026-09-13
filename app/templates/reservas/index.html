@@ -7,7 +7,7 @@
         <h2 class="mb-0"><i class="bi bi-calendar-week me-2"></i>{{ _('Control de Reservas') }}</h2>
         {% if fecha_filtro %}
             <span class="badge bg-primary px-3 py-2">{{ _('Filtrado') }}: {{ fecha_filtro }}</span>
-            <a href="{{ url_for('reservas.index') }}" class="btn btn-sm btn-outline-secondary" title="Quitar filtro">
+            <a href="{{ url_for('reservas.index') }}" class="btn btn-sm btn-outline-secondary" title="{{ _('Quitar filtro') }}">
                 <i class="bi bi-x-lg"></i> {{ _('Ver todas') }}
             </a>
         {% endif %}
@@ -43,7 +43,7 @@
                         {% elif r.estadoReserva=='pendiente' %}bg-warning text-dark
                         {% elif r.estadoReserva=='cancelada' %}bg-danger
                         {% else %}bg-secondary{% endif %}">
-                        {{ r.estadoReserva|upper }}
+                        {{ r.estadoReserva|trans|upper }}
                     </span>
                 </div>
                 
@@ -125,7 +125,7 @@
                             <i class="bi bi-person-vcard text-primary fs-1"></i>
                         </div>
                         <h4 class="fw-bold mb-0">{{ r.cliente.nombre }} {{ r.cliente.apellido }}</h4>
-                        <span class="text-muted small">C.C. {{ r.cliente.cedula }}</span>
+                        <span class="text-muted small">{{ _('C.C.') }} {{ r.cliente.cedula }}</span>
                     </div>
 
                     <div class="row g-3">

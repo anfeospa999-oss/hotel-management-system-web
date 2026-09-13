@@ -18,7 +18,7 @@
                                 <option value="">-- {{ _('Elige una habitación') }} --</option>
                                 {% for h in habitaciones %}
                                 <option value="{{ h.idHabitacion }}">
-                                    {{ _('Habitación') }} #{{ h.numeroHabitacion }} ({{ h.estadoHabitacion|title }})
+                                    {{ _('Habitación') }} #{{ h.numeroHabitacion }} ({{ h.estadoHabitacion|trans }})
                                 </option>
                                 {% endfor %}
                             </select>
@@ -30,7 +30,7 @@
                                 <option value="">-- {{ _('Elige a un trabajador') }} --</option>
                                 {% for p in personal %}
                                 <option value="{{ p.id }}">
-                                    {{ p.usuario }} - {{ p.estado_limpieza|title }}
+                                    {{ p.usuario }} - {{ p.estado_limpieza|trans }}
                                 </option>
                                 {% endfor %}
                             </select>

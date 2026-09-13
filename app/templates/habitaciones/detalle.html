@@ -38,7 +38,7 @@
                   {% elif hab.estadoHabitacion == 'ocupada' %}bg-danger
                   {% elif hab.estadoHabitacion == 'limpieza' %}bg-warning text-dark
                   {% else %}bg-secondary{% endif %} fs-6">
-                  {{ hab.estadoHabitacion|upper }}
+                  {{ hab.estadoHabitacion|trans|upper }}
                 </span>
               </div>
               <div class="col-md-6">

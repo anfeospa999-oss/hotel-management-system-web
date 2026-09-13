@@ -86,7 +86,7 @@ body.dark-mode .btn-outline-dark-royal:hover {
             <div class="staff-card-header p-3 d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center gap-2">
                     <div class="status-dot {{ 'bg-success' if staff.estado_limpieza == 'disponible' else 'bg-danger' }}"></div>
-                    <span class="small fw-bold text-uppercase">{{ staff.estado_limpieza }}</span>
+                    <span class="small fw-bold text-uppercase">{{ staff.estado_limpieza|trans }}</span>
                 </div>
                 <i class="bi bi-stars text-gold"></i>
             </div>

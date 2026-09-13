@@ -67,7 +67,7 @@
                       data-apellido="{{ cliente.apellido }}"
                       data-telefono="{{ cliente.telefono or 'N/A' }}"
                       data-email="{{ cliente.email or 'N/A' }}"
-                      data-direccion="{{ cliente.direccion or 'No especificada' }}"
+                      data-direccion="{{ cliente.direccion or _('No especificada') }}"
                       data-fecha="{{ cliente.fechaNacimiento or 'N/A' }}"
                       data-total="{{ cliente.total_r }}"
                       data-fin="{{ cliente.fin_r }}"
@@ -99,7 +99,7 @@
                       <div class="d-flex align-items-center gap-2" style="font-size: 0.7rem;">
                         <span class="text-muted">{{ recepcionista.fecha_reserva.strftime('%d/%m/%Y') }}</span>
                         <span class="badge {% if recepcionista.estado == 'cancelada' %}bg-danger{% elif recepcionista.estado == 'finalizada' %}bg-success{% else %}bg-info{% endif %} p-1" style="font-size: 0.6rem;">
-                          {{ recepcionista.estado|upper }}
+                          {{ recepcionista.estado|trans|upper }}
                         </span>
                         <span class="fw-bold text-dark">{{ recepcionista.total|cop }}</span>
                       </div>
@@ -246,6 +246,13 @@
 
 <script>
   const SIN_RESERVAS_TEXT = {{ _('Sin historial de reservas') | tojson }};
+  const HAB_TEXT = {{ _('Hab.') | tojson }};
+  const STATUS_TEXT = {
+    'confirmada': {{ _('Confirmada') | tojson }},
+    'finalizada': {{ _('Finalizada') | tojson }},
+    'cancelada': {{ _('Cancelada') | tojson }},
+    'pendiente': {{ _('Pendiente') | tojson }}
+  };
   document.addEventListener('DOMContentLoaded', function() {
     const clienteModal = document.getElementById('clienteModal');
     if (clienteModal) {
@@ -292,8 +299,8 @@
                 const row = `
                     <tr>
                         <td>${res.fecha}</td>
-                        <td>Hab. ${res.habitacion}</td>
-                        <td><span class="badge ${badgeClass}">${res.estado.toUpperCase()}</span></td>
+                        <td>${HAB_TEXT} ${res.habitacion}</td>
+                        <td><span class="badge ${badgeClass}">${STATUS_TEXT[res.estado] || res.estado.toUpperCase()}</span></td>
                         <td class="text-end fw-bold">$ ${res.total.toLocaleString('de-DE')}</td>
                     </tr>
                 `;
