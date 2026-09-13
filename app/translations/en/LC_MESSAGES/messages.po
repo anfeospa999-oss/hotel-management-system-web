@@ -2381,8 +2381,8 @@ msgid "Subtotal:"
 msgstr "Subtotal:"
 
 #: app/templates/facturas/ver.html:89
-msgid "IVA (0%):"
-msgstr "VAT (0%):"
+msgid "IVA"
+msgstr "VAT"
 
 #: app/templates/facturas/ver.html:94
 msgid "TOTAL:"
@@ -3132,4 +3132,20 @@ msgstr "Update User"
 
 #~ msgid "Aún no has dejado comentarios"
 #~ msgstr "You have not left any comments yet"
+
+#: app/utils/roles.py:8
+msgid "Cliente - Solo lectura de información"
+msgstr "Client - Read-only information access"
+
+#: app/utils/roles.py:9
+msgid "Administrador - Control total del sistema"
+msgstr "Administrator - Full system control"
+
+#: app/utils/roles.py:10
+msgid "Recepcionista - Gestión de huéspedes y reservas"
+msgstr "Receptionist - Guest and reservation management"
+
+#: app/utils/roles.py:11
+msgid "Servicio de Limpieza - Mantenimiento y aseo"
+msgstr "Cleaning Service - Maintenance and housekeeping"
 

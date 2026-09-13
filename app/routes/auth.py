@@ -6,7 +6,7 @@ from sqlalchemy.exc import IntegrityError
 import re
 from app import db
 from app.models.users import User
-from app.utils.roles import ROLES
+from app.utils.roles import ROLES, rol_label
 from app.utils.decorators import requiere_admin
 
 bp = Blueprint('auth', __name__)
@@ -406,14 +406,13 @@ def simular_rol(nuevo_role):
         return redirect(url_for('auth.menu'))
     
     from flask import session
-    from app.utils.roles import ROLES
-    
+
     if nuevo_role == 'restaurar' or nuevo_role == 'administrador':
         session.pop('simulated_role', None)
         flash(_('Rol original de Administrador restaurado'), 'success')
     elif nuevo_role in ROLES:
         session['simulated_role'] = nuevo_role
-        flash(_('Simulando rol de: %(rol)s') % {'rol': nuevo_role.title()}, 'success')
+        flash(_('Simulando rol de: %(rol)s') % {'rol': rol_label(nuevo_role)}, 'success')
     else:
         flash(_('Rol no válido'), 'error')
         

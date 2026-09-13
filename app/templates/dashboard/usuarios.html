@@ -54,13 +54,13 @@
                                     </td>
                                     <td>
                                         {% if usuario.rol == 'cliente' %}
-                                        <span class="badge bg-secondary">{{ usuario.rol|title }}</span>
+                                        <span class="badge bg-secondary">{{ usuario.rol|trans }}</span>
                                         {% elif usuario.rol == 'administrador' %}
-                                        <span class="badge bg-danger">{{ usuario.rol|title }}</span>
+                                        <span class="badge bg-danger">{{ usuario.rol|trans }}</span>
                                         {% elif usuario.rol == 'recepcionista' %}
-                                        <span class="badge bg-primary">{{ usuario.rol|title }}</span>
+                                        <span class="badge bg-primary">{{ usuario.rol|trans }}</span>
                                         {% else %}
-                                        <span class="badge bg-secondary">{{ usuario.rol|title }}</span>
+                                        <span class="badge bg-secondary">{{ usuario.rol|trans }}</span>
                                         {% endif %}
                                     </td>
                                     <td>

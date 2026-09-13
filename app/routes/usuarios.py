@@ -10,7 +10,7 @@ from sqlalchemy.exc import IntegrityError
 import re
 from app import db
 from app.models.users import User
-from app.utils.roles import ROLES
+from app.utils.roles import ROLES, rol_label
 from app.utils.decorators import requiere_admin
 
 bp = Blueprint('usuarios', __name__, url_prefix='/admin')
@@ -134,7 +134,7 @@ def listar_usuarios():
         try:
             db.session.add(nuevo_usuario)
             db.session.commit()
-            flash(_('Usuario %(usuario)s creado exitosamente como %(rol)s') % {'usuario': usuario, 'rol': rol}, 'success')
+            flash(_('Usuario %(usuario)s creado exitosamente como %(rol)s') % {'usuario': usuario, 'rol': rol_label(rol)}, 'success')
             return redirect(url_for('usuarios.listar_usuarios'))
         except IntegrityError as e:
             db.session.rollback()
@@ -173,7 +173,7 @@ def editar_usuario(id):
     if nuevo_rol in ROLES:
         usuario.rol = nuevo_rol
         db.session.commit()
-        flash(_('Rol de %(usuario)s actualizado a %(rol)s.') % {'usuario': usuario.usuario, 'rol': nuevo_rol}, 'success')
+        flash(_('Rol de %(usuario)s actualizado a %(rol)s.') % {'usuario': usuario.usuario, 'rol': rol_label(nuevo_rol)}, 'success')
     else:
         flash(_('Rol inválido.'), 'error')
         

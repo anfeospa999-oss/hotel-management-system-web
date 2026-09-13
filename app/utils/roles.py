@@ -1,14 +1,21 @@
 """
 Sistema de Roles y Permisos para el Hotel
 """
+from flask_babel import lazy_gettext as _l, gettext as _
 
 # Definición de roles disponibles
 ROLES = {
-    'cliente': 'Cliente - Solo lectura de información',
-    'administrador': 'Administrador - Control total del sistema',
-    'recepcionista': 'Recepcionista - Gestión de huéspedes y reservas',
-    'servicio_limpieza': 'Servicio de Limpieza - Mantenimiento y aseo'
+    'cliente': _l('Cliente - Solo lectura de información'),
+    'administrador': _l('Administrador - Control total del sistema'),
+    'recepcionista': _l('Recepcionista - Gestión de huéspedes y reservas'),
+    'servicio_limpieza': _l('Servicio de Limpieza - Mantenimiento y aseo')
 }
+
+def rol_label(rol):
+    """Traduce un código de rol de BD (ej. servicio_limpieza) al idioma activo."""
+    if not rol:
+        return rol
+    return _(str(rol).replace('_', ' ').strip().title())
 
 # Permisos por rol
 PERMISOS_ROL = {
