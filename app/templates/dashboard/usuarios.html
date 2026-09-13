@@ -28,7 +28,7 @@
             <div class="card shadow-sm">
                 <div class="card-header bg-secondary text-white">
                     <h5 class="mb-0">
-                        <i class="bi bi-list-ul"></i> {% if current_user.rol == 'administrador' %}{{ _('Usuarios del Sistema') }}{% else %}{{ _('Clientes Registrados') }}{% endif %} ({{ usuarios|length }})
+                        <i class="bi bi-list-ul"></i> {{ _('Clientes Registrados') }} ({{ usuarios|length }})
                     </h5>
                 </div>
                 <div class="card-body p-0">
@@ -92,7 +92,7 @@
                     </div>
                     {% else %}
                     <div class="p-4 text-center">
-                        <p class="text-muted mb-0">{{ _('No hay usuarios registrados en el sistema') }}</p>
+                        <p class="text-muted mb-0">{{ _('No hay clientes registrados en el sistema') }}</p>
                     </div>
                     {% endif %}
                 </div>
@@ -159,14 +159,12 @@
 
                          <div class="mb-3">
                              <label for="rol" class="form-label">{{ _('Rol') }}</label>
-                             <select id="rol" name="rol" class="form-select" required>
-                                 <option value="">-- {{ _('Selecciona un rol') }} --</option>
-                                 {% for rol_key, rol_desc in roles.items() %}
-                                 <option value="{{ rol_key }}">{{ rol_desc }}</option>
-                                 {% endfor %}
-                             </select>
-                             <small class="form-text text-muted">{{ _('Selecciona el acceso del usuario') }}</small>
+                             <input type="hidden" name="rol" value="cliente">
+                             <input type="text" id="rol" class="form-control" value="{{ _('Cliente') }}" disabled>
+                             <small class="form-text text-muted">{{ _('Solo lectura de información') }}</small>
                          </div>
+
+                         <input type="hidden" name="origen" value="usuarios">
 
                          <div class="mb-3">
                              <label for="password" class="form-label">{{ _('Contraseña') }}</label>
@@ -211,6 +209,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ _('Cerrar') }}"></button>
                 </div>
                 <form action="{{ url_for('usuarios.editar_usuario', id=usuario.id) }}" method="POST">
+                    <input type="hidden" name="origen" value="usuarios">
                     <div class="modal-body">
                         <label class="form-label fw-bold">{{ _('Nuevo Rol') }}</label>
                         <select name="rol" class="form-select">
@@ -242,6 +241,7 @@
                 <div class="modal-footer border-0">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ _('No, cancelar') }}</button>
                     <form action="{{ url_for('usuarios.eliminar_usuario', id=usuario.id) }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="origen" value="usuarios">
                         <button type="submit" class="btn btn-danger">{{ _('Sí, eliminar') }}</button>
                     </form>
                 </div>

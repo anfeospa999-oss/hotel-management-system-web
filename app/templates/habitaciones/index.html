@@ -1,31 +1,37 @@
 {% extends 'base.html' %}
 
-{% block titulo_pagina %}{% endblock %}
+{% block title %}{{ _('Gestión de Habitaciones - Hotel Gales') }}{% endblock %}
 
 {% block content %}
 <div class="content-card">
   <div class="content-card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
-    <h5 class="mb-0"><i class="bi bi-door-closed me-2"></i>{{ _('Estado de Habitaciones') }}</h5>
+    <h4 class="mb-0 text-white font-brand">
+      <i class="bi bi-door-closed me-2 text-warning" style="color: #c5a059 !important;"></i>{{ _('Habitaciones de Hotel Gales') }}
+    </h4>
     {% if current_user.tiene_permisos('crear_habitacion') %}
-    <a href="{{ url_for('habitaciones.nueva') }}" class="btn btn-sm btn-light">
-      <i class="bi bi-plus-circle"></i> {{ _('Nueva Habitación') }}
+    <a href="{{ url_for('habitaciones.nueva') }}" class="btn btn-sm btn-warning fw-bold px-3 shadow-sm rounded-3" style="background-color: #c5a059; border: none; color: #0b192c;">
+      <i class="bi bi-plus-circle-fill me-1"></i> {{ _('Nueva Habitación') }}
     </a>
     {% endif %}
   </div>
-  <div class="content-card-body">
-    <!-- Filtros de búsqueda -->
+  
+  <div class="content-card-body p-4">
+    <!-- FILTROS DE BÚSQUEDA -->
     {% if current_user.rol == 'cliente' %}
-    <div class="card bg-light mb-4">
-      <div class="card-body">
-        <form action="{{ url_for('habitaciones.index') }}" method="GET" class="row g-3">
-          <div class="col-md-3">
-            <label class="form-label small">{{ _('Buscar por número') }}</label>
-            <input type="text" name="busqueda" class="form-control form-control-sm" value="{{ busqueda }}" placeholder="{{ _('Número') }}">
+    <div class="card border-0 shadow-sm rounded-4 mb-4" style="background: var(--content-bg);">
+      <div class="card-body p-3 p-md-4">
+        <form action="{{ url_for('habitaciones.index') }}" method="GET" class="row g-3 align-items-end">
+          <div class="col-12 col-md-3">
+            <label class="form-label small fw-bold text-muted mb-1">{{ _('Buscar por número') }}</label>
+            <div class="input-group input-group-sm">
+              <span class="input-group-text border-end-0 bg-transparent text-muted"><i class="bi bi-search"></i></span>
+              <input type="text" name="busqueda" class="form-control border-start-0" value="{{ busqueda }}" placeholder="{{ _('Ej. 101') }}">
+            </div>
           </div>
-          <div class="col-md-3">
-            <label class="form-label small">{{ _('Tipo de habitación') }}</label>
+          <div class="col-12 col-md-3">
+            <label class="form-label small fw-bold text-muted mb-1">{{ _('Tipo de habitación') }}</label>
             <select name="tipo" class="form-select form-select-sm">
-              <option value="">{{ _('Todos') }}</option>
+              <option value="">{{ _('Todos los tipos') }}</option>
               {% for tipo in tipos %}
               <option value="{{ tipo.idTipoHabitacion }}" {% if tipo_habitacion == tipo.idTipoHabitacion|string %}selected{% endif %}>
                 {{ tipo.nombreTipo }}
@@ -33,16 +39,16 @@
               {% endfor %}
             </select>
           </div>
-          <div class="col-md-2">
-            <label class="form-label small">{{ _('Precio mínimo') }}</label>
-            <input type="number" name="precio_min" class="form-control form-control-sm" value="{{ precio_min }}" placeholder="{{ _('Min') }}">
+          <div class="col-6 col-md-2">
+            <label class="form-label small fw-bold text-muted mb-1">{{ _('Precio mínimo') }}</label>
+            <input type="number" name="precio_min" class="form-control form-control-sm" value="{{ precio_min }}" placeholder="$ {{ _('Min') }}">
           </div>
-          <div class="col-md-2">
-            <label class="form-label small">{{ _('Precio máximo') }}</label>
-            <input type="number" name="precio_max" class="form-control form-control-sm" value="{{ precio_max }}" placeholder="{{ _('Max') }}">
+          <div class="col-6 col-md-2">
+            <label class="form-label small fw-bold text-muted mb-1">{{ _('Precio máximo') }}</label>
+            <input type="number" name="precio_max" class="form-control form-control-sm" value="{{ precio_max }}" placeholder="$ {{ _('Max') }}">
           </div>
-          <div class="col-md-2">
-            <label class="form-label small">{{ _('Estado') }}</label>
+          <div class="col-12 col-md-2">
+            <label class="form-label small fw-bold text-muted mb-1">{{ _('Estado') }}</label>
             <select name="estado" class="form-select form-select-sm">
               <option value="">{{ _('Todos') }}</option>
               <option value="disponible" {% if estado == 'disponible' %}selected{% endif %}>{{ _('Disponible') }}</option>
@@ -50,92 +56,130 @@
               <option value="mantenimiento" {% if estado == 'mantenimiento' %}selected{% endif %}>{{ _('Mantenimiento') }}</option>
             </select>
           </div>
-          <div class="col-12">
-            <div class="d-flex gap-2">
-              <button type="submit" class="btn btn-primary btn-sm">
-                <i class="bi bi-search"></i> {{ _('Buscar') }}
-              </button>
-              <a href="{{ url_for('habitaciones.index') }}" class="btn btn-outline-secondary btn-sm">
-                <i class="bi bi-x-circle"></i> {{ _('Limpiar filtros') }}
-              </a>
-            </div>
+          <div class="col-12 d-flex gap-2 justify-content-end">
+            <button type="submit" class="btn btn-primary btn-sm px-3 rounded-2 fw-semibold">
+              <i class="bi bi-filter me-1"></i> {{ _('Aplicar Filtros') }}
+            </button>
+            <a href="{{ url_for('habitaciones.index') }}" class="btn btn-outline-secondary btn-sm px-3 rounded-2">
+              <i class="bi bi-arrow-counterclockwise me-1"></i> {{ _('Limpiar') }}
+            </a>
           </div>
         </form>
       </div>
     </div>
     {% endif %}
 
+    <!-- GRID DE HABITACIONES (EXACTAMENTE 3 COLUMNAS MANTENIDAS) -->
     <div class="row row-cols-1 row-cols-md-3 g-4">
       {% for hab in habitaciones %}
       <div class="col">
-        <div class="card h-100 room-card border-start border-4
-          {% if hab.estadoHabitacion == 'disponible' %}border-success
-          {% elif hab.estadoHabitacion == 'ocupada' %}border-danger
-          {% else %}border-warning{% endif %} shadow-sm">
-          <div class="card-body text-center">
-            <a href="{{ url_for('habitaciones.detalle', id=hab.idHabitacion) }}" class="text-decoration-none">
-              <h2 class="fw-bold text-dark">{{ hab.numeroHabitacion }}</h2>
-            </a>
-            <p class="text-muted mb-1">{{ hab.tipo.nombreTipo }}</p>
-            <div class="my-2">
-              {% if hab.estadoHabitacion == 'disponible' %}
-              <span class="badge bg-success">{{ _('DISPONIBLE') }}</span>
-              {% elif hab.estadoHabitacion == 'ocupada' %}
-              <span class="badge bg-danger">{{ _('OCUPADA') }}</span>
-              {% if hab.cliente_actual %}
-              <br><small class="text-secondary fw-bold mt-1 d-block"><i class="bi bi-person-fill"></i> {{ _('Huesped') }}: {{ hab.cliente_actual }}</small>
+        <div class="card h-100 room-card border-0 shadow-sm rounded-4 overflow-hidden position-relative transition-hover"
+             style="background: var(--card-bg); border: 1px solid var(--border-color) !important;">
+          
+          <!-- Indicator Strip -->
+          <div class="position-absolute top-0 start-0 end-0" style="height: 5px; 
+               background: {% if hab.estadoHabitacion == 'disponible' %}#10b981
+                           {% elif hab.estadoHabitacion == 'ocupada' %}#ef4444
+                           {% else %}#f59e0b{% endif %};"></div>
+
+          <div class="card-body p-4 text-center d-flex flex-direction-column justify-content-between">
+            <div>
+              <!-- Header Badges -->
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="badge rounded-pill px-3 py-1 font-monospace fw-semibold" 
+                      style="background: rgba(197, 160, 89, 0.15); color: #c5a059; border: 1px solid rgba(197, 160, 89, 0.3);">
+                  <i class="bi bi-tag-fill me-1"></i>{{ hab.tipo.nombreTipo }}
+                </span>
+
+                {% if hab.estadoHabitacion == 'disponible' %}
+                <span class="badge bg-success bg-opacity-10 text-success border border-success border-opacity-25 rounded-pill px-3 py-1 fw-bold">
+                  <i class="bi bi-check-circle-fill me-1"></i>{{ _('DISPONIBLE') }}
+                </span>
+                {% elif hab.estadoHabitacion == 'ocupada' %}
+                <span class="badge bg-danger bg-opacity-10 text-danger border border-danger border-opacity-25 rounded-pill px-3 py-1 fw-bold">
+                  <i class="bi bi-person-lock me-1"></i>{{ _('OCUPADA') }}
+                </span>
+                {% else %}
+                <span class="badge bg-warning bg-opacity-10 text-warning border border-warning border-opacity-25 rounded-pill px-3 py-1 fw-bold">
+                  <i class="bi bi-tools me-1"></i>{{ hab.estadoHabitacion|upper }}
+                </span>
+                {% endif %}
+              </div>
+
+              <!-- Room Number -->
+              <a href="{{ url_for('habitaciones.detalle', id=hab.idHabitacion) }}" class="text-decoration-none d-block my-3 group-hover">
+                <span class="text-muted small text-uppercase tracking-wider d-block font-monospace">{{ _('Habitación') }}</span>
+                <h1 class="fw-bold display-5 font-brand text-main mb-0" style="letter-spacing: -0.02em;">
+                  {{ hab.numeroHabitacion }}
+                </h1>
+              </a>
+
+              {% if hab.estadoHabitacion == 'ocupada' and hab.cliente_actual %}
+              <div class="p-2 rounded-3 bg-light border mb-3 small text-muted">
+                <i class="bi bi-person-fill text-danger me-1"></i><strong>{{ _('Huésped') }}:</strong> {{ hab.cliente_actual }}
+              </div>
               {% endif %}
+
+              <!-- Room Price -->
+              <div class="my-3 py-2 px-3 rounded-3" style="background: rgba(11, 25, 44, 0.03);">
+                <span class="text-muted small d-block mb-1">{{ _('Tarifa por noche') }}</span>
+                <h3 class="fw-bold mb-0 text-primary" style="color: #0b192c !important;">
+                  {{ hab.precioNoche | cop }} <span class="fs-6 text-muted fw-normal">/ {{ _('noche') }}</span>
+                </h3>
+              </div>
+            </div>
+
+            <!-- Card Actions -->
+            <div class="pt-3 border-top d-flex flex-wrap align-items-center justify-content-center gap-2 mt-auto">
+              {% if current_user.rol == 'servicio_limpieza' %}
+              <a href="{{ url_for('habitaciones.cambiar_estado', id=hab.idHabitacion, nuevo_estado='disponible') }}" 
+                 class="btn btn-success w-100 fw-bold shadow-sm rounded-3">
+                 <i class="bi bi-stars me-1"></i> {{ _('Marcar Limpia') }}
+              </a>
               {% else %}
-              <span class="badge bg-warning text-dark text-uppercase">{{ hab.estadoHabitacion }}</span>
+                  <a href="{{ url_for('reservas.nueva', habitacion_id=hab.idHabitacion) }}"
+                     class="btn btn-sm btn-primary px-3 rounded-2 fw-semibold {% if hab.estadoHabitacion != 'disponible' or tiene_reserva_activa %}disabled opacity-50{% endif %}"
+                     {% if tiene_reserva_activa %}title="{{ _('Ya tienes una reserva activa') }}"{% endif %}>
+                    <i class="bi bi-calendar-check me-1"></i> {{ _('Reservar') }}
+                  </a>
+                  
+                  {% if current_user.rol == 'administrador' %}
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle rounded-2" type="button" data-bs-toggle="dropdown">
+                      <i class="bi bi-sliders me-1"></i>{{ _('Estado') }}
+                    </button>
+                    <ul class="dropdown-menu shadow border-0">
+                      <li><a class="dropdown-item" href="{{ url_for('habitaciones.cambiar_estado', id=hab.idHabitacion, nuevo_estado='disponible') }}"><i class="bi bi-check-circle text-success me-2"></i>{{ _('Disponible') }}</a></li>
+                      <li><a class="dropdown-item" href="{{ url_for('habitaciones.cambiar_estado', id=hab.idHabitacion, nuevo_estado='ocupada') }}"><i class="bi bi-person-x text-danger me-2"></i>{{ _('Ocupada') }}</a></li>
+                      <li><a class="dropdown-item" href="{{ url_for('habitaciones.cambiar_estado', id=hab.idHabitacion, nuevo_estado='mantenimiento') }}"><i class="bi bi-tools text-warning me-2"></i>{{ _('Mantenimiento') }}</a></li>
+                    </ul>
+                  </div>
+                  {% endif %}
+
+                  {% if current_user.tiene_permisos('editar_habitacion') %}
+                  <a href="{{ url_for('habitaciones.editar', id=hab.idHabitacion) }}" class="btn btn-sm btn-outline-warning rounded-2" title="{{ _('Editar') }}">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  {% endif %}
+
+                  {% if current_user.tiene_permisos('eliminar_habitacion') %}
+                  <a href="{{ url_for('habitaciones.eliminar', id=hab.idHabitacion) }}" 
+                     class="btn btn-sm btn-outline-danger rounded-2" 
+                     title="{{ _('Eliminar') }}"
+                     onclick="return confirm('{{ _('¿Está seguro de eliminar la habitación') }} {{ hab.numeroHabitacion }}?')">
+                    <i class="bi bi-trash"></i>
+                  </a>
+                  {% endif %}
               {% endif %}
             </div>
-            <h4 class="text-primary mt-2">{{ hab.precioNoche | cop }} <small class="fs-6 text-muted">/ {{ _('noche') }}</small></h4>
-          </div>
-          <div class="card-footer bg-transparent d-flex flex-wrap justify-content-center gap-2 pb-3">
-            {% if current_user.rol == 'servicio_limpieza' %}
-            <a href="{{ url_for('habitaciones.cambiar_estado', id=hab.idHabitacion, nuevo_estado='disponible') }}" 
-               class="btn btn-success w-100 fw-bold shadow-sm">
-               <i class="bi bi-stars"></i> {{ _('Pieza Limpiada') }}
-            </a>
-            {% else %}
-                <a href="{{ url_for('reservas.nueva', habitacion_id=hab.idHabitacion) }}"
-                   class="btn btn-sm btn-outline-primary {% if hab.estadoHabitacion != 'disponible' or tiene_reserva_activa %}disabled{% endif %}"
-                   {% if tiene_reserva_activa %}title="{{ _('Ya tienes una reserva activa') }}"{% endif %}>
-                  <i class="bi bi-calendar-check"></i> {{ _('Reservar') }}
-                </a>
-                
-                {% if current_user.rol == 'administrador' %}
-                <div class="dropdown">
-                  <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                    {{ _('Estado') }}
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{{ url_for('habitaciones.cambiar_estado', id=hab.idHabitacion, nuevo_estado='disponible') }}">{{ _('Disponible') }}</a></li>
-                    <li><a class="dropdown-item" href="{{ url_for('habitaciones.cambiar_estado', id=hab.idHabitacion, nuevo_estado='ocupada') }}">{{ _('Ocupada') }}</a></li>
-                    <li><a class="dropdown-item" href="{{ url_for('habitaciones.cambiar_estado', id=hab.idHabitacion, nuevo_estado='mantenimiento') }}">{{ _('Mantenimiento') }}</a></li>
-                  </ul>
-                </div>
-                {% endif %}
-
-                {% if current_user.tiene_permisos('editar_habitacion') %}
-                <a href="{{ url_for('habitaciones.editar', id=hab.idHabitacion) }}" class="btn btn-sm btn-outline-warning">
-                  <i class="bi bi-pencil"></i>
-                </a>
-                {% endif %}
-
-                {% if current_user.tiene_permisos('eliminar_habitacion') %}
-                <a href="{{ url_for('habitaciones.eliminar', id=hab.idHabitacion) }}" 
-                   class="btn btn-sm btn-outline-danger" 
-                   onclick="return confirm('{{ _('¿Está seguro de eliminar la habitación') }} {{ hab.numeroHabitacion }}?')">
-                  <i class="bi bi-trash"></i>
-                </a>
-                {% endif %}
-            {% endif %}
           </div>
         </div>
       </div>
       {% else %}
-      <div class="col-12 text-center py-5 text-muted">{{ _('No hay habitaciones registradas.') }}</div>
+      <div class="col-12 text-center py-5">
+        <i class="bi bi-door-closed display-4 text-muted d-block mb-3 opacity-50"></i>
+        <h5 class="text-muted">{{ _('No hay habitaciones registradas.') }}</h5>
+      </div>
       {% endfor %}
     </div>
   </div>

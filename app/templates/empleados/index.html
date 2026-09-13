@@ -1,46 +1,283 @@
-{% extends 'base.html' %}
-
-{% block titulo_pagina %}{{ _('Gestión de Empleados') }}{% endblock %}
+{% extends "dashboard/base_authenticated.html" %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h5 class="text-primary"><i class="bi bi-briefcase-fill"></i> {{ _('Lista de Empleados') }}</h5>
-    <button class="btn btn-success">
-        <i class="bi bi-plus-circle"></i> {{ _('Nuevo Empleado') }}
-    </button>
-</div>
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">
+                <i class="bi bi-person-badge-fill"></i> {{ _('Gestión de Empleados') }}
+            </h1>
+        </div>
+    </div>
 
-<div class="table-responsive">
-    <table class="table table-hover align-middle">
-        <thead class="table-dark">
-            <tr>
-                <th>{{ _('ID') }}</th>
-                <th>{{ _('Nombre Completo') }}</th>
-                <th>{{ _('Cargo') }}</th>
-                <th>{{ _('Salario') }}</th>
-                <th>{{ _('Fecha Ingreso') }}</th>
-                <th>{{ _('Acciones') }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for empleado in empleados %}
-            <tr>
-                <td>{{ empleado.idEmpleado }}</td>
-                <td>{{ empleado.nombre }} {{ empleado.apellido }}</td>
-                <td>{{ empleado.cargo }}</td>
-                <td>${{ empleado.salario }}</td>
-                <td>{{ empleado.fechaIngreso }}</td>
-                <td>
-                    <button class="btn btn-sm btn-warning text-white"><i class="bi bi-pencil"></i></button>
-                    <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
-                </td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="6" class="text-center text-muted">{{ _('No hay empleados registrados.') }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <!-- Alertas de Flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle"></i> {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ _('Cerrar') }}"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="row">
+        <!-- Lista de Personal -->
+        <div class="col-12 mb-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-list-ul"></i> {{ _('Personal del Hotel') }} ({{ personal|length }})
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    {% if personal %}
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>{{ _('Usuario') }}</th>
+                                    <th>{{ _('Rol') }}</th>
+                                    <th>{{ _('Miembro desde') }}</th>
+                                    <th class="text-end">{{ _('Acciones') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for usuario in personal %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ usuario.usuario }}</strong>
+                                        {% if usuario.id == current_user.id %}
+                                        <span class="badge bg-info">{{ _('Tú') }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if usuario.rol == 'administrador' %}
+                                        <span class="badge bg-danger">{{ usuario.rol|trans }}</span>
+                                        {% elif usuario.rol == 'recepcionista' %}
+                                        <span class="badge bg-primary">{{ usuario.rol|trans }}</span>
+                                        {% else %}
+                                        <span class="badge bg-secondary">{{ usuario.rol|trans }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <small class="text-muted">{{ usuario.created_at.strftime('%d/%m/%Y') if
+                                            usuario.created_at else 'N/A' }}</small>
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="d-flex justify-content-end gap-2 align-items-center">
+                                            <button class="btn btn-sm btn-outline-info rounded-pill px-2" data-bs-toggle="modal" data-bs-target="#modalInfo{{ usuario.id }}" title="{{ _('Ver Datos Personales') }}">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                            {% if current_user.rol == 'administrador' and usuario.id != current_user.id %}
+                                            <button class="btn btn-sm btn-outline-primary rounded-pill px-2" data-bs-toggle="modal" data-bs-target="#modalEdit{{ usuario.id }}" title="{{ _('Editar Rol') }}">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger rounded-pill px-2" data-bs-toggle="modal" data-bs-target="#modalDel{{ usuario.id }}" title="{{ _('Eliminar') }}">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                            {% endif %}
+                                            {% if usuario.id == current_user.id %}
+                                            <span class="badge bg-light text-muted fw-normal border ms-1">{{ _('Protegido') }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="p-4 text-center">
+                        <p class="text-muted mb-0">{{ _('No hay personal registrado en el sistema') }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulario para crear nuevo empleado -->
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-person-plus"></i> {{ _('Crear Nuevo Empleado') }}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{{ url_for('usuarios.listar_usuarios') }}">
+                        <h6 class="text-primary mb-3"><i class="bi bi-person-vcard"></i> {{ _('Datos Personales') }}</h6>
+                        <div class="row">
+                             <div class="col-md-12 mb-3">
+                                 <label for="cedula" class="form-label">{{ _('Cédula') }} <span class="text-danger">*</span></label>
+                                 <input type="text" id="cedula" name="cedula" class="form-control" 
+                                     placeholder="{{ _('Número de documento') }}" inputmode="numeric" pattern="\d{5,15}"
+                                     title="{{ _('La cédula o ID debe tener entre 5 y 15 dígitos numéricos') }}" required>
+                             </div>
+                             <div class="col-md-6 mb-3">
+                                 <label for="nombre" class="form-label">{{ _('Nombre') }} <span class="text-danger">*</span></label>
+                                 <input type="text" id="nombre" name="nombre" class="form-control"
+                                     maxlength="30" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
+                                     title="{{ _('Solo letras y espacios, máximo 30 caracteres') }}" required>
+                             </div>
+                             <div class="col-md-6 mb-3">
+                                 <label for="apellido" class="form-label">{{ _('Apellido') }} <span class="text-danger">*</span></label>
+                                 <input type="text" id="apellido" name="apellido" class="form-control"
+                                     maxlength="30" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+"
+                                     title="{{ _('Solo letras y espacios, máximo 30 caracteres') }}" required>
+                             </div>
+                             <div class="col-md-6 mb-3">
+                                 <label for="email" class="form-label">{{ _('Email') }}</label>
+                                 <input type="email" id="email" name="email" class="form-control" placeholder="{{ _('ejemplo@correo.com') }}">
+                             </div>
+                             <div class="col-md-6 mb-3">
+                                 <label for="telefono" class="form-label">{{ _('Teléfono') }}</label>
+                                 <input type="tel" id="telefono" name="telefono" class="form-control"
+                                     placeholder="{{ _('Ej: +573101234567') }}" pattern="^\+?\d{7,15}$" maxlength="16"
+                                     title="{{ _('El teléfono debe tener entre 7 y 15 dígitos numéricos (puede empezar con +)') }}">
+                             </div>
+                             <div class="col-md-12 mb-3">
+                                 <label for="direccion" class="form-label">{{ _('Dirección') }}</label>
+                                 <input type="text" id="direccion" name="direccion" class="form-control">
+                             </div>
+                         </div>
+
+                         <hr>
+                         <h6 class="text-primary mb-3"><i class="bi bi-shield-lock"></i> {{ _('Datos de la Cuenta') }}</h6>
+                         <div class="mb-3">
+                             <label for="usuario" class="form-label">{{ _('Usuario') }} <span class="text-danger">*</span></label>
+                             <input type="text" id="usuario" name="usuario" class="form-control"
+                                 placeholder="{{ _('De 4 a 20 caracteres (letras, números, ., -, _)') }}"
+                                 minlength="4" maxlength="20" pattern="^[a-zA-Z0-9._\-]{4,20}$"
+                                 title="{{ _('Entre 4 y 20 caracteres (letras, números, puntos, guiones o guiones bajos)') }}" required>
+                             <small class="form-text text-muted">{{ _('Nombre único del usuario') }}</small>
+                         </div>
+
+                         <div class="mb-3">
+                             <label for="rol" class="form-label">{{ _('Rol') }} <span class="text-danger">*</span></label>
+                             <select id="rol" name="rol" class="form-select" required>
+                                 <option value="">-- {{ _('Selecciona un rol') }} --</option>
+                                 {% for rol_key, rol_desc in roles.items() %}
+                                 <option value="{{ rol_key }}">{{ rol_desc }}</option>
+                                 {% endfor %}
+                             </select>
+                             <small class="form-text text-muted">{{ _('Selecciona el acceso del personal') }}</small>
+                         </div>
+
+                         <div class="mb-3">
+                             <label for="password" class="form-label">{{ _('Contraseña') }}</label>
+                             <input type="password" id="password" name="password" class="form-control"
+                                 placeholder="{{ _('Mínimo 8 caracteres, con letras y números') }}"
+                                 minlength="8" maxlength="30" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W_]{8,30}$"
+                                 title="{{ _('Mínimo 8 caracteres, incluyendo al menos una letra y un número') }}" required>
+                             <small class="form-text text-muted">{{ _('Contraseña temporal segura') }}</small>
+                         </div>
+
+                         <div class="mb-3">
+                             <label for="confirm_password" class="form-label">{{ _('Confirmar Contraseña') }}</label>
+                             <input type="password" id="confirm_password" name="confirm_password"
+                                 class="form-control" placeholder="{{ _('Repite tu contraseña') }}"
+                                 minlength="8" maxlength="30" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W_]{8,30}$"
+                                 title="{{ _('Mínimo 8 caracteres, incluyendo al menos una letra y un número') }}" required>
+                         </div>            
+
+                         <input type="hidden" name="origen" value="empleados">
+                        
+                         <button type="submit" class="btn btn-primary w-100">
+                             <i class="bi bi-plus-circle"></i> {{ _('Crear Empleado') }}
+                         </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+{% endblock %}
+
+{% block extra_modals %}
+    <!-- ===== MODALES (fuera del flujo principal para evitar conflictos) ===== -->
+    {% for usuario in personal %}
+
+    <!-- MODAL EDITAR ROL -->
+    {% if current_user.rol == 'administrador' and usuario.id != current_user.id %}
+    <div class="modal fade" id="modalEdit{{ usuario.id }}" tabindex="-1" aria-labelledby="modalEditLabel{{ usuario.id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEditLabel{{ usuario.id }}">{{ _('Cambiar Rol de') }} {{ usuario.usuario }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ _('Cerrar') }}"></button>
+                </div>
+                <form action="{{ url_for('usuarios.editar_usuario', id=usuario.id) }}" method="POST">
+                    <input type="hidden" name="origen" value="empleados">
+                    <div class="modal-body">
+                        <label class="form-label fw-bold">{{ _('Nuevo Rol') }}</label>
+                        <select name="rol" class="form-select">
+                            {% for r_key, r_desc in roles_todos.items() %}
+                            <option value="{{ r_key }}" {% if usuario.rol == r_key %}selected{% endif %}>{{ r_desc }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ _('Cancelar') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ _('Actualizar Rol') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ELIMINAR -->
+    <div class="modal fade" id="modalDel{{ usuario.id }}" tabindex="-1" aria-labelledby="modalDelLabel{{ usuario.id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="modalDelLabel{{ usuario.id }}">{{ _('Eliminar Empleado') }}</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{{ _('Cerrar') }}"></button>
+                </div>
+                <div class="modal-body">
+                    {{ _('¿Seguro que quieres eliminar al empleado') }} <strong>{{ usuario.usuario }}</strong>? {{ _('Esta acción no se puede deshacer.') }}
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ _('No, cancelar') }}</button>
+                    <form action="{{ url_for('usuarios.eliminar_usuario', id=usuario.id) }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="origen" value="empleados">
+                        <button type="submit" class="btn btn-danger">{{ _('Sí, eliminar') }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- MODAL VER DATOS PERSONALES -->
+    <div class="modal fade" id="modalInfo{{ usuario.id }}" tabindex="-1" aria-labelledby="modalInfoLabel{{ usuario.id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title" id="modalInfoLabel{{ usuario.id }}"><i class="bi bi-person-lines-fill"></i> {{ _('Datos de') }} {{ usuario.usuario }}</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="{{ _('Cerrar') }}"></button>
+                </div>
+                <div class="modal-body">
+                    {% if usuario.cedula and clientes.get(usuario.cedula) %}
+                        {% set cli = clientes.get(usuario.cedula) %}
+                        <p><strong>{{ _('Cédula:') }}</strong> {{ cli.cedula }}</p>
+                        <p><strong>{{ _('Nombre completo:') }}</strong> {{ cli.nombre }} {{ cli.apellido }}</p>
+                        <p><strong>{{ _('Email:') }}</strong> {{ cli.email or 'N/A' }}</p>
+                        <p><strong>{{ _('Teléfono:') }}</strong> {{ cli.telefono or 'N/A' }}</p>
+                        <p><strong>{{ _('Dirección:') }}</strong> {{ cli.direccion or 'N/A' }}</p>
+                    {% else %}
+                        <div class="alert alert-warning mb-0">
+                            <i class="bi bi-exclamation-circle"></i> {{ _('No hay datos personales registrados para este usuario.') }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Cerrar') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
 {% endblock %}

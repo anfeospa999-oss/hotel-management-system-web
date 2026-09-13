@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Gales - {{ _('Acceso de Personal') }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.12.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/lang-selector.css') }}">
@@ -48,7 +51,7 @@
             <!-- Lado izquierdo - Hotel y Título -->
             <div class="auth-image">
                 <div class="auth-image-content">
-                    <h2>Hotel Gales</h2>
+                    <h2 class="font-brand">Hotel Gales</h2>
                     <p>{{ _('Su escape de lujo comienza aquí') }}</p>
                 </div>
             </div>

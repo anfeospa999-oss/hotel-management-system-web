@@ -1,55 +1,100 @@
 /* ============================================
-   HOTEL GALES - Sistema de Gestión
-   Estilos globales + Sidebar Vertical
+   HOTEL GALES - Sistema de Gestión Hotelera
+   Estilos globales + Design System + Theme Engine
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap');
 
 :root {
-  --hotel-gold: #d4af37;
-  --hotel-gold-light: #f1c40f;
-  --dark-royal: #0c1433;
-  --dark-sidebar: #111827;
-  --sidebar-hover: #1f2d4e;
-  --sidebar-active: #d4af37;
+  /* ── PALETA HOTEL GALES (NAVY & GOLD ELEVADO) ── */
+  --hotel-gold: #c5a059;
+  --hotel-gold-light: #dfba75;
+  --hotel-gold-dark: #9a7b38;
+  --hotel-gold-glow: rgba(197, 160, 89, 0.25);
+  
+  --navy-950: #070d19;
+  --navy-900: #0b192c;
+  --navy-800: #1e293b;
+  --navy-700: #334155;
+  --navy-600: #475569;
+
+  --dark-royal: #0b192c;
+  --dark-sidebar: #070d19;
+  --sidebar-hover: #162438;
+  --sidebar-active: #c5a059;
+  
   --sidebar-width: 260px;
-  --sidebar-collapsed: 70px;
-  --topbar-height: 60px;
-  --content-bg: #f0f2f7;
-  --card-radius: 14px;
-  --transition: all 0.3s ease;
+  --sidebar-collapsed: 72px;
+  --topbar-height: 64px;
+  
+  --content-bg: #d9e0e8;
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #cbd5e1;
+  --card-border-color: #b3bfce;
+  --topbar-bg: rgba(255, 255, 255, 0.85);
+
+  --card-radius: 16px;
+  --card-radius-sm: 10px;
+  --card-radius-lg: 20px;
+  
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 2px 8px -2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 6px 18px -4px rgba(15, 23, 42, 0.08), 0 2px 6px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 16px 32px -8px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+  --shadow-gold: 0 8px 24px -4px rgba(197, 160, 89, 0.35);
+
+  --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-cubic: cubic-bezier(0.33, 1, 0.68, 1);
 }
 
-/* ── MODO OSCURO (VARIABLES) ── */
+/* ── MODO OSCURO (VARIABLES REFINADAS) ── */
 body.dark-mode {
-  --content-bg: #0f172a; /* Deep Navy Slate */
-  --dark-royal: #1e293b;
-  --dark-sidebar: #020617;
-  --card-bg: #1e293b;
+  --content-bg: #090f1d;
+  --dark-royal: #111a2e;
+  --dark-sidebar: #050914;
+  --card-bg: #111a2e;
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
-  --border-color: #334155;
-  --topbar-bg: #1e293b;
-  --hotel-gold: #fbbf24; /* Brighter gold for dark mode */
+  --border-color: #1e293b;
+  --card-border-color: #3b4c63;
+  --topbar-bg: rgba(17, 26, 46, 0.85);
+  --hotel-gold: #fbbf24;
+  --hotel-gold-light: #fcd34d;
+  --hotel-gold-glow: rgba(251, 191, 36, 0.25);
+  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 36px -6px rgba(0, 0, 0, 0.6);
 }
 
 body {
   --card-bg: #ffffff;
-  --text-main: #111827;
-  --text-muted: #6b7280;
-  --border-color: #e5e7eb;
-  --topbar-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #cbd5e1;
+  --card-border-color: #b3bfce;
+  --topbar-bg: rgba(255, 255, 255, 0.85);
 }
 
 * { box-sizing: border-box; }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: var(--content-bg);
   color: var(--text-main);
   margin: 0;
   padding: 0;
-  transition: background 0.3s ease, color 0.3s ease;
+  letter-spacing: -0.01em;
+  transition: background 0.3s var(--ease-out-cubic), color 0.3s var(--ease-out-cubic);
+}
+
+/* ── CLASE EXCLUSIVA DE BRANDING HOTELERO ── */
+.font-brand, .brand-title, .hotel-brand-name {
+  font-family: 'Playfair Display', Georgia, serif !important;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 /* ── LOGIN PAGE ── */
@@ -134,10 +179,27 @@ body.sidebar-layout {
   min-height: 100vh;
 }
 
+/* Fondo decorativo sutil: resalta las tarjetas blancas sobre el contenido */
+body.sidebar-layout {
+  background:
+    radial-gradient(1100px 380px at 88% -120px, rgba(197, 160, 89, 0.10), transparent 60%),
+    radial-gradient(900px 360px at -8% -60px, rgba(11, 25, 44, 0.06), transparent 55%),
+    var(--content-bg);
+  background-attachment: fixed;
+}
+
+body.dark-mode.sidebar-layout {
+  background:
+    radial-gradient(1100px 380px at 88% -120px, rgba(251, 191, 36, 0.06), transparent 60%),
+    var(--content-bg);
+  background-attachment: fixed;
+}
+
 /* ── SIDEBAR ── */
 .sidebar {
   width: var(--sidebar-width);
   min-height: 100vh;
+  height: 100vh;
   background: var(--dark-sidebar);
   display: flex;
   flex-direction: column;
@@ -145,118 +207,188 @@ body.sidebar-layout {
   top: 0; left: 0; bottom: 0;
   z-index: 1000;
   transition: var(--transition);
-  overflow-y: auto;
-  overflow-x: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .sidebar.collapsed { width: var(--sidebar-collapsed); }
-.sidebar.collapsed .brand-text,
+.sidebar.collapsed .brand-subtitle,
 .sidebar.collapsed span,
 .sidebar.collapsed .sidebar-section,
-.sidebar.collapsed .arrow { display: none; }
+.sidebar.collapsed .sidebar-user-info,
+.sidebar.collapsed .bi-chevron-right { display: none; }
+.sidebar.collapsed .sidebar-brand { padding: 1.2rem 0.8rem; justify-content: center; }
 
-/* Brand */
+/* Brand Header */
 .sidebar-brand {
+  height: var(--topbar-height);
+  padding: 0 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.brand-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(197, 160, 89, 0.25) 0%, rgba(197, 160, 89, 0.05) 100%);
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  color: var(--hotel-gold);
   display: flex;
   align-items: center;
-  padding: 1.4rem 1.2rem;
+  justify-content: center;
+  font-size: 1.15rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.brand-text-container {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-title {
   color: var(--hotel-gold);
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.brand-subtitle {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.btn-close-sidebar {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
   font-size: 1.2rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  text-decoration: none;
+  cursor: pointer;
 }
 
-/* Nav lista */
-.sidebar-nav {
-  list-style: none;
-  padding: 0.5rem 0;
-  margin: 0;
+.sidebar-scroll {
   flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.75rem 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
 }
 
+/* Nav Section Header */
 .sidebar-section {
   font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: rgba(255,255,255,0.3);
-  padding: 1rem 1.4rem 0.3rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.32);
+  padding: 1.2rem 1.4rem 0.4rem;
   text-transform: uppercase;
+}
+
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 /* Links del sidebar */
 .sidebar-link {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
-  padding: 0.72rem 1.4rem;
-  color: rgba(255,255,255,0.72);
+  gap: 0.9rem;
+  padding: 0.7rem 1.35rem;
+  margin: 0.1rem 0.6rem;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.68);
   text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 400;
-  transition: var(--transition);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: var(--transition-fast);
   cursor: pointer;
-  border-left: 3px solid transparent;
+}
+
+.sidebar-link i {
+  font-size: 1.1rem;
+  min-width: 22px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  transition: var(--transition-fast);
 }
 
 .sidebar-link:hover {
-  background: var(--sidebar-hover);
-  color: white;
-  border-left-color: var(--hotel-gold);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
 }
 
-.sidebar-link.active,
-.sidebar-link:focus {
-  background: rgba(212,175,55,0.15);
+.sidebar-link:hover i {
   color: var(--hotel-gold);
-  border-left-color: var(--hotel-gold);
+  transform: scale(1.1);
+}
+
+.sidebar-link.active {
+  background: linear-gradient(135deg, rgba(197, 160, 89, 0.22) 0%, rgba(197, 160, 89, 0.08) 100%);
+  color: var(--hotel-gold);
+  font-weight: 600;
+  border: 1px solid rgba(197, 160, 89, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-link.active i {
+  color: var(--hotel-gold);
+}
+
+/* Footer & User Card */
+.sidebar-footer {
+  padding: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-user-card {
+  padding: 0.6rem 0.75rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: var(--transition-fast);
+}
+
+.sidebar-user-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(197, 160, 89, 0.3);
+}
+
+.sidebar-user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #c5a059 0%, #9a7b38 100%);
+  color: #070d19;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(197, 160, 89, 0.3);
+}
+
+.sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.sidebar-user-name {
+  color: #f8fafc;
+  font-size: 0.85rem;
   font-weight: 600;
 }
 
-.sidebar-link.disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  pointer-events: none;
-  filter: grayscale(1);
-}
-
-.sidebar-link i { font-size: 1.05rem; min-width: 20px; text-align: center; }
-
-/* Submenú */
-.sidebar-submenu {
-  list-style: none;
-  padding-left: 0;
-  background: rgba(0,0,0,0.2);
-}
-
-.sidebar-submenu .sidebar-link {
-  padding-left: 3.2rem;
-  font-size: 0.85rem;
-}
-
-/* Footer sidebar */
-.sidebar-footer {
-  padding: 1rem;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  margin-top: auto;
-}
-
-.sidebar-footer .sidebar-link {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  padding: 0.72rem 1.4rem;
-  color: rgba(255,255,255,0.72);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: var(--transition);
-}
-
-.sidebar-footer .sidebar-link i {
-  font-size: 1.05rem;
-  min-width: 20px;
-  text-align: center;
+.sidebar-user-role {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.72rem;
 }
 
 /* ── MAIN CONTENT ── */
@@ -278,33 +410,86 @@ body.sidebar-layout {
 .topbar {
   height: var(--topbar-height);
   background: var(--topbar-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
-  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  box-shadow: var(--shadow-sm);
   position: sticky;
   top: 0;
   z-index: 100;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition: background 0.3s var(--ease-out-cubic), border-color 0.3s var(--ease-out-cubic);
 }
 
 /* Content área */
 .content-area { padding-top: 1.5rem; }
 
+/* Las tarjetas del contenido llevan borde visible para diferenciarse del fondo */
+.content-area .card {
+  border: 1px solid var(--card-border-color);
+}
+
+/* Mosaicos de módulos del dashboard: fondo propio + borde dorado al pasar el mouse */
+.module-tile {
+  background: #f0f3f7;
+  border: 1px solid var(--card-border-color);
+}
+.module-tile:hover {
+  background: #ffffff;
+  border-color: var(--hotel-gold);
+}
+body.dark-mode .module-tile {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--card-border-color);
+}
+body.dark-mode .module-tile:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--hotel-gold);
+}
+
+/* Inputs y selects con borde visible y foco dorado */
+.content-area .form-control,
+.content-area .form-select {
+  border: 1px solid #bac4d2;
+}
+.content-area .form-control:focus,
+.content-area .form-select:focus {
+  border-color: var(--hotel-gold);
+  box-shadow: 0 0 0 0.2rem var(--hotel-gold-glow);
+}
+body.dark-mode .content-area .form-control,
+body.dark-mode .content-area .form-select {
+  border: 1px solid #3b4c63;
+  background-color: #16203a;
+  color: var(--text-main);
+}
+
 .content-card {
   background: var(--card-bg);
   border-radius: var(--card-radius);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
   border: 1px solid var(--border-color);
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition: var(--transition);
 }
 
 .content-card-header {
-  background: linear-gradient(135deg, var(--dark-royal) 0%, #1f2d70 100%);
+  background: linear-gradient(135deg, var(--navy-950) 0%, var(--navy-800) 100%);
   color: white;
-  padding: 1rem 1.5rem;
+  padding: 1.1rem 1.6rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.content-card-header h1,
+.content-card-header h2,
+.content-card-header h3,
+.content-card-header h4,
+.content-card-header h5 {
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 
 .content-card-body { padding: 1.5rem; }
@@ -325,9 +510,25 @@ body.sidebar-layout {
 .table tbody tr:hover { background: #f8f9ff; }
 .table.invoice-table tbody tr:hover { background: transparent !important; }
 
-/* Cards de habitaciones */
-.room-card { border-radius: 12px; transition: var(--transition); }
-.room-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+/* Cards & Micro-interactions (Emil Kowalski style easing) */
+.transition-hover {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.transition-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md) !important;
+}
+
+.room-card { 
+  border-radius: var(--card-radius); 
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.room-card:hover { 
+  transform: translateY(-5px); 
+  box-shadow: var(--shadow-md) !important;
+  border-color: rgba(197, 160, 89, 0.4) !important;
+}
 
 /* ── RESPONSIVE ── */
 /* Botón Dorado Premium */

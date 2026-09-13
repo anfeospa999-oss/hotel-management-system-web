@@ -1,426 +1,339 @@
 {% extends "dashboard/base_authenticated.html" %}
 
-{% block title %}{{ _('Hotel - Inicio') }}{% endblock %}
+{% block title %}{{ _('Dashboard Principal - Hotel Gales') }}{% endblock %}
 
 {% block content %}
-
-<div class="welcome-header">
-    <h1>{{ _('¡Bienvenido,') }} {{ current_user.usuario }}!</h1>
-    <p>{{ _('Sistema de Gestión del Hotel') }}</p>
-    <div class="role-badge">
-        <i class="bi bi-shield-check"></i> {{ current_user.rol|trans|upper }}
-    </div>
-</div>
-
-<div class="row mb-4 gy-3">
-    <div class="col-md-4">
-        <div class="info-card">
-            <div class="card-header">
-                <i class="bi bi-person-circle" style="font-size: 1.2rem;"></i>
-                <span>{{ _('Perfil') }}</span>
-            </div>
-            <div class="card-body">
-                <p><strong>{{ _('Usuario') }}:</strong> {{ current_user.usuario }}</p>
-                <p><strong>{{ _('Rol') }}:</strong> {{ current_user.rol|trans }}</p>
-                <p><strong>{{ _('Miembro desde') }}:</strong> {{ current_user.created_at.strftime('%d/%m/%Y') }}</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-8">
-        <div class="info-card">
-            <div class="card-header">
-                <i class="bi bi-lightning-fill" style="font-size: 1.2rem;"></i>
-                <span>{{ _('Acciones Rápidas') }}</span>
-            </div>
-            <div class="card-body">
-                <div class="actions-section">
-                    <!-- BOTONES PARA ADMINISTRADOR -->
-                    {% if current_user.es_administrador() %}
-                    <a href="{{ url_for('usuarios.listar_usuarios') }}" class="action-btn admin"
-                        title="{{ _('Gestionar todos los usuarios del sistema') }}">
-                        <i class="bi bi-people-fill"></i>
-                        <span>{{ _('Usuarios') }}</span>
-                    </a>
-                    <a href="{{ url_for('usuarios.historial_recepcionistas') }}" class="action-btn admin"
-                        title="{{ _('Ver historial de trabajo de recepcionistas') }}">
-                        <i class="bi bi-clock-history"></i>
-                        <span>{{ _('Historial Recepción') }}</span>
-                    </a>
-                    {% endif %}
-
-                    <!-- BOTONES PARA RECEPCIONISTA -->
-                    {% if current_user.rol == 'recepcionista' %}
-                    <a href="{{ url_for('reservas.index') }}" class="action-btn receptionist"
-                        style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);"
-                        title="{{ _('Verificar clientes en lista y realizar Check-in') }}">
-                        <i class="bi bi-person-check-fill"></i>
-                        <span>{{ _('Verificar Lista') }}</span>
-                    </a>
-                    <a href="{{ url_for('habitaciones.index') }}" class="action-btn maid"
-                        title="{{ _('Cambiar estados a Ocupada/Mantenimiento') }}">
-                        <i class="bi bi-door-open-fill"></i>
-                        <span>{{ _('Estado Habitaciones') }}</span>
-                    </a>
-                    <a href="{{ url_for('limpieza.mis_tareas') }}" class="action-btn maid"
-                        title="{{ _('Asignar y ver tareas de limpieza') }}">
-                        <i class="bi bi-stars"></i>
-                        <span>{{ _('Limpieza') }}</span>
-                    </a>
-                    {% else %}
-                    {% if current_user.tiene_permisos('ver_reservas') %}
-                    <a href="{{ url_for('reservas.index') }}" class="action-btn receptionist"
-                        title="{{ _('Ver y gestionar reservas') }}">
-                        <i class="bi bi-calendar3"></i>
-                        <span>{{ _('Reservas') }}</span>
-                    </a>
-                    {% endif %}
-
-                    {% if current_user.tiene_permisos('ver_huespedes') %}
-                    <a href="{{ url_for('clientes.index') }}" class="action-btn receptionist"
-                        title="{{ _('Gestionar información de huéspedes') }}">
-                        <i class="bi bi-person-badge"></i>
-                        <span>{{ _('Huéspedes') }}</span>
-                    </a>
-                    {% endif %}
-                    {% endif %}
-
-                    <!-- BOTONES PARA CONTADOR -->
-                    {% if current_user.tiene_permisos('ver_facturacion') %}
-                    <a href="{{ url_for('facturas.index') }}" class="action-btn accountant"
-                        title="{{ _('Gestionar facturación') }}">
-                        <i class="bi bi-receipt"></i>
-                        <span>{{ _('Facturación') }}</span>
-                    </a>
-                    {% endif %}
-
-                    {% if current_user.tiene_permisos('ver_reportes') %}
-                    <a href="{{ url_for('reportes.index') }}" class="action-btn accountant"
-                        title="{{ _('Ver reportes del sistema') }}">
-                        <i class="bi bi-graph-up"></i>
-                        <span>{{ _('Reportes') }}</span>
-                    </a>
-                    {% endif %}
-
-                    <!-- BOTONES PARA CAMARERO -->
-                    {% if current_user.rol == 'servicio_limpieza' %}
-                    <a href="{{ url_for('limpieza.mis_tareas', filtro='pendientes') }}" class="action-btn maid"
-                        title="{{ _('Ver tareas pendientes') }}">
-                        <i class="bi bi-door-open-fill"></i>
-                        <span>{{ _('Piezas por Limpiar') }}</span>
-                    </a>
-                    <a href="{{ url_for('limpieza.mis_tareas', filtro='completadas') }}" class="action-btn maid"
-                        title="{{ _('Ver historial de tareas') }}">
-                        <i class="bi bi-clock-history"></i>
-                        <span>{{ _('Historial Limpiezas') }}</span>
-                    </a>
-                    {% elif current_user.tiene_permisos('ver_habitaciones') %}
-                    <a href="{{ url_for('habitaciones.index') }}" class="action-btn maid"
-                        title="{{ _('Ver estado de habitaciones') }}">
-                        <i class="bi bi-door-closed"></i>
-                        <span>{{ _('Habitaciones') }}</span>
-                    </a>
-                    {% endif %}
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- ── SECCIÓN ESPECÍFICA PARA CLIENTES ── -->
-{% if current_user.rol == 'cliente' and datos_cliente %}
-<div class="row mb-4 gy-3">
-    <!-- Reserva Actual -->
-    <div class="col-md-6">
-        <div class="info-card">
-            <div class="card-header">
-                <i class="bi bi-calendar-check text-gold" style="font-size: 1.2rem;"></i>
-                <span class="fw-bold">{{ _('Mi Reserva Actual') }}</span>
-            </div>
-            <div class="card-body">
-                {% if datos_cliente.reserva_actual %}
-                <div class="alert alert-{{ 'success' if datos_cliente.reserva_actual.estadoReserva == 'confirmada' else 'warning' }}">
-                    <h6 class="alert-heading">{{ _('Habitación') }} {{ datos_cliente.reserva_actual.habitacion.numeroHabitacion }}</h6>
-                    <p class="mb-1"><strong>{{ _('Entrada') }}:</strong> {{ datos_cliente.reserva_actual.fechaEntrada }}</p>
-                    <p class="mb-1"><strong>{{ _('Salida') }}:</strong> {{ datos_cliente.reserva_actual.fechaSalida }}</p>
-                    <p class="mb-0"><strong>{{ _('Estado') }}:</strong> 
-                        <span class="badge bg-{{ 'success' if datos_cliente.reserva_actual.estadoReserva == 'confirmada' else 'warning' }}">
-                            {{ datos_cliente.reserva_actual.estadoReserva|trans|upper }}
-                        </span>
+<div class="container-fluid px-0">
+    
+    <!-- WELCOME HERO BANNER -->
+    <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden position-relative" 
+         style="background: linear-gradient(135deg, #0b192c 0%, #1e293b 100%);">
+        <div class="card-body p-4 p-md-5 text-white position-relative" style="z-index: 2;">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-warning text-dark font-monospace fw-bold mb-2 px-3 py-2 rounded-pill" style="background-color: #c5a059 !important;">
+                        <i class="bi bi-crown-fill me-1"></i> HOTEL GALES MANAGEMENT
+                    </span>
+                    <h1 class="display-6 font-brand fw-bold mb-2 text-gold" style="color: #c5a059;">
+                        {{ _('¡Bienvenido, %(usuario)s!', usuario=current_user.usuario) }}
+                    </h1>
+                    <p class="text-white-50 lead mb-0 fs-6">
+                        {% if current_user.rol == 'cliente' %}
+                            {{ _('Gestione sus reservaciones y disfrute de una experiencia inolvidable de lujo.') }}
+                        {% else %}
+                            {{ _('Resumen en tiempo real del estado de las instalaciones, ocupación y reservaciones.') }}
+                        {% endif %}
                     </p>
                 </div>
-                {% else %}
-                <div class="text-center py-4">
-                    <i class="bi bi-calendar-x text-muted mb-2" style="font-size: 2rem;"></i>
-                    <p class="text-muted">{{ _('No tienes reservas activas') }}</p>
-                    <a href="{{ url_for('habitaciones.index') }}" class="btn btn-primary btn-sm">
-                        <i class="bi bi-door-closed"></i> {{ _('Ver Habitaciones') }}
-                    </a>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-
-    <!-- Estadísticas Personales -->
-    <div class="col-md-6">
-        <div class="info-card">
-            <div class="card-header">
-                <i class="bi bi-graph-up text-gold" style="font-size: 1.2rem;"></i>
-                <span class="fw-bold">{{ _('Mis Estadísticas') }}</span>
-            </div>
-            <div class="card-body">
-                <div class="row text-center">
-                    <div class="col-4">
-                        <div class="stat-box">
-                            <h3 class="text-primary">{{ datos_cliente.total_reservas }}</h3>
-                            <small class="text-muted">{{ _('Total Reservas') }}</small>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="stat-box">
-                            <h3 class="text-success">{{ datos_cliente.reservas_finalizadas }}</h3>
-                            <small class="text-muted">{{ _('Completadas') }}</small>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="stat-box">
-                            <h3 class="text-danger">{{ datos_cliente.reservas_canceladas }}</h3>
-                            <small class="text-muted">{{ _('Canceladas') }}</small>
-                        </div>
+                <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                    <div class="d-inline-flex gap-2">
+                        {% if current_user.rol == 'cliente' %}
+                            <a href="{{ url_for('reservas.nueva') }}" class="btn btn-warning btn-lg fw-bold rounded-3 px-4 shadow-sm" style="background-color: #c5a059; border: none; color: #0b192c;">
+                                <i class="bi bi-plus-circle me-1"></i> {{ _('Nueva Reserva') }}
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('habitaciones.index') }}" class="btn btn-warning btn-lg fw-bold rounded-3 px-4 shadow-sm" style="background-color: #c5a059; border: none; color: #0b192c;">
+                                <i class="bi bi-door-open me-1"></i> {{ _('Ver Habitaciones') }}
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Elemento Decorativo Fondo -->
+        <div class="position-absolute end-0 bottom-0 opacity-10 p-3 pointer-events-none" style="transform: translate(20%, 20%);">
+            <i class="bi bi-bank2 display-1 text-white" style="font-size: 16rem;"></i>
+        </div>
     </div>
-</div>
 
-<div class="row mb-4 gy-3">
-    <!-- Historial de Reservas -->
-    <div class="col-md-12">
-        <div class="info-card">
-            <div class="card-header">
-                <i class="bi bi-clock-history text-gold" style="font-size: 1.2rem;"></i>
-                <span class="fw-bold">{{ _('Historial de Reservas') }}</span>
-            </div>
-            <div class="card-body">
-                {% if datos_cliente.historial_reservas %}
-                <div class="list-group list-group-flush">
-                    {% for reserva in datos_cliente.historial_reservas %}
-                    <div class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>{{ _('Habitación') }} {{ reserva.habitacion.numeroHabitacion }}</strong>
-                            <br><small class="text-muted">{{ reserva.fechaEntrada }} - {{ reserva.fechaSalida }}</small>
-                        </div>
-                        <span class="badge bg-{{ 'success' if reserva.estadoReserva == 'finalizada' else 'warning' if reserva.estadoReserva == 'pendiente' else 'danger' }}">
-                            {{ reserva.estadoReserva|trans|upper }}
+    {% if current_user.rol != 'cliente' %}
+    <!-- KPI STATS TOP ROW (STAFF & ADMIN) -->
+    <div class="row g-3 mb-4">
+        <!-- KPI 1: Habitaciones Disponibles -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100 p-3 transition-hover" style="background: var(--card-bg);">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted small fw-semibold text-uppercase tracking-wider">{{ _('Habitaciones Libres') }}</span>
+                        <h2 class="fw-bold mb-0 text-success mt-1">
+                            {{ datos_graficas.habitaciones.disponible if datos_graficas and datos_graficas.habitaciones else 0 }}
+                        </h2>
+                        <span class="small text-muted mt-1 d-block">
+                            <i class="bi bi-check-circle-fill text-success me-1"></i>{{ _('Listas para check-in') }}
                         </span>
                     </div>
-                    {% endfor %}
-                </div>
-                <a href="{{ url_for('reservas.index') }}" class="btn btn-outline-primary btn-sm w-100 mt-2">
-                    {{ _('Ver todas') }}
-                </a>
-                {% else %}
-                <p class="text-muted text-center">{{ _('Sin historial de reservas') }}</p>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</div>
-{% endif %}
-
-<!-- ── SECCIÓN DE GRÁFICAS (SOLO PARA STAFF) ── -->
-{% if current_user.rol != 'cliente' and datos_graficas %}
-<div class="row mb-4 gy-3">
-    <div class="col-md-6">
-        <div class="info-card">
-            <div class="card-header">
-                <i class="bi bi-pie-chart-fill text-gold" style="font-size: 1.2rem;"></i>
-                <span class="fw-bold">{{ _('Estado de Habitaciones') }}</span>
-            </div>
-            <div class="card-body d-flex justify-content-center">
-                <div style="height: 250px; width: 100%;">
-                    <canvas id="chartHabitaciones"></canvas>
+                    <div class="rounded-4 p-3 d-flex align-items-center justify-content-center" 
+                         style="background: rgba(34, 197, 94, 0.12); width: 56px; height: 56px;">
+                        <i class="bi bi-door-open-fill text-success fs-3"></i>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-6">
-        <div class="info-card">
-            <div class="card-header">
-                <i class="bi bi-bar-chart-fill text-gold" style="font-size: 1.2rem;"></i>
-                <span class="fw-bold">{{ _('Resumen de Reservas') }}</span>
+        <!-- KPI 2: Habitaciones Ocupadas -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100 p-3 transition-hover" style="background: var(--card-bg);">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted small fw-semibold text-uppercase tracking-wider">{{ _('Habitaciones Ocupadas') }}</span>
+                        <h2 class="fw-bold mb-0 text-primary mt-1">
+                            {{ datos_graficas.habitaciones.ocupada if datos_graficas and datos_graficas.habitaciones else 0 }}
+                        </h2>
+                        <span class="small text-muted mt-1 d-block">
+                            <i class="bi bi-person-fill text-primary me-1"></i>{{ _('Huéspedes alojados') }}
+                        </span>
+                    </div>
+                    <div class="rounded-4 p-3 d-flex align-items-center justify-content-center" 
+                         style="background: rgba(59, 130, 246, 0.12); width: 56px; height: 56px;">
+                        <i class="bi bi-key-fill text-primary fs-3"></i>
+                    </div>
+                </div>
             </div>
-            <div class="card-body d-flex justify-content-center">
-                <div style="height: 250px; width: 100%;">
-                    <canvas id="chartReservas"></canvas>
+        </div>
+
+        <!-- KPI 3: Reservas Pendientes -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100 p-3 transition-hover" style="background: var(--card-bg);">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted small fw-semibold text-uppercase tracking-wider">{{ _('Reservas Pendientes') }}</span>
+                        <h2 class="fw-bold mb-0 text-warning mt-1">
+                            {{ datos_graficas.reservas.pendiente if datos_graficas and datos_graficas.reservas else 0 }}
+                        </h2>
+                        <span class="small text-muted mt-1 d-block">
+                            <i class="bi bi-clock-history text-warning me-1"></i>{{ _('Por confirmar') }}
+                        </span>
+                    </div>
+                    <div class="rounded-4 p-3 d-flex align-items-center justify-content-center" 
+                         style="background: rgba(245, 158, 11, 0.12); width: 56px; height: 56px;">
+                        <i class="bi bi-calendar-event-fill text-warning fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI 4: Reservas En Curso -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100 p-3 transition-hover" style="background: var(--card-bg);">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <span class="text-muted small fw-semibold text-uppercase tracking-wider">{{ _('Reservas En Curso') }}</span>
+                        <h2 class="fw-bold mb-0 text-info mt-1">
+                            {{ datos_graficas.reservas['en curso'] if datos_graficas and datos_graficas.reservas else 0 }}
+                        </h2>
+                        <span class="small text-muted mt-1 d-block">
+                            <i class="bi bi-activity text-info me-1"></i>{{ _('Actualmente activas') }}
+                        </span>
+                    </div>
+                    <div class="rounded-4 p-3 d-flex align-items-center justify-content-center" 
+                         style="background: rgba(6, 182, 212, 0.12); width: 56px; height: 56px;">
+                        <i class="bi bi-house-heart-fill text-info fs-3"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-{% endif %}
 
-<!-- TABLA DE PERMISOS DEL USUARIO -->
-<div class="row">
-    <div class="col-md-12">
-        <div class="permissions-section">
-            <h5>
-                {{ _('Permisos Asignados') }}
-            </h5>
-            <div class="row">
-                <div class="col-md-8">
-                    <h6 style="font-weight: 600; margin-bottom: 1rem;">
-                        <i class="bi bi-check-circle-fill" style="color: #28a745;"></i>
-                        {{ _('Permisos Activos') }}:
-                    </h6>
-                    <ul class="list-unstyled">
+    <!-- QUICK ACTIONS & MODULE CARDS -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0 text-main">
+                        <i class="bi bi-grid-fill me-2 text-warning" style="color: #c5a059 !important;"></i>{{ _('Módulos de Gestión') }}
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-3">
+                        <div class="col-sm-6 col-md-4">
+                            <a href="{{ url_for('habitaciones.index') }}" class="card text-decoration-none border-0 shadow-xs rounded-3 p-3 h-100 module-tile transition-hover text-center">
+                                <div class="mb-2">
+                                    <i class="bi bi-door-closed fs-2 text-primary"></i>
+                                </div>
+                                <h6 class="fw-bold text-dark mb-1">{{ _('Habitaciones') }}</h6>
+                                <span class="small text-muted">{{ _('Catálogo y estados') }}</span>
+                            </a>
+                        </div>
+                        {% if current_user.rol in ['administrador', 'recepcionista'] %}
+                        <div class="col-sm-6 col-md-4">
+                            <a href="{{ url_for('reservas.index') }}" class="card text-decoration-none border-0 shadow-xs rounded-3 p-3 h-100 module-tile transition-hover text-center">
+                                <div class="mb-2">
+                                    <i class="bi bi-calendar-check fs-2 text-success"></i>
+                                </div>
+                                <h6 class="fw-bold text-dark mb-1">{{ _('Reservas') }}</h6>
+                                <span class="small text-muted">{{ _('Gestionar estancias') }}</span>
+                            </a>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <a href="{{ url_for('clientes.index') }}" class="card text-decoration-none border-0 shadow-xs rounded-3 p-3 h-100 module-tile transition-hover text-center">
+                                <div class="mb-2">
+                                    <i class="bi bi-people fs-2 text-info"></i>
+                                </div>
+                                <h6 class="fw-bold text-dark mb-1">{{ _('Clientes') }}</h6>
+                                <span class="small text-muted">{{ _('Directorio de huéspedes') }}</span>
+                            </a>
+                        </div>
+                        {% endif %}
+                        <div class="col-sm-6 col-md-4">
+                            <a href="{{ url_for('limpieza.mis_tareas') }}" class="card text-decoration-none border-0 shadow-xs rounded-3 p-3 h-100 module-tile transition-hover text-center">
+                                <div class="mb-2">
+                                    <i class="bi bi-stars fs-2 text-warning"></i>
+                                </div>
+                                <h6 class="fw-bold text-dark mb-1">{{ _('Limpieza') }}</h6>
+                                <span class="small text-muted">{{ _('Tareas e higienización') }}</span>
+                            </a>
+                        </div>
+                        {% if current_user.rol in ['administrador', 'recepcionista'] %}
+                        <div class="col-sm-6 col-md-4">
+                            <a href="{{ url_for('facturas.index') }}" class="card text-decoration-none border-0 shadow-xs rounded-3 p-3 h-100 module-tile transition-hover text-center">
+                                <div class="mb-2">
+                                    <i class="bi bi-receipt fs-2 text-danger"></i>
+                                </div>
+                                <h6 class="fw-bold text-dark mb-1">{{ _('Facturación') }}</h6>
+                                <span class="small text-muted">{{ _('Comprobantes de pago') }}</span>
+                            </a>
+                        </div>
+                        {% endif %}
                         {% if current_user.es_administrador() %}
-                        <li class="permission-item">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span>{{ _('Control total del sistema') }}</span>
-                        </li>
-                        {% else %}
-                        {% if current_user.tiene_permisos('ver_reservas') %}
-                        <li class="permission-item">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span>{{ _('Ver reservas') }}</span>
-                        </li>
+                        <div class="col-sm-6 col-md-4">
+                            <a href="{{ url_for('reportes.index') }}" class="card text-decoration-none border-0 shadow-xs rounded-3 p-3 h-100 module-tile transition-hover text-center">
+                                <div class="mb-2">
+                                    <i class="bi bi-graph-up-arrow fs-2 text-secondary"></i>
+                                </div>
+                                <h6 class="fw-bold text-dark mb-1">{{ _('Reportes y Métricas') }}</h6>
+                                <span class="small text-muted">{{ _('Ganancias y nómina') }}</span>
+                            </a>
+                        </div>
                         {% endif %}
-                        {% if current_user.tiene_permisos('ver_huespedes') %}
-                        <li class="permission-item">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span>{{ _('Ver huéspedes') }}</span>
-                        </li>
-                        {% endif %}
-                        {% if current_user.tiene_permisos('ver_facturacion') %}
-                        <li class="permission-item">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span>{{ _('Ver facturación') }}</span>
-                        </li>
-                        {% endif %}
-                        {% if current_user.tiene_permisos('ver_habitaciones') %}
-                        <li class="permission-item">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span>{{ _('Ver habitaciones') }}</span>
-                        </li>
-                        {% endif %}
-                        {% if current_user.tiene_permisos('ver_perfil') %}
-                        <li class="permission-item">
-                            <i class="bi bi-check-circle-fill"></i>
-                            <span>{{ _('Ver perfil personal') }}</span>
-                        </li>
-                        {% endif %}
-                        {% endif %}
-                    </ul>
+                    </div>
                 </div>
-                <div class="col-md-4" style="border-left: 2px solid #f0f0f0; padding-left: 2rem;">
-                    <p style="font-weight: 600; color: #333; margin-bottom: 0.5rem;">{{ _('Tu Rol') }}:</p>
-                    <p style="font-size: 1.1rem; font-weight: 600; color: #667eea;">{{ current_user.rol|trans }}</p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <!-- STATUS SUMMARY CARD -->
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                    <h5 class="fw-bold mb-0 text-main">
+                        <i class="bi bi-pie-chart-fill me-2 text-primary"></i>{{ _('Resumen Operativo') }}
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="small fw-semibold text-muted">{{ _('Habitaciones en Mantenimiento') }}</span>
+                            <span class="badge bg-danger rounded-pill">
+                                {{ datos_graficas.habitaciones.mantenimiento if datos_graficas and datos_graficas.habitaciones else 0 }}
+                            </span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 15%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="small fw-semibold text-muted">{{ _('Reservas Finalizadas') }}</span>
+                            <span class="badge bg-secondary rounded-pill">
+                                {{ datos_graficas.reservas.finalizada if datos_graficas and datos_graficas.reservas else 0 }}
+                            </span>
+                        </div>
+                        <div class="progress" style="height: 8px;">
+                            <div class="progress-bar bg-secondary" role="progressbar" style="width: 60%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 rounded-3 bg-light border">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-circle bg-warning bg-opacity-20 p-2 text-warning d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                <i class="bi bi-shield-check fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0 text-dark" style="font-size: 0.85rem;">{{ _('Sistema Operativo Normal') }}</h6>
+                                <span class="text-muted small" style="font-size: 0.75rem;">{{ _('Todos los servicios activos') }}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    {% else %}
+    <!-- VISTA DASHBOARD CLIENTE -->
+    <div class="row g-4">
+        <!-- RESERVA ACTUAL CLIENTE -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-transparent border-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0 text-dark">
+                        <i class="bi bi-bookmark-star-fill text-warning me-2" style="color: #c5a059 !important;"></i>{{ _('Su Reserva Actual') }}
+                    </h5>
+                </div>
+                <div class="card-body px-4 pb-4">
+                    {% if datos_cliente and datos_cliente.reserva_actual %}
+                    <div class="p-3 rounded-3 bg-light border">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="fw-bold fs-5 text-dark">
+                                {{ _('Habitación #') }}{{ datos_cliente.reserva_actual.habitacion.numero if datos_cliente.reserva_actual.habitacion else 'N/A' }}
+                            </span>
+                            <span class="badge bg-success px-3 py-2 rounded-pill">
+                                {{ datos_cliente.reserva_actual.estadoReserva|capitalize }}
+                            </span>
+                        </div>
+                        <div class="text-muted small mb-3">
+                            <i class="bi bi-calendar-range me-1"></i> {{ datos_cliente.reserva_actual.fechaEntrada }} - {{ datos_cliente.reserva_actual.fechaSalida }}
+                        </div>
+                        <a href="{{ url_for('reservas.index') }}" class="btn btn-outline-dark btn-sm rounded-2 fw-semibold">
+                            <i class="bi bi-eye me-1"></i> {{ _('Ver Detalles de Reserva') }}
+                        </a>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-4">
+                        <i class="bi bi-calendar-plus text-muted display-4 d-block mb-2 opacity-50"></i>
+                        <p class="text-muted mb-3">{{ _('No tiene ninguna reserva activa actualmente.') }}</p>
+                        <a href="{{ url_for('reservas.nueva') }}" class="btn btn-sm btn-warning fw-bold px-4 rounded-3" style="background-color: #c5a059; border: none; color: #0b192c;">
+                            <i class="bi bi-plus-circle me-1"></i> {{ _('Reservar Habitación') }}
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- RESUMEN DE ESTANCIAS -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-transparent border-0 pt-4 px-4">
+                    <h5 class="fw-bold mb-0 text-dark">
+                        <i class="bi bi-clock-history text-primary me-2"></i>{{ _('Resumen de Estancias') }}
+                    </h5>
+                </div>
+                <div class="card-body px-4 pb-4">
+                    <div class="row g-3 text-center">
+                        <div class="col-4">
+                            <div class="p-3 rounded-3 bg-light border">
+                                <h3 class="fw-bold text-dark mb-0">{{ datos_cliente.total_reservas if datos_cliente else 0 }}</h3>
+                                <span class="small text-muted">{{ _('Total Reservas') }}</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-3 rounded-3 bg-light border">
+                                <h3 class="fw-bold text-success mb-0">{{ datos_cliente.reservas_finalizadas if datos_cliente else 0 }}</h3>
+                                <span class="small text-muted">{{ _('Completadas') }}</span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-3 rounded-3 bg-light border">
+                                <h3 class="fw-bold text-danger mb-0">{{ datos_cliente.reservas_canceladas if datos_cliente else 0 }}</h3>
+                                <span class="small text-muted">{{ _('Canceladas') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
 </div>
-
-{% if current_user.rol != 'cliente' and datos_graficas %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Colores de la paleta Premium
-        const goldColor = '#d4af37';
-        const darkRoyal = '#0c1433';
-        const accentBlue = '#667eea';
-        const successGreen = '#28a745';
-        const dangerRed = '#dc3545';
-        const warningYellow = '#ffc107';
-        const mutedGray = '#6c757d';
-
-        // Datos desde Flask
-        const datosHab = {
-            disponible: {{ datos_graficas.habitaciones.disponible }},
-            ocupada: {{ datos_graficas.habitaciones.ocupada }},
-            mantenimiento: {{ datos_graficas.habitaciones.mantenimiento }}
-        };
-
-        const datosRes = {
-            pendiente: {{ datos_graficas.reservas.pendiente }},
-            en_curso: {{ datos_graficas.reservas['en curso'] }},
-            finalizada: {{ datos_graficas.reservas.finalizada }},
-            cancelada: {{ datos_graficas.reservas.cancelada }}
-        };
-
-    // Configuración común de animaciones para sentirlo Premium
-    const commonOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        animation: {
-            duration: 2000,
-            easing: 'easeOutQuart'
-        },
-        plugins: {
-            legend: {
-                position: 'bottom',
-                labels: { font: { family: "'Inter', sans-serif" } }
-            }
-        }
-    };
-
-    // Gráfica de Habitaciones (Dona)
-    const ctxHab = document.getElementById('chartHabitaciones').getContext('2d');
-    new Chart(ctxHab, {
-        type: 'doughnut',
-        data: {
-            labels: ['{{ _("Disponibles") }}', '{{ _("Ocupadas") }}', '{{ _("Mantenimiento") }}'],
-            datasets: [{
-                data: [datosHab.disponible, datosHab.ocupada, datosHab.mantenimiento],
-                backgroundColor: [successGreen, dangerRed, warningYellow],
-                borderWidth: 2,
-                borderColor: '#ffffff',
-                hoverOffset: 4
-            }]
-        },
-        options: {
-            ...commonOptions,
-            cutout: '65%',
-        }
-    });
-
-    // Gráfica de Reservas (Barras)
-    const ctxRes = document.getElementById('chartReservas').getContext('2d');
-    new Chart(ctxRes, {
-        type: 'bar',
-        data: {
-            labels: ['{{ _("Pendientes") }}', '{{ _("En Curso") }}', '{{ _("Finalizadas") }}', '{{ _("Canceladas") }}'],
-            datasets: [{
-                label: '{{ _("Cantidad") }}',
-                data: [datosRes.pendiente, datosRes.en_curso, datosRes.finalizada, datosRes.cancelada],
-                backgroundColor: [warningYellow, accentBlue, successGreen, mutedGray],
-                borderRadius: 6,
-                barPercentage: 0.6
-            }]
-        },
-        options: {
-            ...commonOptions,
-            plugins: {
-                legend: { display: false }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: { precision: 0 }
-                },
-                x: {
-                    grid: { display: false }
-                }
-            }
-        }
-    });
-});
-</script>
-{% endif %}
-
 {% endblock %}

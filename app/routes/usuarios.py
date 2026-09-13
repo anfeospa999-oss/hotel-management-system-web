@@ -31,6 +31,7 @@ def listar_usuarios():
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
         rol = request.form.get('rol', 'cliente')
+        origen = request.form.get('origen', 'usuarios')
         
         # Datos personales
         cedula = request.form.get('cedula')
@@ -40,15 +41,22 @@ def listar_usuarios():
         telefono = request.form.get('telefono')
         direccion = request.form.get('direccion')
         
-        # Restricción: Recepcionista solo puede crear servicio_limpieza
-        if current_user.rol == 'recepcionista' and rol != 'servicio_limpieza':
-            flash(_('Como recepcionista solo puedes crear personal de limpieza.'), 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
+        # Redirigir de vuelta a la página desde la que se envió el formulario
+        redir_target = url_for('empleados.index') if origen == 'empleados' else url_for('usuarios.listar_usuarios')
+
+        # La página de usuarios solo permite crear clientes
+        if rol != 'cliente' and origen == 'usuarios':
+            flash(_('En esta sección solo se pueden crear clientes.'), 'error')
+            return redirect(redir_target)
+        # Solo el administrador puede crear personal (no clientes)
+        if rol != 'cliente' and current_user.rol != 'administrador':
+            flash(_('No tienes permiso para crear personal.'), 'error')
+            return redirect(redir_target)
 
         # Validar campos
         if not usuario or not password or not confirm_password or not cedula or not nombre or not apellido:
             flash(_('Por favor completa todos los campos obligatorios (Usuario, Contraseña, Cédula, Nombre, Apellido)'), 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
+            return redirect(redir_target)
         
         # Limpiar espacios en blanco
         cedula = cedula.strip() if cedula else ''
@@ -61,53 +69,53 @@ def listar_usuarios():
         # Validar cédula / ID (solo números, de 5 a 15 dígitos)
         if not cedula.isdigit() or not (5 <= len(cedula) <= 15):
             flash(_('La cédula o ID debe contener únicamente dígitos numéricos y tener entre 5 y 15 dígitos.'), 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
+            return redirect(redir_target)
 
         # Validar email si se proporciona
         if email:
             if not re.match(r"^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$", email):
                 flash(_('Por favor ingresa un correo electrónico válido.'), 'error')
-                return redirect(url_for('usuarios.listar_usuarios'))
+                return redirect(redir_target)
             
             # Verificar si el correo ya está registrado en Cliente
             from app.models.cliente import Cliente
             if Cliente.query.filter_by(email=email).first():
                 flash(_('El correo electrónico ya está registrado'), 'error')
-                return redirect(url_for('usuarios.listar_usuarios'))
+                return redirect(redir_target)
 
         # Validar teléfono si se proporciona
         if telefono:
             if not re.match(r"^\+?\d{7,15}$", telefono):
                 flash(_('El teléfono debe tener entre 7 y 15 dígitos numéricos (puede empezar con +)'), 'error')
-                return redirect(url_for('usuarios.listar_usuarios'))
+                return redirect(redir_target)
         
         # Validar usuario (entre 4 y 20 caracteres)
         if not re.match(r"^[a-zA-Z0-9._\-]{4,20}$", usuario):
             flash(_('El nombre de usuario debe tener entre 4 y 20 caracteres y solo contener letras, números, puntos, guiones o guiones bajos.'), 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
+            return redirect(redir_target)
         
         # Validar contraseña (entre 8 y 30 caracteres, al menos una letra y un número)
         if len(password) < 8 or len(password) > 30:
             flash(_('La contraseña debe tener entre 8 y 30 caracteres'), 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
+            return redirect(redir_target)
         
         if not re.search(r"[A-Za-z]", password) or not re.search(r"\d", password):
             flash(_('La contraseña debe contener al menos una letra y un número'), 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
+            return redirect(redir_target)
         
         if password != confirm_password:
             flash(_('Las contraseñas no coinciden'), 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
+            return redirect(redir_target)
         
         # Validar que el rol sea válido
         if rol not in ROLES:
             flash(_('Rol inválido'), 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
+            return redirect(redir_target)
         
         # Verificar si el usuario ya existe
         if User.query.filter_by(usuario=usuario).first():
             flash(_('El usuario ya existe'), 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
+            return redirect(redir_target)
         
         # Gestionar datos personales (Cliente/Staff)
         from app.models.cliente import Cliente
@@ -135,25 +143,20 @@ def listar_usuarios():
             db.session.add(nuevo_usuario)
             db.session.commit()
             flash(_('Usuario %(usuario)s creado exitosamente como %(rol)s') % {'usuario': usuario, 'rol': rol_label(rol)}, 'success')
-            return redirect(url_for('usuarios.listar_usuarios'))
+            return redirect(redir_target)
         except IntegrityError as e:
             db.session.rollback()
             current_app.logger.warning(f"Error de integridad al crear usuario admin: {str(e)}")
             flash(_('La cédula, el correo o el nombre de usuario ya están registrados.'), 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
+            return redirect(redir_target)
         except Exception as e:
             db.session.rollback()
             current_app.logger.error(f"Error técnico al crear usuario admin: {str(e)}")
             flash(_('Error al crear el usuario'), 'error')
-            return redirect(url_for('usuarios.listar_usuarios'))
+            return redirect(redir_target)
     
-    # GET: Mostrar lista de usuarios (Dependiendo del rol)
-    if current_user.rol == 'administrador':
-        # El admin ve TODOS los usuarios de cualquier rol
-        usuarios = User.query.all()
-    else:
-        # Otros (ej. recepcionista) solo ven clientes
-        usuarios = User.query.filter_by(rol='cliente').all()
+    # GET: Mostrar solo clientes (los empleados se gestionan en la sección Empleados)
+    usuarios = User.query.filter_by(rol='cliente').all()
 
     from app.models.cliente import Cliente
     clientes = {c.cedula: c for c in Cliente.query.all()}
@@ -163,9 +166,10 @@ def listar_usuarios():
 @bp.route('/editar-usuario/<int:id>', methods=['POST'])
 @login_required
 def editar_usuario(id):
+    redir_target = url_for('empleados.index') if request.form.get('origen') == 'empleados' else url_for('usuarios.listar_usuarios')
     if current_user.rol != 'administrador':
         flash(_('Solo el administrador puede editar roles.'), 'error')
-        return redirect(url_for('usuarios.listar_usuarios'))
+        return redirect(redir_target)
         
     usuario = User.query.get_or_404(id)
     nuevo_rol = request.form.get('rol')
@@ -177,14 +181,15 @@ def editar_usuario(id):
     else:
         flash(_('Rol inválido.'), 'error')
         
-    return redirect(url_for('usuarios.listar_usuarios'))
+    return redirect(redir_target)
 
 @bp.route('/eliminar-usuario/<int:id>', methods=['POST'])
 @login_required
 def eliminar_usuario(id):
+    redir_target = url_for('empleados.index') if request.form.get('origen') == 'empleados' else url_for('usuarios.listar_usuarios')
     if current_user.rol != 'administrador':
         flash(_('Solo el administrador puede eliminar usuarios.'), 'error')
-        return redirect(url_for('usuarios.listar_usuarios'))
+        return redirect(redir_target)
         
     usuario = User.query.get_or_404(id)
     
@@ -195,7 +200,7 @@ def eliminar_usuario(id):
         db.session.commit()
         flash(_('Usuario %(usuario)s eliminado exitosamente.') % {'usuario': usuario.usuario}, 'success')
         
-    return redirect(url_for('usuarios.listar_usuarios'))
+    return redirect(redir_target)
 
 @bp.route('/recepcionistas')
 @login_required

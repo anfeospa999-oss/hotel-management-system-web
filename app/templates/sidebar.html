@@ -1,203 +1,195 @@
-<nav id="sidebar" class="sidebar">
-
-  <!-- Logo del hotel y botón de cierre en móvil -->
-  <div class="sidebar-brand d-flex justify-content-between align-items-center w-100">
-    <div>
-      <i class="bi bi-bank2 me-2"></i>
-      <span class="brand-text">Hotel Gales</span>
+<!-- ===== HOTEL GALES - SIDEBAR REFINADO Y CORREGIDO ===== -->
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-brand d-flex align-items-center justify-content-between">
+        <a href="{{ url_for('auth.menu') }}" class="d-flex align-items-center gap-2 text-decoration-none">
+            <div class="brand-icon-box">
+                <i class="bi bi-bank2"></i>
+            </div>
+            <div class="brand-text-container">
+                <span class="brand-title font-brand">HOTEL GALES</span>
+                <span class="brand-subtitle">{{ _('Gestión Hotelera') }}</span>
+            </div>
+        </a>
+        <button class="btn-close-sidebar d-md-none" id="closeSidebarBtn" aria-label="Cerrar menú">
+            <i class="bi bi-x-lg"></i>
+        </button>
     </div>
-    <button class="btn btn-sm text-white d-md-none" id="closeSidebarBtn" title="{{ _('Cerrar menú') }}">
-      <i class="bi bi-x-lg fs-5"></i>
-    </button>
-  </div>
 
-  <ul class="sidebar-nav">
+    <div class="sidebar-scroll">
+        <ul class="sidebar-nav">
+            <!-- GENERAL -->
+            <li class="sidebar-section">{{ _('Navegación') }}</li>
+            
+            <li class="nav-item">
+                <a href="{{ url_for('auth.menu') }}" class="sidebar-link {% if request.endpoint == 'auth.menu' %}active{% endif %}">
+                    <i class="bi bi-grid-1x2-fill"></i>
+                    <span>{{ _('Dashboard') }}</span>
+                </a>
+            </li>
 
-    <!-- Inicio -->
-    <li>
-      <a href="{{ url_for('auth.menu') }}" class="sidebar-link">
-        <i class="bi bi-house-fill"></i>
-        <span>{{ _('Inicio') }}</span>
-      </a>
-    </li>
+            <!-- VISTA CLIENTE -->
+            {% if current_user.rol == 'cliente' %}
+            <li class="sidebar-section">{{ _('Mi Estancia') }}</li>
+            <li class="nav-item">
+                <a href="{{ url_for('habitaciones.index') }}" class="sidebar-link {% if request.endpoint == 'habitaciones.index' %}active{% endif %}">
+                    <i class="bi bi-door-open-fill"></i>
+                    <span>{{ _('Habitaciones') }}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('reservas.index') }}" class="sidebar-link {% if request.endpoint == 'reservas.index' %}active{% endif %}">
+                    <i class="bi bi-calendar2-check-fill"></i>
+                    <span>{{ _('Mis Reservas') }}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('reservas.nueva') }}" class="sidebar-link {% if request.endpoint == 'reservas.nueva' %}active{% endif %}">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    <span>{{ _('Reservar Ahora') }}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('facturas.index') }}" class="sidebar-link {% if 'facturas' in request.endpoint %}active{% endif %}">
+                    <i class="bi bi-file-earmark-text-fill"></i>
+                    <span>{{ _('Mis Facturas') }}</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('notificaciones.index') }}" class="sidebar-link {% if request.endpoint == 'notificaciones.index' %}active{% endif %}">
+                    <i class="bi bi-bell-fill"></i>
+                    <span>{{ _('Notificaciones') }}</span>
+                </a>
+            </li>
+            {% endif %}
 
-    <!-- ── ADMINISTRACIÓN (solo admin) ── -->
-    {% if current_user.es_administrador() %}
-    <li class="sidebar-section">{{ _('ADMINISTRACIÓN') }}</li>
+            <!-- VISTA PERSONAL / OPERACIÓN -->
+            {% if current_user.rol in ['administrador', 'recepcionista', 'servicio_limpieza'] %}
+            <li class="sidebar-section">{{ _('Operaciones') }}</li>
 
-    <li>
-      <a class="sidebar-link has-submenu" data-bs-toggle="collapse" href="#menuAdmin">
-        <i class="bi bi-gear-fill"></i><span>{{ _('Sistema') }}</span>
-        <i class="bi bi-chevron-down ms-auto arrow"></i>
-      </a>
-      <ul class="collapse sidebar-submenu" id="menuAdmin">
-        <li>
-          <a href="{{ url_for('usuarios.listar_usuarios') }}" class="sidebar-link">
-            <i class="bi bi-people"></i> {{ _('Usuarios') }}
-          </a>
-        </li>
-        <li>
-          <a href="{{ url_for('usuarios.historial_recepcionistas') }}" class="sidebar-link">
-            <i class="bi bi-clock-history"></i> {{ _('Historial Recepción') }}
-          </a>
-        </li>
-        <li>
-          <a href="{{ url_for('usuarios.historial_limpieza') }}" class="sidebar-link">
-            <i class="bi bi-stars"></i> {{ _('Historial Limpieza') }}
-          </a>
-        </li>
-        <li>
-          <a href="{{ url_for('reportes.index') }}" class="sidebar-link">
-            <i class="bi bi-graph-up"></i> {{ _('Reportes y Métricas') }}
-          </a>
-        </li>
-      </ul>
-    </li>
+            <li class="nav-item">
+                <a href="{{ url_for('habitaciones.index') }}" class="sidebar-link {% if 'habitaciones' in request.endpoint %}active{% endif %}">
+                    <i class="bi bi-door-closed-fill"></i>
+                    <span>{{ _('Habitaciones') }}</span>
+                </a>
+            </li>
 
-    <li>
-      <a class="sidebar-link has-submenu" data-bs-toggle="collapse" href="#menuCatalogos">
-        <i class="bi bi-collection"></i><span>{{ _('Catálogos') }}</span>
-        <i class="bi bi-chevron-down ms-auto arrow"></i>
-      </a>
-      <ul class="collapse sidebar-submenu" id="menuCatalogos">
-        <li><a href="{{ url_for('tipohabitaciones.index') }}" class="sidebar-link">
-            <i class="bi bi-tags"></i> {{ _('Tipos de Habitación') }}
-          </a></li>
-      </ul>
-    </li>
-    {% endif %}
+            {% if current_user.rol in ['administrador', 'recepcionista'] %}
+            <li class="nav-item">
+                <a href="{{ url_for('reservas.index') }}" class="sidebar-link {% if 'reservas' in request.endpoint %}active{% endif %}">
+                    <i class="bi bi-calendar-event-fill"></i>
+                    <span>{{ _('Reservas') }}</span>
+                </a>
+            </li>
 
-    <!-- ── INSTALACIONES Y GESTIÓN (ADMINISTRADOR) ── -->
-    {% if current_user.rol == 'administrador' %}
-    <li class="sidebar-section">{{ _('INSTALACIONES') }}</li>
+            <li class="nav-item">
+                <a href="{{ url_for('clientes.index') }}" class="sidebar-link {% if 'clientes' in request.endpoint %}active{% endif %}">
+                    <i class="bi bi-people-fill"></i>
+                    <span>{{ _('Clientes') }}</span>
+                </a>
+            </li>
+            {% endif %}
 
-    <li>
-      <a href="{{ url_for('habitaciones.index') }}" class="sidebar-link">
-        <i class="bi bi-door-closed"></i><span>{{ _('Habitaciones') }}</span>
-      </a>
-    </li>
+            <li class="sidebar-section">{{ _('Limpieza & Mantenimiento') }}</li>
 
-    <li>
-      <a href="{{ url_for('mantenimientos.index') }}" class="sidebar-link">
-        <i class="bi bi-tools"></i><span>{{ _('Mantenimientos') }}</span>
-      </a>
-    </li>
+            <li class="nav-item">
+                <a href="{{ url_for('limpieza.mis_tareas') }}" class="sidebar-link {% if request.endpoint == 'limpieza.mis_tareas' %}active{% endif %}">
+                    <i class="bi bi-stars"></i>
+                    <span>{{ _('Tareas de Limpieza') }}</span>
+                </a>
+            </li>
 
-    <li>
-      <a href="{{ url_for('limpieza.mis_tareas') }}" class="sidebar-link">
-        <i class="bi bi-stars"></i><span>{{ _('Limpieza') }}</span>
-      </a>
-    </li>
+            {% if current_user.rol in ['administrador', 'recepcionista'] %}
+            <li class="nav-item">
+                <a href="{{ url_for('limpieza.asignar_tarea') }}" class="sidebar-link {% if request.endpoint == 'limpieza.asignar_tarea' %}active{% endif %}">
+                    <i class="bi bi-plus-circle font-monospace"></i>
+                    <span>{{ _('Asignar Nueva Limpieza') }}</span>
+                </a>
+            </li>
 
-    <!-- ── GESTIÓN ── -->
-    <li class="sidebar-section">{{ _('GESTIÓN') }}</li>
+            <li class="nav-item">
+                <a href="{{ url_for('mantenimientos.index') }}" class="sidebar-link {% if 'mantenimientos' in request.endpoint %}active{% endif %}">
+                    <i class="bi bi-tools"></i>
+                    <span>{{ _('Mantenimiento') }}</span>
+                </a>
+            </li>
+            {% endif %}
 
-    <li>
-      <a href="{{ url_for('clientes.index') }}" class="sidebar-link">
-        <i class="bi bi-person-badge"></i><span>{{ _('Clientes') }}</span>
-      </a>
-    </li>
-    <li>
-      <a class="sidebar-link has-submenu" data-bs-toggle="collapse" href="#menuReservas">
-        <i class="bi bi-calendar-check"></i><span>{{ _('Reservas') }}</span>
-        <i class="bi bi-chevron-down ms-auto arrow"></i>
-      </a>
-      <ul class="collapse sidebar-submenu" id="menuReservas">
-        <li><a href="{{ url_for('reservas.index') }}" class="sidebar-link">
-            <i class="bi bi-list-ul"></i> {{ _('Ver Reservas') }}
-          </a></li>
-      </ul>
-    </li>
+            {% if current_user.es_administrador() %}
+            <li class="nav-item">
+                <a href="{{ url_for('usuarios.historial_limpieza') }}" class="sidebar-link {% if request.endpoint == 'usuarios.historial_limpieza' %}active{% endif %}">
+                    <i class="bi bi-journal-check"></i>
+                    <span>{{ _('Historial de Limpieza') }}</span>
+                </a>
+            </li>
+            {% endif %}
 
-    <!-- ── FINANZAS ── -->
-    <li class="sidebar-section">{{ _('FINANZAS') }}</li>
-    <li>
-      <a href="{{ url_for('facturas.index') }}" class="sidebar-link">
-        <i class="bi bi-receipt"></i><span>{{ _('Facturación') }}</span>
-      </a>
-    </li>
+            {% if current_user.rol in ['administrador', 'recepcionista'] %}
+            <li class="sidebar-section">{{ _('Facturación & Finanzas') }}</li>
 
-    <!-- ── MENÚ DEDICADO RECEPCIONISTA ── -->
-    {% elif current_user.rol == 'recepcionista' %}
-    <li class="sidebar-section">{{ _('RECEPCIÓN Y GESTIÓN') }}</li>
+            <li class="nav-item">
+                <a href="{{ url_for('facturas.index') }}" class="sidebar-link {% if 'facturas' in request.endpoint %}active{% endif %}">
+                    <i class="bi bi-file-earmark-text-fill"></i>
+                    <span>{{ _('Facturación') }}</span>
+                </a>
+            </li>
 
-    <li>
-      <a href="{{ url_for('habitaciones.index') }}" class="sidebar-link">
-        <i class="bi bi-door-closed"></i><span>{{ _('Estado Habitaciones') }}</span>
-      </a>
-    </li>
-    <li>
-      <a href="{{ url_for('reservas.index') }}" class="sidebar-link">
-        <i class="bi bi-calendar-check"></i><span>{{ _('Gestión de Reservas') }}</span>
-      </a>
-    </li>
-    <li>
-      <a href="{{ url_for('clientes.index') }}" class="sidebar-link">
-        <i class="bi bi-person-lines-fill"></i><span>{{ _('Historial de Usuarios') }}</span>
-      </a>
-    </li>
-    <li>
-      <a href="{{ url_for('facturas.index') }}" class="sidebar-link">
-        <i class="bi bi-receipt"></i><span>{{ _('Facturación') }}</span>
-      </a>
-    </li>
-    <li>
-      <a href="{{ url_for('limpieza.mis_tareas') }}" class="sidebar-link">
-        <i class="bi bi-stars"></i><span>{{ _('Limpieza') }}</span>
-      </a>
-    </li>
-    {% endif %}
+            {% if current_user.es_administrador() %}
+            <li class="nav-item">
+                <a href="{{ url_for('reportes.index') }}" class="sidebar-link {% if 'reportes' in request.endpoint %}active{% endif %}">
+                    <i class="bi bi-graph-up-arrow"></i>
+                    <span>{{ _('Reportes y Métricas') }}</span>
+                </a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endif %}
 
-    <!-- ── MENÚ CLIENTE ── -->
-    {% if current_user.rol == 'cliente' %}
-    <li class="sidebar-section">{{ _('MI ESTANCIA') }}</li>
-    <li>
-      <a href="{{ url_for('habitaciones.index') }}" class="sidebar-link">
-        <i class="bi bi-door-open"></i><span>{{ _('Ver Habitaciones') }}</span>
-      </a>
-    </li>
-    <li>
-      <a href="{{ url_for('reservas.index') }}" class="sidebar-link">
-        <i class="bi bi-calendar-check"></i><span>{{ _('Mis Reservas') }}</span>
-      </a>
-    </li>
-    <li>
-      <a href="{{ url_for('reservas.nueva') }}" class="sidebar-link">
-        <i class="bi bi-plus-circle-fill"></i><span>{{ _('Reservar Ahora') }}</span>
-      </a>
-    </li>
-    <li>
-      <a href="{{ url_for('facturas.index') }}" class="sidebar-link">
-        <i class="bi bi-receipt"></i><span>{{ _('Mis Facturas') }}</span>
-      </a>
-    </li>
-    {% endif %}
+            <!-- ADMINISTRACIÓN & PERSONAL -->
+            {% if current_user.es_administrador() %}
+            <li class="sidebar-section">{{ _('Personal & Administración') }}</li>
 
-    <!-- ── MENÚ SERVICIO LIMPIEZA ── -->
-    {% if current_user.rol == 'servicio_limpieza' %}
-    <li class="sidebar-section">{{ _('PANEL DE LIMPIEZA') }}</li>
-    <li>
-      <a href="{{ url_for('limpieza.mis_tareas', filtro='pendientes') }}" class="sidebar-link">
-        <i class="bi bi-door-open"></i><span>{{ _('Piezas por Limpiar') }}</span>
-      </a>
-    </li>
-    <li>
-      <a href="{{ url_for('limpieza.mis_tareas', filtro='completadas') }}" class="sidebar-link">
-        <i class="bi bi-clock-history"></i><span>{{ _('Historial de Limpiezas') }}</span>
-      </a>
-    </li>
-    {% endif %}
+            <li class="nav-item">
+                <a href="{{ url_for('usuarios.listar_usuarios') }}" class="sidebar-link {% if request.endpoint == 'usuarios.listar_usuarios' %}active{% endif %}">
+                    <i class="bi bi-person-circle"></i>
+                    <span>{{ _('Usuarios (Clientes)') }}</span>
+                </a>
+            </li>
 
-  </ul>
+            <li class="nav-item">
+                <a href="{{ url_for('empleados.index') }}" class="sidebar-link {% if request.endpoint == 'empleados.index' %}active{% endif %}">
+                    <i class="bi bi-person-badge-fill"></i>
+                    <span>{{ _('Empleados (Personal)') }}</span>
+                </a>
+            </li>
 
-  <!-- Footer del sidebar -->
-  <div class="sidebar-footer">
-    <a href="{{ url_for('auth.perfil') }}" class="sidebar-link">
-      <i class="bi bi-person-circle"></i><span>{{ _('Mi Perfil') }}</span>
-    </a>
-    <a href="{{ url_for('auth.logout') }}" class="sidebar-link text-danger">
-      <i class="bi bi-power"></i><span>{{ _('Cerrar Sesión') }}</span>
-    </a>
-  </div>
+            <li class="nav-item">
+                <a href="{{ url_for('usuarios.historial_recepcionistas') }}" class="sidebar-link {% if request.endpoint == 'usuarios.historial_recepcionistas' %}active{% endif %}">
+                    <i class="bi bi-person-workspace"></i>
+                    <span>{{ _('Historial de Recepción') }}</span>
+                </a>
+            </li>
 
+            <li class="nav-item">
+                <a href="{{ url_for('tipohabitaciones.index') }}" class="sidebar-link {% if 'tipohabitaciones' in request.endpoint %}active{% endif %}">
+                    <i class="bi bi-tags-fill"></i>
+                    <span>{{ _('Tipos de Habitación') }}</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <!-- FOOTER PERFIL -->
+    <div class="sidebar-footer">
+        <a href="{{ url_for('auth.perfil') }}" class="sidebar-user-card text-decoration-none d-flex align-items-center gap-3">
+            <div class="sidebar-user-avatar">
+                {{ current_user.usuario[0].upper() if current_user.usuario else 'U' }}
+            </div>
+            <div class="sidebar-user-info">
+                <span class="sidebar-user-name">{{ current_user.usuario }}</span>
+                <span class="sidebar-user-role">{{ current_user.rol|trans }}</span>
+            </div>
+            <i class="bi bi-chevron-right ms-auto text-muted small"></i>
+        </a>
+    </div>
 </nav>

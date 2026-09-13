@@ -3149,3 +3149,47 @@ msgstr "Receptionist - Guest and reservation management"
 msgid "Servicio de Limpieza - Mantenimiento y aseo"
 msgstr "Cleaning Service - Maintenance and housekeeping"
 
+#: app/routes/usuarios.py:48
+msgid "En esta sección solo se pueden crear clientes."
+msgstr "Only clients can be created in this section."
+
+#: app/routes/usuarios.py:52
+msgid "No tienes permiso para crear personal."
+msgstr "You do not have permission to create staff."
+
+#: app/templates/dashboard/usuarios.html:96
+msgid "No hay clientes registrados en el sistema"
+msgstr "No registered clients in the system"
+
+#: app/templates/dashboard/usuarios.html:166 app/templates/empleados/index.html:124
+msgid "Solo lectura de información"
+msgstr "Read-only information"
+
+#: app/templates/empleados/index.html:32
+msgid "Personal del Hotel"
+msgstr "Hotel Staff"
+
+#: app/templates/empleados/index.html:95
+msgid "No hay personal registrado en el sistema"
+msgstr "No registered staff in the system"
+
+#: app/templates/empleados/index.html:110
+msgid "Crear Nuevo Empleado"
+msgstr "Create New Employee"
+
+#: app/templates/empleados/index.html:171
+msgid "Selecciona el acceso del personal"
+msgstr "Select the staff access"
+
+#: app/templates/empleados/index.html:191
+msgid "Crear Empleado"
+msgstr "Create Employee"
+
+#: app/templates/empleados/index.html:241
+msgid "Eliminar Empleado"
+msgstr "Delete Employee"
+
+#: app/templates/empleados/index.html:247
+msgid "¿Seguro que quieres eliminar al empleado"
+msgstr "Are you sure you want to delete the employee"
+
