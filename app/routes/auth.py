@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
+from flask_babel import gettext as _
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.exc import IntegrityError
@@ -22,7 +23,7 @@ def login():
         
         # Validar campos vacíos
         if not usuario or not password:
-            flash('Por favor completa todos los campos', 'error')
+            flash(_('Por favor completa todos los campos'), 'error')
             return redirect(url_for('auth.login'))
         
         # Buscar usuario
@@ -30,10 +31,10 @@ def login():
         
         if user and check_password_hash(user.password, password):
             login_user(user)
-            flash(f'Bienvenido {usuario}!', 'success')
+            flash(_('Bienvenido %(usuario)s!') % {'usuario': usuario}, 'success')
             return redirect(url_for('auth.menu'))
         else:
-            flash('Usuario o contraseña incorrectos', 'error')
+            flash(_('Usuario o contraseña incorrectos'), 'error')
     
     return render_template('auth/login.html')
 
@@ -63,62 +64,62 @@ def register():
 
         # Validar campos vacíos
         if not all([cedula, nombre, apellido, email, telefono, usuario, password, confirm_password]):
-            flash('Por favor completa todos los campos', 'error')
+            flash(_('Por favor completa todos los campos'), 'error')
             return redirect(url_for('auth.register'))
         
         # Validar cédula / ID (solo números, de 5 a 15 dígitos)
         if not cedula.isdigit() or not (5 <= len(cedula) <= 15):
-            flash('La cédula o ID debe contener únicamente dígitos numéricos y tener entre 5 y 15 dígitos.', 'error')
+            flash(_('La cédula o ID debe contener únicamente dígitos numéricos y tener entre 5 y 15 dígitos.'), 'error')
             return redirect(url_for('auth.register'))
         
         # Validar email (cualquier dominio válido, no solo gmail.com)
         if not re.match(r"^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$", email):
-            flash('Por favor ingresa un correo electrónico válido.', 'error')
+            flash(_('Por favor ingresa un correo electrónico válido.'), 'error')
             return redirect(url_for('auth.register'))
         
         # Validar nombre y apellido (solo letras, máx 30 caracteres)
         if not re.match(r"^[A-Za-záéíóúÁÉÍÓÚñÑ\s]{1,30}$", nombre) or not re.match(r"^[A-Za-záéíóúÁÉÍÓÚñÑ\s]{1,30}$", apellido):
-            flash('El nombre y apellido deben contener solo letras y máximo 30 caracteres', 'error')
+            flash(_('El nombre y apellido deben contener solo letras y máximo 30 caracteres'), 'error')
             return redirect(url_for('auth.register'))
 
         # Validar teléfono (entre 7 y 15 dígitos numéricos, opcionalmente con + inicial)
         if not re.match(r"^\+?\d{7,15}$", telefono):
-            flash('El teléfono debe tener entre 7 y 15 dígitos numéricos (puede empezar con +)', 'error')
+            flash(_('El teléfono debe tener entre 7 y 15 dígitos numéricos (puede empezar con +)'), 'error')
             return redirect(url_for('auth.register'))
         
         # Validar usuario (entre 4 y 20 caracteres, letras, números, puntos, guiones y guiones bajos)
         if not re.match(r"^[a-zA-Z0-9._\-]{4,20}$", usuario):
-            flash('El nombre de usuario debe tener entre 4 y 20 caracteres y solo contener letras, números, puntos, guiones o guiones bajos.', 'error')
+            flash(_('El nombre de usuario debe tener entre 4 y 20 caracteres y solo contener letras, números, puntos, guiones o guiones bajos.'), 'error')
             return redirect(url_for('auth.register'))
         
         # Validar contraseña (entre 8 y 30 caracteres, al menos una letra y un número)
         if len(password) < 8 or len(password) > 30:
-            flash('La contraseña debe tener entre 8 y 30 caracteres', 'error')
+            flash(_('La contraseña debe tener entre 8 y 30 caracteres'), 'error')
             return redirect(url_for('auth.register'))
         
         if not re.search(r"[A-Za-z]", password) or not re.search(r"\d", password):
-            flash('La contraseña debe contener al menos una letra y un número', 'error')
+            flash(_('La contraseña debe contener al menos una letra y un número'), 'error')
             return redirect(url_for('auth.register'))
         
         if password != confirm_password:
-            flash('Las contraseñas no coinciden', 'error')
+            flash(_('Las contraseñas no coinciden'), 'error')
             return redirect(url_for('auth.register'))
         
         # Verificar si el usuario ya existe
         if User.query.filter_by(usuario=usuario).first():
-            flash('El nombre de usuario ya está en uso', 'error')
+            flash(_('El nombre de usuario ya está en uso'), 'error')
             return redirect(url_for('auth.register'))
             
         from app.models.cliente import Cliente
         
         # Verificar si la cédula ya existe
         if Cliente.query.get(cedula):
-            flash('Esta cédula ya está registrada', 'error')
+            flash(_('Esta cédula ya está registrada'), 'error')
             return redirect(url_for('auth.register'))
 
         # Verificar si el correo electrónico ya existe
         if Cliente.query.filter_by(email=email).first():
-            flash('El correo electrónico ya está registrado', 'error')
+            flash(_('El correo electrónico ya está registrado'), 'error')
             return redirect(url_for('auth.register'))
         
         try:
@@ -142,17 +143,17 @@ def register():
             db.session.add(nuevo_usuario)
             db.session.commit()
             
-            flash('¡Bienvenido! Cuenta creada con éxito. Ahora puedes iniciar sesión.', 'success')
+            flash(_('¡Bienvenido! Cuenta creada con éxito. Ahora puedes iniciar sesión.'), 'success')
             return redirect(url_for('auth.login'))
         except IntegrityError as e:
             db.session.rollback()
             current_app.logger.warning(f"Error de integridad al registrar usuario: {str(e)}")
-            flash('La cédula, el correo o el nombre de usuario ya están registrados.', 'error')
+            flash(_('La cédula, el correo o el nombre de usuario ya están registrados.'), 'error')
             return redirect(url_for('auth.register'))
         except Exception as e:
             db.session.rollback()
             current_app.logger.error(f"Error técnico al registrar usuario: {str(e)}")
-            flash('Ocurrió un error técnico al crear la cuenta. Por favor intente más tarde.', 'error')
+            flash(_('Ocurrió un error técnico al crear la cuenta. Por favor intente más tarde.'), 'error')
             return redirect(url_for('auth.register'))
     
     return render_template('auth/register.html')
@@ -231,7 +232,7 @@ def menu():
 def logout():
     """Ruta para cerrar sesión"""
     logout_user()
-    flash('Has cerrado sesión', 'success')
+    flash(_('Has cerrado sesión'), 'success')
     return redirect(url_for('auth.login'))
 
 @bp.route('/perfil', methods=['GET', 'POST'])
@@ -252,20 +253,20 @@ def perfil():
         # Si el usuario quiere cambiar de nombre de usuario
         if nuevo_usuario and nuevo_usuario != current_user.usuario:
             if User.query.filter_by(usuario=nuevo_usuario).first():
-                flash('El nombre de usuario ya está en uso', 'error')
+                flash(_('El nombre de usuario ya está en uso'), 'error')
                 return redirect(url_for('auth.perfil'))
             current_user.usuario = nuevo_usuario
 
         # Cambio de contraseña
         if password:
             if password != confirmar:
-                flash('Las contraseñas no coinciden', 'error')
+                flash(_('Las contraseñas no coinciden'), 'error')
                 return redirect(url_for('auth.perfil'))
             if len(password) < 8 or len(password) > 30:
-                flash('La contraseña debe tener entre 8 y 30 caracteres', 'error')
+                flash(_('La contraseña debe tener entre 8 y 30 caracteres'), 'error')
                 return redirect(url_for('auth.perfil'))
             if not re.search(r"[A-Za-z]", password) or not re.search(r"\d", password):
-                flash('La contraseña debe contener al menos una letra y un número', 'error')
+                flash(_('La contraseña debe contener al menos una letra y un número'), 'error')
                 return redirect(url_for('auth.perfil'))
             current_user.password = generate_password_hash(password)
 
@@ -279,10 +280,10 @@ def perfil():
 
         try:
             db.session.commit()
-            flash('Perfil actualizado con éxito', 'success')
+            flash(_('Perfil actualizado con éxito'), 'success')
         except Exception as e:
             db.session.rollback()
-            flash('Error al actualizar el perfil', 'error')
+            flash(_('Error al actualizar el perfil'), 'error')
         
         return redirect(url_for('auth.perfil'))
 
@@ -297,10 +298,10 @@ def eliminar_cuenta():
         logout_user() # Cerrar sesión antes de borrar
         db.session.delete(user)
         db.session.commit()
-        flash('Tu cuenta ha sido eliminada. Lamentamos verte partir.', 'info')
+        flash(_('Tu cuenta ha sido eliminada. Lamentamos verte partir.'), 'info')
     except Exception as e:
         db.session.rollback()
-        flash('No se pudo eliminar la cuenta', 'error')
+        flash(_('No se pudo eliminar la cuenta'), 'error')
         return redirect(url_for('auth.perfil'))
     
     return redirect(url_for('auth.login'))
@@ -323,7 +324,7 @@ def recuperar_contrasena():
         email = request.form.get('email')
         
         if not email:
-            flash('Por favor ingresa tu correo electrónico', 'error')
+            flash(_('Por favor ingresa tu correo electrónico'), 'error')
             return redirect(url_for('auth.recuperar_contrasena'))
         
         # Buscar usuario por email a través del cliente
@@ -339,12 +340,12 @@ def recuperar_contrasena():
                 
                 # En desarrollo, mostrar el token en pantalla
                 # En producción, aquí se enviaría el email
-                flash(f'Token de recuperación (desarrollo): {token}', 'info')
-                flash('Se ha enviado un correo con instrucciones para recuperar tu contraseña', 'success')
+                flash(_('Token de recuperación (desarrollo): %(token)s') % {'token': token}, 'info')
+                flash(_('Se ha enviado un correo con instrucciones para recuperar tu contraseña'), 'success')
                 return redirect(url_for('auth.restablecer_contrasena', token=token))
         
         # Por seguridad, siempre mostrar el mismo mensaje incluso si el email no existe
-        flash('Si el correo está registrado, recibirás instrucciones para recuperar tu contraseña', 'info')
+        flash(_('Si el correo está registrado, recibirás instrucciones para recuperar tu contraseña'), 'info')
         return redirect(url_for('auth.login'))
     
     return render_template('auth/recuperar_contrasena.html')
@@ -359,7 +360,7 @@ def restablecer_contrasena(token):
     reset_token = PasswordResetToken.verify_token(token)
     
     if not reset_token:
-        flash('El enlace de recuperación es inválido o ha expirado', 'error')
+        flash(_('El enlace de recuperación es inválido o ha expirado'), 'error')
         return redirect(url_for('auth.recuperar_contrasena'))
     
     if request.method == 'POST':
@@ -367,19 +368,19 @@ def restablecer_contrasena(token):
         confirm_password = request.form.get('confirm_password')
         
         if not password or not confirm_password:
-            flash('Por favor completa todos los campos', 'error')
+            flash(_('Por favor completa todos los campos'), 'error')
             return redirect(url_for('auth.restablecer_contrasena', token=token))
         
         if password != confirm_password:
-            flash('Las contraseñas no coinciden', 'error')
+            flash(_('Las contraseñas no coinciden'), 'error')
             return redirect(url_for('auth.restablecer_contrasena', token=token))
         
         if len(password) < 8:
-            flash('La contraseña debe tener al menos 8 caracteres', 'error')
+            flash(_('La contraseña debe tener al menos 8 caracteres'), 'error')
             return redirect(url_for('auth.restablecer_contrasena', token=token))
         
         if not re.search(r"[A-Za-z]", password) or not re.search(r"\d", password):
-            flash('La contraseña debe contener al menos una letra y un número', 'error')
+            flash(_('La contraseña debe contener al menos una letra y un número'), 'error')
             return redirect(url_for('auth.restablecer_contrasena', token=token))
         
         # Actualizar contraseña
@@ -391,7 +392,7 @@ def restablecer_contrasena(token):
         
         db.session.commit()
         
-        flash('¡Contraseña actualizada con éxito! Ahora puedes iniciar sesión', 'success')
+        flash(_('¡Contraseña actualizada con éxito! Ahora puedes iniciar sesión'), 'success')
         return redirect(url_for('auth.login'))
     
     return render_template('auth/restablecer_contrasena.html', token=token)

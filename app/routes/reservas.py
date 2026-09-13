@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_babel import gettext as _
 from flask_login import login_required, current_user
 from app import db
 from app.models.reserva import Reserva
@@ -20,7 +21,7 @@ def index():
     else:
         # Staff requiere permiso para ver todas las reservas
         if not current_user.tiene_permisos('ver_reservas'):
-            flash('No tienes permiso para ver reservas', 'error')
+            flash(_('No tienes permiso para ver reservas'), 'error')
             return redirect(url_for('auth.menu'))
         query = Reserva.query
     
@@ -49,7 +50,7 @@ def nueva():
         # Staff requiere permiso para crear reservas
         from app.utils.decorators import requiere_permiso
         if not current_user.tiene_permisos('crear_reservas'):
-            flash('No tienes permiso para crear reservas', 'error')
+            flash(_('No tienes permiso para crear reservas'), 'error')
             return redirect(url_for('auth.menu'))
         habitaciones_disponibles = Habitacion.query.filter_by(estadoHabitacion='disponible').all()
     
@@ -71,15 +72,15 @@ def nueva():
             fecha_salida = datetime.strptime(fecha_salida_str, '%Y-%m-%d')
             
             if fecha_entrada.date() < datetime.now().date():
-                flash('No puedes reservar en una fecha pasada.', 'error')
+                flash(_('No puedes reservar en una fecha pasada.'), 'error')
                 return redirect(url_for('reservas.nueva', habitacion_id=id_habitacion))
             
             if fecha_salida <= fecha_entrada:
-                flash('La fecha de salida debe ser posterior a la de entrada.', 'error')
+                flash(_('La fecha de salida debe ser posterior a la de entrada.'), 'error')
                 return redirect(url_for('reservas.nueva', habitacion_id=id_habitacion))
                 
         except ValueError:
-            flash('Formato de fecha inválido.', 'error')
+            flash(_('Formato de fecha inválido.'), 'error')
             return redirect(url_for('reservas.nueva'))
 
         metodo_pago = request.form.get('metodo_pago')
@@ -92,7 +93,7 @@ def nueva():
             cedula_cliente = request.form.get('cedula_cliente')
             
         if not cedula_cliente:
-            flash('Error: No se proporcionó la cédula del cliente.', 'error')
+            flash(_('Error: No se proporcionó la cédula del cliente.'), 'error')
             return redirect(url_for('reservas.nueva'))
 
         # Verificar si el cliente ya tiene una reserva activa
@@ -102,7 +103,7 @@ def nueva():
         ).first()
 
         if reserva_activa:
-            flash('Este cliente ya tiene una reserva activa.', 'warning')
+            flash(_('Este cliente ya tiene una reserva activa.'), 'warning')
             return redirect(url_for('reservas.index'))
 
         # Crear la reserva
@@ -161,7 +162,7 @@ def nueva():
             link=url_for('reservas.index')
         )
         
-        flash('¡Reserva creada con éxito!', 'success')
+        flash(_('¡Reserva creada con éxito!'), 'success')
         return redirect(url_for('reservas.index'))
 
     return render_template('reservas/nueva.html', 
@@ -181,7 +182,7 @@ def cambiar_estado(id):
         if nuevo_estado == 'limpieza':
             reserva.estadoReserva = 'finalizada'
             reserva.habitacion.estadoHabitacion = 'limpieza'
-            flash('Reserva finalizada y habitación enviada a limpieza.', 'success')
+            flash(_('Reserva finalizada y habitación enviada a limpieza.'), 'success')
         else:
             reserva.estadoReserva = nuevo_estado
             # Sincronizar el estado de la habitación para que todo cuadre
@@ -189,7 +190,7 @@ def cambiar_estado(id):
                 reserva.habitacion.estadoHabitacion = 'ocupada'
             elif nuevo_estado in ['finalizada', 'cancelada']:
                 reserva.habitacion.estadoHabitacion = 'disponible'
-            flash(f'Estado actualizado a: {nuevo_estado}', 'success')
+            flash(_('Estado actualizado a: %(estado)s') % {'estado': nuevo_estado}, 'success')
             
         # Registrar o actualizar el recepcionista que atendió la reserva
         if current_user.rol != 'cliente':
@@ -197,7 +198,7 @@ def cambiar_estado(id):
             
         db.session.commit()
     else:
-        flash('Estado inválido seleccionado.', 'error')
+        flash(_('Estado inválido seleccionado.'), 'error')
         
     return redirect(url_for('reservas.index'))
 
@@ -208,7 +209,7 @@ def mantenimiento(id):
     reserva = Reserva.query.get_or_404(id)
     reserva.habitacion.estadoHabitacion = 'mantenimiento'
     db.session.commit()
-    flash(f'Habitación {reserva.habitacion.numeroHabitacion} puesta en mantenimiento.', 'warning')
+    flash(_('Habitación %(numero)s puesta en mantenimiento.') % {'numero': reserva.habitacion.numeroHabitacion}, 'warning')
     return redirect(url_for('reservas.index'))
 
 @bp.route('/cancelar/<int:id>')
@@ -217,11 +218,11 @@ def cancelar(id):
     reserva = Reserva.query.get_or_404(id)
     
     if current_user.rol == 'cliente' and reserva.cedulaCliente != current_user.cedula:
-        flash('No tienes permiso para cancelar esta reserva', 'error')
+        flash(_('No tienes permiso para cancelar esta reserva'), 'error')
         return redirect(url_for('reservas.index'))
     
     if reserva.estadoReserva not in ['pendiente', 'confirmada']:
-        flash('Esta reservación no se puede cancelar en su estado actual', 'error')
+        flash(_('Esta reservación no se puede cancelar en su estado actual'), 'error')
         return redirect(url_for('reservas.index'))
 
     # Eliminar facturas y pagos asociados a la reserva
@@ -248,5 +249,5 @@ def cancelar(id):
         link=url_for('reservas.index')
     )
     
-    flash(f'Reserva #{id} cancelada correctamente.', 'info')
+    flash(_('Reserva #%(id)s cancelada correctamente.') % {'id': id}, 'info')
     return redirect(url_for('reservas.index'))

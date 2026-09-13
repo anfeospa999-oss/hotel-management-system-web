@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_babel import gettext as _
 from flask_login import login_required
 from app import db
 from app.models.rolempleado import RolEmpleado
@@ -21,13 +22,13 @@ def crear():
     descripcion = request.form.get('descripcion')
     
     if not nombre:
-        flash('El nombre del rol es obligatorio.', 'danger')
+        flash(_('El nombre del rol es obligatorio.'), 'danger')
         return redirect(url_for('rolempleados.index'))
     
     nuevo_rol = RolEmpleado(nombreRol=nombre, descripcionRol=descripcion)
     db.session.add(nuevo_rol)
     db.session.commit()
-    flash(f'Rol "{nombre}" creado exitosamente.', 'success')
+    flash(_('Rol "%(nombre)s" creado exitosamente.') % {'nombre': nombre}, 'success')
     return redirect(url_for('rolempleados.index'))
 
 @bp.route('/editar/<int:id>', methods=['POST'])
@@ -39,7 +40,7 @@ def editar(id):
     rol.descripcionRol = request.form.get('descripcion')
     
     db.session.commit()
-    flash(f'Rol "{rol.nombreRol}" actualizado.', 'success')
+    flash(_('Rol "%(nombre)s" actualizado.') % {'nombre': rol.nombreRol}, 'success')
     return redirect(url_for('rolempleados.index'))
 
 @bp.route('/eliminar/<int:id>', methods=['POST'])
@@ -52,9 +53,9 @@ def eliminar(id):
     try:
         db.session.delete(rol)
         db.session.commit()
-        flash(f'Rol "{nombre}" eliminado.', 'success')
+        flash(_('Rol "%(nombre)s" eliminado.') % {'nombre': nombre}, 'success')
     except Exception:
         db.session.rollback()
-        flash(f'No se puede eliminar el rol "{nombre}" porque tiene empleados asociados.', 'danger')
+        flash(_('No se puede eliminar el rol "%(nombre)s" porque tiene empleados asociados.') % {'nombre': nombre}, 'danger')
         
     return redirect(url_for('rolempleados.index'))

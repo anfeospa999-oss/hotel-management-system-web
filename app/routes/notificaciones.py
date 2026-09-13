@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify
+from flask_babel import gettext as _
 from flask_login import login_required, current_user
 from app import db
 from app.models.notificacion import Notificacion
@@ -23,7 +24,7 @@ def marcar_leida(id):
     notificacion = Notificacion.query.get_or_404(id)
     
     if notificacion.usuario_id != current_user.id:
-        flash('No tienes permiso para modificar esta notificación', 'error')
+        flash(_('No tienes permiso para modificar esta notificación'), 'error')
         return redirect(url_for('notificaciones.index'))
     
     notificacion.marcar_como_leida()
@@ -40,7 +41,7 @@ def marcar_todas_leidas():
     Notificacion.query.filter_by(usuario_id=current_user.id, leida=False).update({'leida': True})
     db.session.commit()
     
-    flash('Todas las notificaciones han sido marcadas como leídas', 'success')
+    flash(_('Todas las notificaciones han sido marcadas como leídas'), 'success')
     return redirect(url_for('notificaciones.index'))
 
 @bp.route('/eliminar/<int:id>', methods=['POST'])
@@ -50,13 +51,13 @@ def eliminar(id):
     notificacion = Notificacion.query.get_or_404(id)
     
     if notificacion.usuario_id != current_user.id:
-        flash('No tienes permiso para eliminar esta notificación', 'error')
+        flash(_('No tienes permiso para eliminar esta notificación'), 'error')
         return redirect(url_for('notificaciones.index'))
     
     db.session.delete(notificacion)
     db.session.commit()
     
-    flash('Notificación eliminada', 'success')
+    flash(_('Notificación eliminada'), 'success')
     return redirect(url_for('notificaciones.index'))
 
 @bp.route('/contador-no-leidas')

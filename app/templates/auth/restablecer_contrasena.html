@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Gales - Restablecer Contraseña</title>
+    <title>Hotel Gales - {{ _('Restablecer Contraseña') }}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.12.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -15,33 +15,33 @@
             <div class="auth-image">
                 <div class="auth-image-content">
                     <h2>Hotel Gales</h2>
-                    <p>Restablecer Contraseña</p>
+                    <p>{{ _('Restablecer Contraseña') }}</p>
                 </div>
             </div>
 
             <div class="auth-form">
-                <h1>Nueva Contraseña</h1>
-                <p class="subtitle">Ingresa tu nueva contraseña</p>
+                <h1>{{ _('Nueva Contraseña') }}</h1>
+                <p class="subtitle">{{ _('Ingresa tu nueva contraseña') }}</p>
 
                 <form method="post" action="{{ url_for('auth.restablecer_contrasena', token=token) }}">
                     <div class="form-group">
-                        <label for="password">NUEVA CONTRASEÑA</label>
-                        <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres, 1 letra y 1 número" required minlength="8">
+                        <label for="password">{{ _('NUEVA CONTRASEÑA') }}</label>
+                        <input type="password" id="password" name="password" placeholder="{{ _('Mínimo 8 caracteres, 1 letra y 1 número') }}" required minlength="8">
                     </div>
 
                     <div class="form-group">
-                        <label for="confirm_password">CONFIRMAR CONTRASEÑA</label>
-                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirma tu nueva contraseña" required minlength="8">
+                        <label for="confirm_password">{{ _('CONFIRMAR CONTRASEÑA') }}</label>
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="{{ _('Confirma tu nueva contraseña') }}" required minlength="8">
                     </div>
 
                     <button type="submit" class="btn-auth">
-                        <i class="bi bi-check-circle"></i> Actualizar Contraseña
+                        <i class="bi bi-check-circle"></i> {{ _('Actualizar Contraseña') }}
                     </button>
                 </form>
 
                 <div class="auth-footer">
-                    <p>¿Recuerdas tu contraseña? 
-                        <a href="{{ url_for('auth.login') }}">Iniciar Sesión</a>
+                    <p>{{ _('¿Recuerdas tu contraseña?') }}
+                        <a href="{{ url_for('auth.login') }}">{{ _('Iniciar Sesión') }}</a>
                     </p>
                 </div>
             </div>
@@ -54,7 +54,7 @@
             {% if messages %}
                 {% for category, message in messages %}
                     Swal.fire({
-                        title: "{{ '¡Hecho!' if category == 'success' else 'Atención' }}",
+                        title: "{{ _('¡Hecho!') if category == 'success' else _('Atención') }}",
                         text: "{{ message }}",
                         icon: "{{ 'success' if category == 'success' else ('error' if category == 'danger' or category == 'error' else 'info') }}",
                         confirmButtonColor: '#d4af37',

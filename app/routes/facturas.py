@@ -2,6 +2,7 @@ import qrcode
 import io
 import base64
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_babel import gettext as _
 from flask_login import login_required, current_user
 from app import db
 from app.models.factura import Factura
@@ -43,7 +44,7 @@ def ver(id):
     
     # Seguridad: Si es cliente, solo puede ver su propia factura
     if current_user.rol == 'cliente' and factura.reserva.cedulaCliente != current_user.cedula:
-        flash('No tienes permiso para ver esta factura.', 'error')
+        flash(_('No tienes permiso para ver esta factura.'), 'error')
         return redirect(url_for('facturas.index'))
     
     # Calculamos días de estancia

@@ -38,12 +38,12 @@
                     <!-- BOTONES PARA ADMINISTRADOR -->
                     {% if current_user.es_administrador() %}
                     <a href="{{ url_for('usuarios.listar_usuarios') }}" class="action-btn admin"
-                        title="Gestionar todos los usuarios del sistema">
+                        title="{{ _('Gestionar todos los usuarios del sistema') }}">
                         <i class="bi bi-people-fill"></i>
                         <span>{{ _('Usuarios') }}</span>
                     </a>
                     <a href="{{ url_for('usuarios.historial_recepcionistas') }}" class="action-btn admin"
-                        title="Ver historial de trabajo de recepcionistas">
+                        title="{{ _('Ver historial de trabajo de recepcionistas') }}">
                         <i class="bi bi-clock-history"></i>
                         <span>{{ _('Historial Recepción') }}</span>
                     </a>
@@ -53,24 +53,24 @@
                     {% if current_user.rol == 'recepcionista' %}
                     <a href="{{ url_for('reservas.index') }}" class="action-btn receptionist"
                         style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);"
-                        title="Verificar clientes en lista y realizar Check-in">
+                        title="{{ _('Verificar clientes en lista y realizar Check-in') }}">
                         <i class="bi bi-person-check-fill"></i>
                         <span>{{ _('Verificar Lista') }}</span>
                     </a>
                     <a href="{{ url_for('habitaciones.index') }}" class="action-btn maid"
-                        title="Cambiar estados a Ocupada/Mantenimiento">
+                        title="{{ _('Cambiar estados a Ocupada/Mantenimiento') }}">
                         <i class="bi bi-door-open-fill"></i>
                         <span>{{ _('Estado Habitaciones') }}</span>
                     </a>
                     <a href="{{ url_for('limpieza.mis_tareas') }}" class="action-btn maid"
-                        title="Asignar y ver tareas de limpieza">
+                        title="{{ _('Asignar y ver tareas de limpieza') }}">
                         <i class="bi bi-stars"></i>
                         <span>{{ _('Limpieza') }}</span>
                     </a>
                     {% else %}
                     {% if current_user.tiene_permisos('ver_reservas') %}
                     <a href="{{ url_for('reservas.index') }}" class="action-btn receptionist"
-                        title="Ver y gestionar reservas">
+                        title="{{ _('Ver y gestionar reservas') }}">
                         <i class="bi bi-calendar3"></i>
                         <span>{{ _('Reservas') }}</span>
                     </a>
@@ -78,7 +78,7 @@
 
                     {% if current_user.tiene_permisos('ver_huespedes') %}
                     <a href="{{ url_for('clientes.index') }}" class="action-btn receptionist"
-                        title="Gestionar información de huéspedes">
+                        title="{{ _('Gestionar información de huéspedes') }}">
                         <i class="bi bi-person-badge"></i>
                         <span>{{ _('Huéspedes') }}</span>
                     </a>
@@ -88,7 +88,7 @@
                     <!-- BOTONES PARA CONTADOR -->
                     {% if current_user.tiene_permisos('ver_facturacion') %}
                     <a href="{{ url_for('facturas.index') }}" class="action-btn accountant"
-                        title="Gestionar facturación">
+                        title="{{ _('Gestionar facturación') }}">
                         <i class="bi bi-receipt"></i>
                         <span>{{ _('Facturación') }}</span>
                     </a>
@@ -96,7 +96,7 @@
 
                     {% if current_user.tiene_permisos('ver_reportes') %}
                     <a href="{{ url_for('reportes.index') }}" class="action-btn accountant"
-                        title="Ver reportes del sistema">
+                        title="{{ _('Ver reportes del sistema') }}">
                         <i class="bi bi-graph-up"></i>
                         <span>{{ _('Reportes') }}</span>
                     </a>
@@ -105,18 +105,18 @@
                     <!-- BOTONES PARA CAMARERO -->
                     {% if current_user.rol == 'servicio_limpieza' %}
                     <a href="{{ url_for('limpieza.mis_tareas', filtro='pendientes') }}" class="action-btn maid"
-                        title="Ver tareas pendientes">
+                        title="{{ _('Ver tareas pendientes') }}">
                         <i class="bi bi-door-open-fill"></i>
                         <span>{{ _('Piezas por Limpiar') }}</span>
                     </a>
                     <a href="{{ url_for('limpieza.mis_tareas', filtro='completadas') }}" class="action-btn maid"
-                        title="Ver historial de tareas">
+                        title="{{ _('Ver historial de tareas') }}">
                         <i class="bi bi-clock-history"></i>
                         <span>{{ _('Historial Limpiezas') }}</span>
                     </a>
                     {% elif current_user.tiene_permisos('ver_habitaciones') %}
                     <a href="{{ url_for('habitaciones.index') }}" class="action-btn maid"
-                        title="Ver estado de habitaciones">
+                        title="{{ _('Ver estado de habitaciones') }}">
                         <i class="bi bi-door-closed"></i>
                         <span>{{ _('Habitaciones') }}</span>
                     </a>

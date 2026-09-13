@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_babel import gettext as _
 from flask_login import login_required, current_user
 from app import db
 from app.models.tarea_limpieza import TareaLimpieza
@@ -48,7 +49,7 @@ def asignar_tarea():
         
         db.session.add(nueva_tarea)
         db.session.commit()
-        flash('Tarea de limpieza asignada correctamente.', 'success')
+        flash(_('Tarea de limpieza asignada correctamente.'), 'success')
         return redirect(url_for('limpieza.mis_tareas'))
         
     habitaciones = Habitacion.query.all()
@@ -63,7 +64,7 @@ def completar_tarea(id):
     
     # Verificar que el personal solo complete sus tareas
     if current_user.rol == 'servicio_limpieza' and tarea.idPersonal != current_user.id:
-        flash('No puedes completar una tarea que no tienes asignada.', 'error')
+        flash(_('No puedes completar una tarea que no tienes asignada.'), 'error')
         return redirect(url_for('limpieza.mis_tareas'))
         
     tarea.estado = 'finalizado'
@@ -76,7 +77,7 @@ def completar_tarea(id):
         tarea.habitacion.estadoHabitacion = 'disponible'
         
     db.session.commit()
-    flash(f'Tarea de la habitación {tarea.habitacion.numeroHabitacion} marcada como completada.', 'success')
+    flash(_('Tarea de la habitación %(numero)s marcada como completada.') % {'numero': tarea.habitacion.numeroHabitacion}, 'success')
     return redirect(url_for('limpieza.mis_tareas'))
 
 @bp.route('/iniciar/<int:id>')
@@ -85,7 +86,7 @@ def completar_tarea(id):
 def iniciar_tarea(id):
     tarea = TareaLimpieza.query.get_or_404(id)
     if current_user.rol == 'servicio_limpieza' and tarea.idPersonal != current_user.id:
-        flash('No puedes iniciar una tarea que no tienes asignada.', 'error')
+        flash(_('No puedes iniciar una tarea que no tienes asignada.'), 'error')
         return redirect(url_for('limpieza.mis_tareas'))
         
     tarea.estado = 'en curso'
@@ -97,5 +98,5 @@ def iniciar_tarea(id):
         tarea.habitacion.estadoHabitacion = 'limpieza'
         
     db.session.commit()
-    flash(f'Has iniciado la limpieza de la habitación {tarea.habitacion.numeroHabitacion}.', 'info')
+    flash(_('Has iniciado la limpieza de la habitación %(numero)s.') % {'numero': tarea.habitacion.numeroHabitacion}, 'info')
     return redirect(url_for('limpieza.mis_tareas'))

@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_babel import gettext as _
 from flask_login import login_required, current_user
 from app import db
 from app.models.habitacion import Habitacion
@@ -173,11 +174,11 @@ def nueva():
         
         # Validaciones de longitud
         if len(str(numero)) > 4:
-            flash('El número de habitación no puede tener más de 4 dígitos', 'error')
+            flash(_('El número de habitación no puede tener más de 4 dígitos'), 'error')
             return redirect(url_for('habitaciones.nueva'))
             
         if len(str(precio)) > 7:
-            flash('El precio no puede tener más de 7 dígitos', 'error')
+            flash(_('El precio no puede tener más de 7 dígitos'), 'error')
             return redirect(url_for('habitaciones.nueva'))
         
         nueva_hab = Habitacion(
@@ -188,7 +189,7 @@ def nueva():
         )
         db.session.add(nueva_hab)
         db.session.commit()
-        flash('Habitación registrada con éxito', 'success')
+        flash(_('Habitación registrada con éxito'), 'success')
         return redirect(url_for('habitaciones.index'))
         
     tipos = TipoHabitacion.query.all()
@@ -207,15 +208,15 @@ def editar(id):
         
         # Validaciones de longitud
         if len(str(hab.numeroHabitacion)) > 4:
-            flash('El número de habitación no puede tener más de 4 dígitos', 'error')
+            flash(_('El número de habitación no puede tener más de 4 dígitos'), 'error')
             return redirect(url_for('habitaciones.editar', id=id))
             
         if len(str(hab.precioNoche)) > 7:
-            flash('El precio no puede tener más de 7 dígitos', 'error')
+            flash(_('El precio no puede tener más de 7 dígitos'), 'error')
             return redirect(url_for('habitaciones.editar', id=id))
         
         db.session.commit()
-        flash('Habitación actualizada con éxito', 'success')
+        flash(_('Habitación actualizada con éxito'), 'success')
         return redirect(url_for('habitaciones.index'))
     
     tipos = TipoHabitacion.query.all()
@@ -228,7 +229,7 @@ def eliminar(id):
     hab = Habitacion.query.get_or_404(id)
     db.session.delete(hab)
     db.session.commit()
-    flash('Habitación eliminada correctamente', 'info')
+    flash(_('Habitación eliminada correctamente'), 'info')
     return redirect(url_for('habitaciones.index'))
 
 @bp.route('/detalle/<int:id>')
@@ -293,5 +294,5 @@ def cambiar_estado(id, nuevo_estado):
         
     hab.estadoHabitacion = nuevo_estado
     db.session.commit()
-    flash(f'Habitación {hab.numeroHabitacion} actualizada a {nuevo_estado}', 'success')
+    flash(_('Habitación %(numero)s actualizada a %(estado)s') % {'numero': hab.numeroHabitacion, 'estado': nuevo_estado}, 'success')
     return redirect(url_for('habitaciones.index'))

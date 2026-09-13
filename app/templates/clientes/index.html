@@ -245,6 +245,7 @@
 </div>
 
 <script>
+  const SIN_RESERVAS_TEXT = {{ _('Sin historial de reservas') | tojson }};
   document.addEventListener('DOMContentLoaded', function() {
     const clienteModal = document.getElementById('clienteModal');
     if (clienteModal) {
@@ -281,7 +282,7 @@
         tablaBody.innerHTML = '';
         
         if (reservasJson.length === 0) {
-            tablaBody.innerHTML = '<tr><td colspan="4" class="text-center text-muted py-3">Sin historial de reservas</td></tr>';
+            tablaBody.innerHTML = `<tr><td colspan="4" class="text-center text-muted py-3">${SIN_RESERVAS_TEXT}</td></tr>`;
         } else {
             reservasJson.forEach(res => {
                 let badgeClass = 'bg-info';

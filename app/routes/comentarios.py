@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_babel import gettext as _
 from flask_login import login_required, current_user
 from app import db
 from app.models.comentario import Comentario
@@ -32,7 +33,7 @@ def nuevo_comentario(id_habitacion):
     """Crear un nuevo comentario para una habitación"""
     # Verificar que el usuario sea un cliente
     if current_user.rol != 'cliente':
-        flash('Solo los clientes pueden dejar comentarios', 'error')
+        flash(_('Solo los clientes pueden dejar comentarios'), 'error')
         return redirect(url_for('habitaciones.index'))
     
     habitacion = Habitacion.query.get_or_404(id_habitacion)
@@ -45,7 +46,7 @@ def nuevo_comentario(id_habitacion):
     ).first()
     
     if not reserva_previa:
-        flash('Solo puedes comentar sobre habitaciones donde te has hospedado', 'warning')
+        flash(_('Solo puedes comentar sobre habitaciones donde te has hospedado'), 'warning')
         return redirect(url_for('habitaciones.detalle', id=id_habitacion))
     
     # Verificar si ya comentó esta habitación
@@ -55,7 +56,7 @@ def nuevo_comentario(id_habitacion):
     ).first()
     
     if comentario_existente:
-        flash('Ya has dejado un comentario para esta habitación', 'warning')
+        flash(_('Ya has dejado un comentario para esta habitación'), 'warning')
         return redirect(url_for('comentarios.ver_comentarios_habitacion', id_habitacion=id_habitacion))
     
     if request.method == 'POST':
@@ -64,24 +65,24 @@ def nuevo_comentario(id_habitacion):
         
         # Validaciones
         if not calificacion or not comentario_texto:
-            flash('Por favor completa todos los campos', 'error')
+            flash(_('Por favor completa todos los campos'), 'error')
             return redirect(url_for('comentarios.nuevo_comentario', id_habitacion=id_habitacion))
         
         try:
             calificacion = int(calificacion)
             if calificacion < 1 or calificacion > 5:
-                flash('La calificación debe estar entre 1 y 5 estrellas', 'error')
+                flash(_('La calificación debe estar entre 1 y 5 estrellas'), 'error')
                 return redirect(url_for('comentarios.nuevo_comentario', id_habitacion=id_habitacion))
         except ValueError:
-            flash('Calificación inválida', 'error')
+            flash(_('Calificación inválida'), 'error')
             return redirect(url_for('comentarios.nuevo_comentario', id_habitacion=id_habitacion))
         
         if len(comentario_texto) < 10:
-            flash('El comentario debe tener al menos 10 caracteres', 'error')
+            flash(_('El comentario debe tener al menos 10 caracteres'), 'error')
             return redirect(url_for('comentarios.nuevo_comentario', id_habitacion=id_habitacion))
         
         if len(comentario_texto) > 500:
-            flash('El comentario no puede exceder 500 caracteres', 'error')
+            flash(_('El comentario no puede exceder 500 caracteres'), 'error')
             return redirect(url_for('comentarios.nuevo_comentario', id_habitacion=id_habitacion))
         
         nuevo_comentario = Comentario(
@@ -94,7 +95,7 @@ def nuevo_comentario(id_habitacion):
         db.session.add(nuevo_comentario)
         db.session.commit()
         
-        flash('¡Gracias por tu comentario!', 'success')
+        flash(_('¡Gracias por tu comentario!'), 'success')
         return redirect(url_for('comentarios.ver_comentarios_habitacion', id_habitacion=id_habitacion))
     
     return render_template('comentarios/nuevo.html', habitacion=habitacion)
@@ -104,7 +105,7 @@ def nuevo_comentario(id_habitacion):
 def mis_comentarios():
     """Ver todos los comentarios del usuario actual"""
     if current_user.rol != 'cliente':
-        flash('Esta función es solo para clientes', 'error')
+        flash(_('Esta función es solo para clientes'), 'error')
         return redirect(url_for('auth.menu'))
     
     comentarios = Comentario.query.filter_by(cedulaCliente=current_user.cedula).order_by(Comentario.fechaComentario.desc()).all()
@@ -118,11 +119,11 @@ def eliminar_comentario(id):
     
     # Verificar que el comentario sea del usuario actual
     if comentario.cedulaCliente != current_user.cedula:
-        flash('No tienes permiso para eliminar este comentario', 'error')
+        flash(_('No tienes permiso para eliminar este comentario'), 'error')
         return redirect(url_for('comentarios.mis_comentarios'))
     
     db.session.delete(comentario)
     db.session.commit()
     
-    flash('Comentario eliminado correctamente', 'success')
+    flash(_('Comentario eliminado correctamente'), 'success')
     return redirect(url_for('comentarios.mis_comentarios'))

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block titulo_pagina %}
-Editar Usuario {{ user.nameUser }}
+{{ _('Editar Usuario') }} {{ user.nameUser }}
 {% endblock %}
 
 {% block content %}
@@ -9,26 +9,26 @@ Editar Usuario {{ user.nameUser }}
 <form action="{{ url_for('user.edit', id=user.idUser) }}" method="POST">
 
     <div class="form-group mb-3">
-        <label for="nameUser">Nombre:</label>
+        <label for="nameUser">{{ _('Nombre:') }}</label>
         <input type="text" id="nameUser" name="nameUser" value="{{ user.nameUser }}" required class="form-control">
     </div>
 
     <div class="form-group mb-3">
-        <label for="username">Usuario:</label>
+        <label for="username">{{ _('Usuario:') }}</label>
         <input type="text" id="username" name="username" value="{{ user.username }}" required class="form-control">
     </div>
 
     <div class="form-group mb-3">
-        <label for="email">Correo:</label>
+        <label for="email">{{ _('Correo:') }}</label>
         <input type="email" id="email" name="email" value="{{ user.email }}" required class="form-control">
     </div>
 
     <div class="form-group mb-3">
-        <label for="passwordUser">Contraseña:</label>
+        <label for="passwordUser">{{ _('Contraseña:') }}</label>
         <input type="password" id="passwordUser" name="passwordUser" class="form-control">
     </div>
 
-    <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
+    <button type="submit" class="btn btn-primary">{{ _('Actualizar Usuario') }}</button>
 
 </form>
 

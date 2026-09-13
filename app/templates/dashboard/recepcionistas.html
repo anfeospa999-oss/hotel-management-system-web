@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
-{% block titulo_pagina %}Gestión de Recepcionistas{% endblock %}
+{% block titulo_pagina %}{{ _('Gestión de Recepcionistas') }}{% endblock %}
 
 {% block content %}
 <div class="container-fluid py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="text-dark fw-bold mb-0">
             <i class="bi bi-person-badge text-gold me-2"></i>
-            Personal de Recepción
+            {{ _('Personal de Recepción') }}
         </h2>
         <a href="{{ url_for('usuarios.listar_usuarios') }}" class="btn btn-outline-dark btn-dynamic">
-            <i class="bi bi-people me-2"></i>Gestionar Usuarios
+            <i class="bi bi-people me-2"></i>{{ _('Gestionar Usuarios') }}
         </a>
     </div>
     
@@ -24,7 +24,7 @@
                             <i class="bi bi-search text-muted"></i>
                         </span>
                         <input type="text" name="search" class="form-control border-start-0 ps-0" 
-                               placeholder="Buscar por nombre de usuario..." value="{{ search }}">
+                               placeholder="{{ _('Buscar por nombre de usuario...') }}" value="{{ search }}">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -37,10 +37,10 @@
                 </div>
                 <div class="col-md-3 d-flex gap-2">
                     <button type="submit" class="btn btn-dark-royal text-white w-100 rounded-3">
-                        <i class="bi bi-filter me-2"></i>Filtrar
+                        <i class="bi bi-filter me-2"></i>{{ _('Filtrar') }}
                     </button>
                     {% if search or fecha %}
-                    <a href="{{ url_for('usuarios.historial_recepcionistas') }}" class="btn btn-outline-secondary rounded-3" title="Limpiar filtros">
+                    <a href="{{ url_for('usuarios.historial_recepcionistas') }}" class="btn btn-outline-secondary rounded-3" title="{{ _('Limpiar filtros') }}">
                         <i class="bi bi-x-lg"></i>
                     </a>
                     {% endif %}
@@ -55,8 +55,8 @@
         <div class="col-md-6 col-xl-4">
             <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden card-recepcionista">
                 <div class="card-header bg-dark-royal text-white p-3 d-flex justify-content-between align-items-center">
-                    <span class="badge bg-gold text-dark px-3 rounded-pill">RECEPCIONISTA</span>
-                    <small class="text-light opacity-75">ID #{{ recepcionista.id }}</small>
+                    <span class="badge bg-gold text-dark px-3 rounded-pill">{{ _('RECEPCIONISTA') }}</span>
+                    <small class="text-light opacity-75">{{ _('ID') }} #{{ recepcionista.id }}</small>
                 </div>
                 
                 <div class="card-body p-4">
@@ -72,21 +72,21 @@
 
                     <div class="info-list mb-4">
                         <div class="d-flex justify-content-between mb-2">
-                            <span class="text-muted small"><i class="bi bi-card-text me-1"></i> Cédula:</span>
-                            <span class="fw-bold small">{{ recepcionista.cedula or 'No registrada' }}</span>
+                            <span class="text-muted small"><i class="bi bi-card-text me-1"></i> {{ _('Cédula:') }}</span>
+                            <span class="fw-bold small">{{ recepcionista.cedula or _('No registrada') }}</span>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
-                            <span class="text-muted small"><i class="bi bi-envelope me-1"></i> Email:</span>
+                            <span class="text-muted small"><i class="bi bi-envelope me-1"></i> {{ _('Email:') }}</span>
                             <span class="fw-bold small text-truncate ms-2" style="max-width: 150px;">{{ info.email if info else 'N/A' }}</span>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
-                            <span class="text-muted small"><i class="bi bi-calendar-check me-1"></i> Actividad:</span>
-                            <span class="badge bg-info-subtle text-info px-2">{{ recepcionista.reservas_atendidas|length }} Reservas</span>
+                            <span class="text-muted small"><i class="bi bi-calendar-check me-1"></i> {{ _('Actividad:') }}</span>
+                            <span class="badge bg-info-subtle text-info px-2">{{ recepcionista.reservas_atendidas|length }} {{ _('Reservas') }}</span>
                         </div>
                     </div>
 
                     <a href="{{ url_for('usuarios.ver_historial_recepcionista', id=recepcionista.id) }}" class="btn btn-gold w-100 py-2 rounded-3">
-                        <i class="bi bi-clock-history me-2"></i>Ver Historial de Trabajo
+                        <i class="bi bi-clock-history me-2"></i>{{ _('Ver Historial de Trabajo') }}
                     </a>
                 </div>
             </div>
@@ -97,22 +97,22 @@
                 <i class="bi bi-search text-muted display-1 mb-4"></i>
                 <h4 class="fw-bold">
                     {% if search or fecha %}
-                        No se encontraron recepcionistas para esta búsqueda
+                        {{ _('No se encontraron recepcionistas para esta búsqueda') }}
                     {% else %}
-                        No hay recepcionistas registrados
+                        {{ _('No hay recepcionistas registrados') }}
                     {% endif %}
                 </h4>
                 <p class="text-muted mb-4">
                     {% if search or fecha %}
-                        Intenta ajustar los filtros o limpiar la búsqueda para ver otros resultados.
+                        {{ _('Intenta ajustar los filtros o limpiar la búsqueda para ver otros resultados.') }}
                     {% else %}
-                        Puedes crear nuevos recepcionistas en el panel de gestión de usuarios para empezar a ver su actividad.
+                        {{ _('Puedes crear nuevos recepcionistas en el panel de gestión de usuarios para empezar a ver su actividad.') }}
                     {% endif %}
                 </p>
                 {% if search or fecha %}
                     <div class="d-flex justify-content-center">
                         <a href="{{ url_for('usuarios.historial_recepcionistas') }}" class="btn btn-dark-royal text-white rounded-pill px-5">
-                            <i class="bi bi-x-circle me-2"></i>Limpiar Filtros
+                            <i class="bi bi-x-circle me-2"></i>{{ _('Limpiar Filtros') }}
                         </a>
                     </div>
                 {% endif %}

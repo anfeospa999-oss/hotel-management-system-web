@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_babel import gettext as _
 from flask_login import login_required, current_user
 from app import db
 from app.models.reserva import Reserva
@@ -25,7 +26,7 @@ def index():
     # 2. Calcular rango de fechas para el mes seleccionado
     try:
         año, mes = map(int, mes_seleccionado.split('-'))
-        _, ultimo_dia = calendar.monthrange(año, mes)
+        _wd, ultimo_dia = calendar.monthrange(año, mes)
         # Convertir a objetos date para comparación correcta en SQLAlchemy
         fecha_inicio = datetime(año, mes, 1).date()
         fecha_fin = datetime(año, mes, ultimo_dia).date()
@@ -33,7 +34,7 @@ def index():
         print(f"Error parsing date: {e}")
         hoy = datetime.now()
         fecha_inicio = hoy.replace(day=1).date()
-        _, ultimo_dia = calendar.monthrange(hoy.year, hoy.month)
+        _wd, ultimo_dia = calendar.monthrange(hoy.year, hoy.month)
         fecha_fin = hoy.replace(day=ultimo_dia).date()
 
     # 3. Listado de Reservas del Mes
@@ -127,8 +128,8 @@ def actualizar_salario(id):
         try:
             usuario.salario = float(nuevo_salario)
             db.session.commit()
-            flash(f'Salario actualizado correctamente', 'success')
+            flash(_('Salario actualizado correctamente'), 'success')
         except ValueError:
-            flash('Valor de salario inválido', 'error')
+            flash(_('Valor de salario inválido'), 'error')
             
     return redirect(url_for('reportes.index'))

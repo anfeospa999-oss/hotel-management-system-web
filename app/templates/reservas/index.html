@@ -99,7 +99,7 @@
                                 <option value="limpieza" {% if r.estadoReserva == 'finalizada' and r.habitacion.estadoHabitacion == 'limpieza' %}selected{% endif %}>{{ _('Finalizada (Pasar a Limpieza)') }}</option>
                                 <option value="cancelada" {% if r.estadoReserva == 'cancelada' %}selected{% endif %}>{{ _('Cancelada') }}</option>
                             </select>
-                            <button type="submit" class="btn btn-primary" title="Actualizar" 
+                            <button type="submit" class="btn btn-primary" title="{{ _('Actualizar') }}" 
                                 {% if current_user.rol == 'servicio_limpieza' or is_locked %}disabled{% endif %}>
                                 <i class="bi bi-arrow-repeat"></i>
                             </button>

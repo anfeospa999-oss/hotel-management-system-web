@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 
-{% block titulo_contenido %}Registrar Nueva Habitación{% endblock %}
+{% block titulo_contenido %}{{ _('Registrar Nueva Habitación') }}{% endblock %}
 
 {% block content %}
 <div class="content-card">
   <div class="content-card-header">
-    <h5 class="mb-0"><i class="bi bi-plus-square me-2"></i>Formulario de Registro</h5>
+    <h5 class="mb-0"><i class="bi bi-plus-square me-2"></i>{{ _('Formulario de Registro') }}</h5>
   </div>
   <div class="content-card-body">
     <form method="POST" class="row g-3">
       
       <div class="col-md-6">
-        <label class="form-label fw-bold">Número de Habitación <small class="text-muted">(Máx. 4)</small></label>
-        <input type="text" id="numeroHabitacion" name="numeroHabitacion" class="form-control" placeholder="Ej: 101" required maxlength="4" oninput="validarLongitud(this, 4, 'El número de habitación no puede tener más de 4 dígitos')">
+        <label class="form-label fw-bold">{{ _('Número de Habitación') }} <small class="text-muted">{{ _('(Máx. 4)') }}</small></label>
+        <input type="text" id="numeroHabitacion" name="numeroHabitacion" class="form-control" placeholder="{{ _('Ej: 101') }}" required maxlength="4" oninput="validarLongitud(this, 4, '{{ _('El número de habitación no puede tener más de 4 dígitos') }}')">
       </div>
 
       <div class="col-md-6">
-        <label class="form-label fw-bold">Tipo de Habitación</label>
+        <label class="form-label fw-bold">{{ _('Tipo de Habitación') }}</label>
         <select name="idTipoHabitacion" class="form-select" required>
-          <option value="" disabled selected>Seleccione el tipo...</option>
+          <option value="" disabled selected>{{ _('Seleccione el tipo...') }}</option>
           {% for tipo in tipos %}
           <option value="{{ tipo.idTipoHabitacion }}">{{ tipo.nombreTipo }}</option>
           {% endfor %}
@@ -26,19 +26,19 @@
       </div>
 
       <div class="col-md-6">
-        <label class="form-label fw-bold">Precio por Noche (COP) <small class="text-muted">(Máx. 7 dígitos)</small></label>
+        <label class="form-label fw-bold">{{ _('Precio por Noche (COP)') }} <small class="text-muted">{{ _('(Máx. 7 dígitos)') }}</small></label>
         <div class="input-group">
           <span class="input-group-text">COP $</span>
-          <input type="number" id="precioNoche" step="1" name="precioNoche" class="form-control" placeholder="Máx. 9999999" required oninput="validarLongitud(this, 7, 'El precio no puede tener más de 7 dígitos')">
+          <input type="number" id="precioNoche" step="1" name="precioNoche" class="form-control" placeholder="{{ _('Máx. 9999999') }}" required oninput="validarLongitud(this, 7, '{{ _('El precio no puede tener más de 7 dígitos') }}')">
         </div>
       </div>
 
       <div class="col-md-6">
-        <label class="form-label fw-bold">Estado Inicial</label>
+        <label class="form-label fw-bold">{{ _('Estado Inicial') }}</label>
         <select name="estadoHabitacion" class="form-select">
-          <option value="disponible" selected>Disponible</option>
-          <option value="mantenimiento">Mantenimiento</option>
-          <option value="limpieza">Limpieza</option>
+          <option value="disponible" selected>{{ _('Disponible') }}</option>
+          <option value="mantenimiento">{{ _('Mantenimiento') }}</option>
+          <option value="limpieza">{{ _('Limpieza') }}</option>
         </select>
       </div>
 
@@ -46,10 +46,10 @@
         <hr>
         <div class="d-flex gap-2">
           <button type="submit" class="btn btn-hotel px-4">
-            <i class="bi bi-save"></i> Guardar Habitación
+            <i class="bi bi-save"></i> {{ _('Guardar Habitación') }}
           </button>
           <a href="{{ url_for('habitaciones.index') }}" class="btn btn-outline-secondary px-4">
-            Cancelar
+            {{ _('Cancelar') }}
           </a>
         </div>
       </div>
@@ -66,7 +66,7 @@ function validarLongitud(input, max, mensaje) {
     input.value = input.value.slice(0, max);
     Swal.fire({
       icon: 'warning',
-      title: 'Atención',
+      title: '{{ _('Atención') }}',
       text: mensaje,
       confirmButtonColor: '#d4af37'
     });

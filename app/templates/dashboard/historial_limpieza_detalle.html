@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 
-{% block titulo_pagina %}Historial: {{ empleado.usuario }}{% endblock %}
+{% block titulo_pagina %}{{ _('Historial:') }} {{ empleado.usuario }}{% endblock %}
 
 {% block content %}
 <div class="container-fluid py-4">
     <div class="mb-4">
         <a href="{{ url_for('usuarios.historial_limpieza') }}" class="text-decoration-none text-muted mb-2 d-inline-block">
-            <i class="bi bi-arrow-left me-1"></i> Volver a Personal de Limpieza
+            <i class="bi bi-arrow-left me-1"></i> {{ _('Volver a Personal de Limpieza') }}
         </a>
         <div class="d-flex justify-content-between align-items-end">
             <div>
-                <h2 class="text-dark fw-bold mb-0">Historial de Tareas de Limpieza</h2>
-                <p class="text-muted mb-0">Registro de todas las actividades realizadas por <strong>{{ empleado.usuario }}</strong></p>
+                <h2 class="text-dark fw-bold mb-0">{{ _('Historial de Tareas de Limpieza') }}</h2>
+                <p class="text-muted mb-0">{{ _('Registro de todas las actividades realizadas por') }} <strong>{{ empleado.usuario }}</strong></p>
             </div>
             <div class="text-end">
                 <span class="badge bg-dark-royal text-gold px-3 py-2 rounded-pill">
-                    {{ historial|length }} Tareas Registradas
+                    {{ historial|length }} {{ _('Tareas Registradas') }}
                 </span>
             </div>
         </div>
@@ -26,32 +26,32 @@
         <div class="col-lg-4 mb-4">
             <div class="card border-0 shadow-sm rounded-4 sticky-top" style="top: 20px;">
                 <div class="card-body p-4">
-                    <h5 class="fw-bold mb-4">Información del Perfil</h5>
+                    <h5 class="fw-bold mb-4">{{ _('Información del Perfil') }}</h5>
                     <div class="d-flex align-items-center mb-4">
                         <div class="avatar-circle me-3 bg-light text-dark rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; border: 2px solid #d4af37;">
                             {{ empleado.usuario[0].upper() }}
                         </div>
                         <div>
                             <h6 class="mb-0 fw-bold">{{ cliente_info.nombre if cliente_info else 'N/A' }} {{ cliente_info.apellido if cliente_info else '' }}</h6>
-                            <small class="text-muted">Personal de Limpieza</small>
+                            <small class="text-muted">{{ _('Personal de Limpieza') }}</small>
                         </div>
                     </div>
                     <hr class="opacity-10">
                     <div class="details">
                         <div class="mb-3">
-                            <label class="text-muted small d-block">Usuario de Acceso</label>
+                            <label class="text-muted small d-block">{{ _('Usuario de Acceso') }}</label>
                             <span class="fw-bold">{{ empleado.usuario }}</span>
                         </div>
                         <div class="mb-3">
-                            <label class="text-muted small d-block">Cédula</label>
+                            <label class="text-muted small d-block">{{ _('Cédula') }}</label>
                             <span class="fw-bold">{{ empleado.cedula or 'N/A' }}</span>
                         </div>
                         <div class="mb-3">
-                            <label class="text-muted small d-block">Correo Electrónico</label>
+                            <label class="text-muted small d-block">{{ _('Correo Electrónico') }}</label>
                             <span class="fw-bold">{{ cliente_info.email if cliente_info else 'N/A' }}</span>
                         </div>
                         <div class="mb-0">
-                            <label class="text-muted small d-block">Miembro desde</label>
+                            <label class="text-muted small d-block">{{ _('Miembro desde') }}</label>
                             <span class="fw-bold">{{ empleado.created_at.strftime('%d/%m/%Y') }}</span>
                         </div>
                     </div>
@@ -66,11 +66,11 @@
                     <table class="table table-hover align-middle mb-0">
                         <thead class="bg-light">
                             <tr>
-                                <th class="ps-4">Habitación</th>
-                                <th>Fecha Asignación</th>
-                                <th>Fecha Finalización</th>
-                                <th>Estado</th>
-                                <th class="pe-4">Instrucciones</th>
+                                <th class="ps-4">{{ _('Habitación') }}</th>
+                                <th>{{ _('Fecha Asignación') }}</th>
+                                <th>{{ _('Fecha Finalización') }}</th>
+                                <th>{{ _('Estado') }}</th>
+                                <th class="pe-4">{{ _('Instrucciones') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,7 +78,7 @@
                             <tr>
                                 <td class="ps-4">
                                     <span class="badge bg-light text-dark border">
-                                        Hab. {{ tarea.habitacion.numeroHabitacion }}
+                                        {{ _('Hab.') }} {{ tarea.habitacion.numeroHabitacion }}
                                     </span>
                                 </td>
                                 <td>
@@ -88,7 +88,7 @@
                                     {% if tarea.fechaFinalizacion %}
                                         <small class="text-muted">{{ tarea.fechaFinalizacion.strftime('%d/%m/%Y %H:%M') }}</small>
                                     {% else %}
-                                        <span class="text-muted italic small">En progreso...</span>
+                                        <span class="text-muted italic small">{{ _('En progreso...') }}</span>
                                     {% endif %}
                                 </td>
                                 <td>
@@ -102,7 +102,7 @@
                                 </td>
                                 <td class="pe-4">
                                     <small class="text-muted text-truncate d-inline-block" style="max-width: 200px;" title="{{ tarea.instrucciones }}">
-                                        {{ tarea.instrucciones or 'Sin instrucciones' }}
+                                        {{ tarea.instrucciones or _('Sin instrucciones') }}
                                     </small>
                                 </td>
                             </tr>
@@ -110,7 +110,7 @@
                             <tr>
                                 <td colspan="5" class="text-center py-5 text-muted">
                                     <i class="bi bi-folder-x display-4 d-block mb-3"></i>
-                                    No se registran tareas de limpieza para este empleado.
+                                    {{ _('No se registran tareas de limpieza para este empleado.') }}
                                 </td>
                             </tr>
                             {% endfor %}

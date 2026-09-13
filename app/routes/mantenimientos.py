@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_babel import gettext as _
 from flask_login import login_required
 from app import db
 from app.models.mantenimiento import MantenimientoHabitacion
@@ -46,15 +47,15 @@ def cambiar_estado(id, estado):
     staff = User.query.get_or_404(id)
     
     if staff.rol != 'servicio_limpieza':
-        flash('Usuario no es personal de limpieza.', 'error')
+        flash(_('Usuario no es personal de limpieza.'), 'error')
         return redirect(url_for('mantenimientos.index'))
     
     estados_validos = ['disponible', 'ocupado']
     if estado not in estados_validos:
-        flash('Estado inválido.', 'error')
+        flash(_('Estado inválido.'), 'error')
         return redirect(url_for('mantenimientos.index'))
     
     staff.estado_limpieza = estado
     db.session.commit()
-    flash(f'{staff.usuario} ahora está {estado}.', 'success')
+    flash(_('%(usuario)s ahora está %(estado)s.') % {'usuario': staff.usuario, 'estado': estado}, 'success')
     return redirect(url_for('mantenimientos.index'))

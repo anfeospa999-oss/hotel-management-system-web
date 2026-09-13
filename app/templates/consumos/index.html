@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
-{% block titulo_pagina %}Estado de Consumos{% endblock %}
+{% block titulo_pagina %}{{ _('Estado de Consumos') }}{% endblock %}
 
 {% block content %}
 <div class="table-responsive">
     <table class="table table-striped align-middle">
         <thead>
             <tr>
-                <th>Reserva #</th>
-                <th>Servicio</th>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
+                <th>{{ _('Reserva #') }}</th>
+                <th>{{ _('Servicio') }}</th>
+                <th>{{ _('Cantidad') }}</th>
+                <th>{{ _('Subtotal') }}</th>
             </tr>
         </thead>
         <tbody>

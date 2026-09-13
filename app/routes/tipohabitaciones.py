@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_babel import gettext as _
 from flask_login import login_required
 from app import db
 from app.models.tipohabitacion import TipoHabitacion
@@ -15,16 +16,16 @@ def index():
         descripcion = request.form.get('descripcionTipo')
         
         if not nombre:
-            flash('El nombre es obligatorio', 'error')
+            flash(_('El nombre es obligatorio'), 'error')
         elif len(nombre) > 15:
-            flash('El nombre no puede tener más de 15 caracteres', 'error')
+            flash(_('El nombre no puede tener más de 15 caracteres'), 'error')
         elif descripcion and len(descripcion) > 80:
-            flash('La descripción no puede tener más de 80 caracteres', 'error')
+            flash(_('La descripción no puede tener más de 80 caracteres'), 'error')
         else:
             nuevo_tipo = TipoHabitacion(nombreTipo=nombre, descripcionTipo=descripcion)
             db.session.add(nuevo_tipo)
             db.session.commit()
-            flash('Tipo de habitación creado exitosamente', 'success')
+            flash(_('Tipo de habitación creado exitosamente'), 'success')
             return redirect(url_for('tipohabitaciones.index'))
             
     tipos = TipoHabitacion.query.all()
@@ -39,16 +40,16 @@ def editar(id):
     descripcion = request.form.get('descripcionTipo')
     
     if not nombre:
-        flash('El nombre es obligatorio', 'error')
+        flash(_('El nombre es obligatorio'), 'error')
     elif len(nombre) > 15:
-        flash('El nombre no puede tener más de 15 caracteres', 'error')
+        flash(_('El nombre no puede tener más de 15 caracteres'), 'error')
     elif descripcion and len(descripcion) > 80:
-        flash('La descripción no puede tener más de 80 caracteres', 'error')
+        flash(_('La descripción no puede tener más de 80 caracteres'), 'error')
     else:
         tipo.nombreTipo = nombre
         tipo.descripcionTipo = descripcion
         db.session.commit()
-        flash('Tipo de habitación actualizado', 'success')
+        flash(_('Tipo de habitación actualizado'), 'success')
 
     return redirect(url_for('tipohabitaciones.index'))
 
@@ -60,9 +61,9 @@ def eliminar(id):
     try:
         db.session.delete(tipo)
         db.session.commit()
-        flash('Tipo de habitación eliminado', 'success')
+        flash(_('Tipo de habitación eliminado'), 'success')
     except:
         db.session.rollback()
-        flash('No se puede eliminar este tipo porque tiene habitaciones asociadas', 'error')
+        flash(_('No se puede eliminar este tipo porque tiene habitaciones asociadas'), 'error')
         
     return redirect(url_for('tipohabitaciones.index'))

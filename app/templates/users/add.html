@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block titulo_pagina %}
-<b>REGISTRAR USUARIO</b>
+<b>{{ _('Registrar Usuario') }}</b>
 {% endblock %}
 
 {% block content %}
@@ -9,27 +9,27 @@
 <form method="POST">
 
     <div class="form-group mb-3">
-        <label for="nameUser"><b>NOMBRE Y APELLIDO:</b></label>
+        <label for="nameUser"><b>{{ _('NOMBRE Y APELLIDO:') }}</b></label>
         <input type="text" id="nameUser" name="nameUser" required class="form-control">
     </div>
 
     <div class="form-group mb-3">
-        <label for="username"><b>USUARIO:</b></label>
+        <label for="username"><b>{{ _('USUARIO:') }}</b></label>
         <input type="text" id="username" name="username" required class="form-control">
     </div>
 
     <div class="form-group mb-3">
-        <label for="email"><b>CORREO ELECTRÓNICO:</b></label>
+        <label for="email"><b>{{ _('CORREO ELECTRÓNICO:') }}</b></label>
         <input type="email" id="email" name="email" required class="form-control">
     </div>
 
     <div class="form-group mb-3">
-        <label for="passwordUser"><b>CONTRASEÑA:</b></label>
+        <label for="passwordUser"><b>{{ _('CONTRASEÑA:') }}</b></label>
         <input type="password" id="passwordUser" name="passwordUser" required class="form-control">
     </div>
 
-    <button type="submit" class="btn btn-primary">Registrar</button>
-    <a href="{{ url_for('user.index') }}" class="btn btn-secondary">Cancelar</a>
+    <button type="submit" class="btn btn-primary">{{ _('Registrar') }}</button>
+    <a href="{{ url_for('user.index') }}" class="btn btn-secondary">{{ _('Cancelar') }}</a>
 
 </form>
 

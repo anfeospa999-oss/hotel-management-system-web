@@ -24,7 +24,7 @@
         <div class="col-md-8">
             <label class="form-label fw-bold"><i class="bi bi-door-closed"></i> {{ _('Habitación Disponible') }}</label>
             <select name="id_habitacion" class="form-select" required>
-              <option value="" disabled {% if not habitacion_id %}selected{% endif %}>Elige una habitación...</option>
+              <option value="" disabled {% if not habitacion_id %}selected{% endif %}>{{ _('Elige una habitación...') }}</option>
               {% for hab in habitaciones %}
               <option value="{{ hab.idHabitacion }}" {% if habitacion_id == hab.idHabitacion %}selected{% endif %}>
                 {{ _('Hab.') }} {{ hab.numeroHabitacion }} — {{ hab.tipo.nombreTipo }} ({{ hab.precioNoche | cop }}/{{ _('noche') }})
@@ -39,33 +39,33 @@
       </div>
       <div class="row mb-4">
         <div class="col-md-6">
-          <label class="form-label fw-bold"><i class="bi bi-calendar-event"></i> Fecha de Entrada</label>
+          <label class="form-label fw-bold"><i class="bi bi-calendar-event"></i> {{ _('Fecha de Entrada') }}</label>
           <input type="date" name="fecha_entrada" class="form-control" min="{{ hoy }}" required>
         </div>
         <div class="col-md-6">
-          <label class="form-label fw-bold"><i class="bi bi-calendar-check"></i> Fecha de Salida</label>
+          <label class="form-label fw-bold"><i class="bi bi-calendar-check"></i> {{ _('Fecha de Salida') }}</label>
           <input type="date" name="fecha_salida" class="form-control" min="{{ hoy }}" required>
         </div>
       </div>
       <div class="mb-4">
-        <label class="form-label fw-bold"><i class="bi bi-credit-card"></i> Método de Pago</label>
+        <label class="form-label fw-bold"><i class="bi bi-credit-card"></i> {{ _('Método de Pago') }}</label>
         <div class="d-flex gap-3 flex-wrap">
           <div class="form-check border rounded p-3 flex-grow-1">
             <input class="form-check-input" type="radio" name="metodo_pago" id="pago1" value="Tarjeta de Credito" checked>
-            <label class="form-check-label" for="pago1"><i class="bi bi-credit-card"></i> Tarjeta</label>
+            <label class="form-check-label" for="pago1"><i class="bi bi-credit-card"></i> {{ _('Tarjeta') }}</label>
           </div>
           <div class="form-check border rounded p-3 flex-grow-1">
             <input class="form-check-input" type="radio" name="metodo_pago" id="pago2" value="Transferencia">
-            <label class="form-check-label" for="pago2"><i class="bi bi-bank"></i> Transferencia</label>
+            <label class="form-check-label" for="pago2"><i class="bi bi-bank"></i> {{ _('Transferencia') }}</label>
           </div>
           <div class="form-check border rounded p-3 flex-grow-1">
             <input class="form-check-input" type="radio" name="metodo_pago" id="pago3" value="Efectivo">
-            <label class="form-check-label" for="pago3"><i class="bi bi-cash"></i> Efectivo</label>
+            <label class="form-check-label" for="pago3"><i class="bi bi-cash"></i> {{ _('Efectivo') }}</label>
           </div>
         </div>
       </div>
       <div class="alert alert-info small border-0 bg-light">
-        <i class="bi bi-info-circle-fill"></i> Se realizará el cargo de la primera noche al confirmar.
+        <i class="bi bi-info-circle-fill"></i> {{ _('Se realizará el cargo de la primera noche al confirmar.') }}
       </div>
       <button type="submit" class="btn btn-hotel w-100 py-3">
         {{ _('CONFIRMAR RESERVA') }} <i class="bi bi-check-circle-fill"></i>

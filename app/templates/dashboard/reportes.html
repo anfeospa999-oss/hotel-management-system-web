@@ -1,6 +1,6 @@
 {% extends "dashboard/base_authenticated.html" %}
 
-{% block title %}Reportes y Estadísticas Administrativas{% endblock %}
+{% block title %}{{ _('Reportes y Estadísticas Administrativas') }}{% endblock %}
 
 {% block content %}
 <div class="container-fluid py-4">
@@ -10,12 +10,12 @@
             <div class="bg-white p-4 rounded-4 shadow-sm border-0">
                 <div class="row align-items-center">
                     <div class="col-md-6 text-start">
-                        <h2 class="fw-bold text-dark mb-0"><i class="bi bi-graph-up-arrow me-2 text-primary"></i>Panel de Reportes</h2>
-                        <p class="text-muted mb-0">Estadísticas detalladas por meses</p>
+                        <h2 class="fw-bold text-dark mb-0"><i class="bi bi-graph-up-arrow me-2 text-primary"></i>{{ _('Panel de Reportes') }}</h2>
+                        <p class="text-muted mb-0">{{ _('Estadísticas detalladas por meses') }}</p>
                     </div>
                     <div class="col-md-6 text-md-end mt-3 mt-md-0">
                         <form action="{{ url_for('reportes.index') }}" method="GET" class="d-inline-flex gap-2">
-                            <label class="form-label mb-0 align-self-center small fw-bold">Filtrar Mes:</label>
+                            <label class="form-label mb-0 align-self-center small fw-bold">{{ _('Filtrar Mes:') }}</label>
                             <input type="month" name="mes" class="form-control form-control-sm" value="{{ mes_seleccionado }}" onchange="this.form.submit()">
                         </form>
                     </div>
@@ -33,10 +33,10 @@
                     <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex p-2 mb-2">
                         <i class="bi bi-cash-stack text-primary fs-5"></i>
                     </div>
-                    <h6 class="text-muted small fw-bold mb-1">Ganancias {{ mes_seleccionado }}</h6>
+                    <h6 class="text-muted small fw-bold mb-1">{{ _('Ganancias') }} {{ mes_seleccionado }}</h6>
                     <h5 class="fw-bold text-success mb-1">{{ total_ganancias_mes | cop }}</h5>
-                    <span class="badge bg-{{ 'success' if margen_ganancia > 0 else 'secondary' }} rounded-pill" title="Margen de Ganancia (Ingresos vs Nómina)">
-                        <i class="bi bi-graph-up-arrow"></i> Margen: {{ "%.1f"|format(margen_ganancia) }}%
+                    <span class="badge bg-{{ 'success' if margen_ganancia > 0 else 'secondary' }} rounded-pill" title="{{ _('Margen de Ganancia (Ingresos vs Nómina)') }}">
+                        <i class="bi bi-graph-up-arrow"></i> {{ _('Margen:') }} {{ "%.1f"|format(margen_ganancia) }}%
                     </span>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                     <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex p-2 mb-2">
                         <i class="bi bi-bank text-success fs-5"></i>
                     </div>
-                    <h6 class="text-muted small fw-bold mb-1">Ganancias Históricas</h6>
+                    <h6 class="text-muted small fw-bold mb-1">{{ _('Ganancias Históricas') }}</h6>
                     <h5 class="fw-bold text-success mb-0">{{ total_ganancias_historico | cop }}</h5>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                     <div class="bg-warning bg-opacity-10 rounded-circle d-inline-flex p-2 mb-2">
                         <i class="bi bi-receipt text-warning fs-5"></i>
                     </div>
-                    <h6 class="text-muted small fw-bold mb-1">Nómina a Pagar</h6>
+                    <h6 class="text-muted small fw-bold mb-1">{{ _('Nómina a Pagar') }}</h6>
                     <h5 class="fw-bold text-dark mb-0">{{ total_nomina | cop }}</h5>
                 </div>
             </div>
@@ -72,8 +72,8 @@
                     <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex p-2 mb-2">
                         <i class="bi bi-calendar-check text-primary fs-5"></i>
                     </div>
-                    <h6 class="text-muted small fw-bold mb-1">Total Reservas {{ mes_seleccionado }}</h6>
-                    <h5 class="fw-bold text-primary mb-0">{{ reservas_mes|length }} Reservaciones</h5>
+                    <h6 class="text-muted small fw-bold mb-1">{{ _('Total Reservas') }} {{ mes_seleccionado }}</h6>
+                    <h5 class="fw-bold text-primary mb-0">{{ reservas_mes|length }} {{ _('Reservaciones') }}</h5>
                 </div>
             </div>
         </div>
@@ -85,15 +85,15 @@
         <div class="col-lg-12">
             <div class="card border-0 shadow-sm rounded-4 h-100">
                 <div class="card-header bg-white border-0 py-3">
-                    <h5 class="fw-bold mb-0">Top 5 Clientes (Ganancias del Mes)</h5>
+                    <h5 class="fw-bold mb-0">{{ _('Top 5 Clientes (Ganancias del Mes)') }}</h5>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">
                             <thead class="bg-light">
                                 <tr>
-                                    <th class="ps-3 small fw-bold">Cliente</th>
-                                    <th class="text-end pe-3 small fw-bold">Ganancia</th>
+                                    <th class="ps-3 small fw-bold">{{ _('Cliente') }}</th>
+                                    <th class="text-end pe-3 small fw-bold">{{ _('Ganancia') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -120,20 +120,20 @@
         <div class="col-12">
             <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
                 <div class="card-header bg-white border-0 py-4 px-4 d-flex justify-content-between align-items-center">
-                    <h5 class="fw-bold mb-0"><i class="bi bi-people me-2"></i>Nómina de Empleados</h5>
+                    <h5 class="fw-bold mb-0"><i class="bi bi-people me-2"></i>{{ _('Nómina de Empleados') }}</h5>
                     <button class="btn btn-sm btn-outline-primary" onclick="window.print()">
-                        <i class="bi bi-printer me-1"></i> Imprimir Nómina
+                        <i class="bi bi-printer me-1"></i> {{ _('Imprimir Nómina') }}
                     </button>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th class="ps-4">Empleado</th>
-                                <th>Cargo</th>
-                                <th>Fecha Ingreso</th>
-                                <th class="text-end">Salario Actual</th>
-                                <th class="text-center pe-4">Accion</th>
+                                <th class="ps-4">{{ _('Empleado') }}</th>
+                                <th>{{ _('Cargo') }}</th>
+                                <th>{{ _('Fecha Ingreso') }}</th>
+                                <th class="text-end">{{ _('Salario Actual') }}</th>
+                                <th class="text-center pe-4">{{ _('Acción') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -147,12 +147,12 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td><span class="badge bg-info-subtle text-info border border-info-subtle px-3">{{ e.cargo or 'No asignado' }}</span></td>
+                                <td><span class="badge bg-info-subtle text-info border border-info-subtle px-3">{{ e.cargo or _('No asignado') }}</span></td>
                                 <td class="text-muted small">{{ e.fechaIngreso.strftime('%d/%m/%Y') if e.fechaIngreso else 'N/A' }}</td>
                                 <td class="text-end fw-bold text-dark">{{ (e.salario or 0) | cop }}</td>
                                 <td class="text-center pe-4">
                                     <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editSalario{{ e.id }}">
-                                        <i class="bi bi-pencil-square"></i> Modificar
+                                        <i class="bi bi-pencil-square"></i> {{ _('Modificar') }}
                                     </button>
                                 </td>
                             </tr>
@@ -171,14 +171,14 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold">Ajustar Salario</h5>
+                <h5 class="modal-title fw-bold">{{ _('Ajustar Salario') }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form action="{{ url_for('reportes.actualizar_salario', id=e.id) }}" method="POST">
                 <div class="modal-body">
-                    <p class="small text-muted">Empleado: <strong>{{ e.nombre }} {{ e.apellido }}</strong></p>
+                    <p class="small text-muted">{{ _('Empleado:') }} <strong>{{ e.nombre }} {{ e.apellido }}</strong></p>
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Nuevo Salario Mensual (COP)</label>
+                        <label class="form-label fw-bold">{{ _('Nuevo Salario Mensual (COP)') }}</label>
                         <div class="input-group">
                             <span class="input-group-text">$</span>
                             <input type="number" name="salario" class="form-control" value="{{ e.salario | int }}" required>
@@ -186,8 +186,8 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Actualizar Salario</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ _('Cancelar') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ _('Actualizar Salario') }}</button>
                 </div>
             </form>
         </div>
@@ -205,15 +205,15 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title fw-bold" id="editSalarioLabel{{ e.id }}">
-                    <i class="bi bi-cash-coin me-2 text-primary"></i>Ajustar Salario
+                    <i class="bi bi-cash-coin me-2 text-primary"></i>{{ _('Ajustar Salario') }}
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ _('Cerrar') }}"></button>
             </div>
             <form action="{{ url_for('reportes.actualizar_salario', id=e.id) }}" method="POST">
                 <div class="modal-body">
-                    <p class="small text-muted mb-3">Empleado: <strong>{{ e.nombre }} {{ e.apellido }}</strong></p>
+                    <p class="small text-muted mb-3">{{ _('Empleado:') }} <strong>{{ e.nombre }} {{ e.apellido }}</strong></p>
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Nuevo Salario Mensual (COP)</label>
+                        <label class="form-label fw-bold">{{ _('Nuevo Salario Mensual (COP)') }}</label>
                         <div class="input-group">
                             <span class="input-group-text">$</span>
                             <input type="number" name="salario" class="form-control" value="{{ e.salario | int }}" min="0" required>
@@ -221,9 +221,9 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ _('Cancelar') }}</button>
                     <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-check-circle me-1"></i>Actualizar Salario
+                        <i class="bi bi-check-circle me-1"></i>{{ _('Actualizar Salario') }}
                     </button>
                 </div>
             </form>
@@ -232,4 +232,3 @@
 </div>
 {% endfor %}
 {% endblock %}
-

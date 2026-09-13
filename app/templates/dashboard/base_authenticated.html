@@ -126,7 +126,7 @@
                     </span>
                 </span>
                 <a href="{{ url_for('auth.logout') }}" class="btn btn-sm btn-outline-danger">
-                    <i class="bi bi-power"></i> <span class="d-none d-md-inline">Salir</span>
+                    <i class="bi bi-power"></i> <span class="d-none d-md-inline">{{ _('Salir') }}</span>
                 </a>
             </div>
         </div>
@@ -186,7 +186,7 @@
         {% if messages %}
         {% for category, message in messages %}
         Swal.fire({
-            title: "{{ '¡Hecho!' if category == 'success' else 'Atención' }}",
+            title: "{{ _('¡Hecho!') if category == 'success' else _('Atención') }}",
             text: "{{ message }}",
             icon: "{{ 'success' if category == 'success' else ('error' if category == 'danger' or category == 'error' else 'info') }}",
             confirmButtonColor: '#d4af37',
