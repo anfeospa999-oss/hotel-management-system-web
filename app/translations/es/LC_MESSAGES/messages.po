@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-04-26 11:09-0500\n"
+"POT-Creation-Date: 2026-09-15 14:14-0500\n"
 "PO-Revision-Date: 2026-04-26 10:05-0500\n"
 "Last-Translator: Antigravity\n"
 "Language: es\n"
@@ -42,13 +42,11 @@ msgstr "Error Inesperado"
 msgid "La aplicación pudo recuperarse de un error"
 msgstr "La aplicación pudo recuperarse de un error"
 
-#: app/i18n_values.py:9 app/templates/base.html:57
-#: app/templates/dashboard/base_authenticated.html:56
+#: app/i18n_values.py:9 app/templates/dashboard/base_authenticated.html:59
 msgid "Administrador"
 msgstr "Administrador"
 
-#: app/i18n_values.py:10 app/templates/base.html:63
-#: app/templates/dashboard/base_authenticated.html:62
+#: app/i18n_values.py:10 app/templates/dashboard/base_authenticated.html:65
 msgid "Recepcionista"
 msgstr "Recepcionista"
 
@@ -56,12 +54,12 @@ msgstr "Recepcionista"
 msgid "Servicio Limpieza"
 msgstr "Servicio Limpieza"
 
-#: app/i18n_values.py:12 app/templates/base.html:75
-#: app/templates/clientes/index.html:37
-#: app/templates/dashboard/base_authenticated.html:74
+#: app/i18n_values.py:12 app/templates/clientes/index.html:42
+#: app/templates/dashboard/base_authenticated.html:77
 #: app/templates/dashboard/historial_recepcionista.html:70
-#: app/templates/dashboard/reportes.html:95
-#: app/templates/facturas/index.html:54 app/templates/facturas/validar.html:126
+#: app/templates/dashboard/reportes.html:146
+#: app/templates/dashboard/usuarios.html:163
+#: app/templates/facturas/index.html:66 app/templates/facturas/validar.html:126
 #: app/templates/facturas/ver.html:34
 msgid "Cliente"
 msgstr "Cliente"
@@ -74,27 +72,26 @@ msgstr "Contador"
 msgid "Camarero"
 msgstr "Camarero"
 
-#: app/i18n_values.py:17 app/templates/clientes/index.html:254
-#: app/templates/reservas/index.html:71 app/templates/reservas/index.html:96
+#: app/i18n_values.py:17 app/templates/reservas/index.html:94
+#: app/templates/reservas/index.html:119
 msgid "Pendiente"
 msgstr "Pendiente"
 
-#: app/i18n_values.py:18 app/templates/clientes/index.html:251
+#: app/i18n_values.py:18
 msgid "Confirmada"
 msgstr "Confirmada"
 
-#: app/i18n_values.py:19 app/templates/clientes/index.html:252
+#: app/i18n_values.py:19
 msgid "Finalizada"
 msgstr "Finalizada"
 
-#: app/i18n_values.py:20 app/templates/clientes/index.html:253
-#: app/templates/reservas/index.html:100
+#: app/i18n_values.py:20 app/templates/reservas/index.html:123
 msgid "Cancelada"
 msgstr "Cancelada"
 
 #: app/i18n_values.py:21 app/templates/habitaciones/editar.html:41
-#: app/templates/habitaciones/index.html:49
-#: app/templates/habitaciones/index.html:114
+#: app/templates/habitaciones/index.html:55
+#: app/templates/habitaciones/index.html:153
 #: app/templates/habitaciones/publica.html:76
 msgid "Ocupada"
 msgstr "Ocupada"
@@ -104,33 +101,29 @@ msgid "En Limpieza"
 msgstr "En Limpieza"
 
 #: app/i18n_values.py:25 app/templates/habitaciones/editar.html:40
-#: app/templates/habitaciones/index.html:48
-#: app/templates/habitaciones/index.html:113
+#: app/templates/habitaciones/index.html:54
+#: app/templates/habitaciones/index.html:152
 #: app/templates/habitaciones/nueva.html:39
 #: app/templates/habitaciones/publica.html:75
 msgid "Disponible"
 msgstr "Disponible"
 
-#: app/i18n_values.py:26 app/templates/dashboard/menu.html:377
-#: app/templates/habitaciones/editar.html:42
-#: app/templates/habitaciones/index.html:50
-#: app/templates/habitaciones/index.html:115
+#: app/i18n_values.py:26 app/templates/habitaciones/editar.html:42
+#: app/templates/habitaciones/index.html:56
+#: app/templates/habitaciones/index.html:154
 #: app/templates/habitaciones/nueva.html:40
-#: app/templates/habitaciones/publica.html:77
+#: app/templates/habitaciones/publica.html:77 app/templates/sidebar.html:112
 msgid "Mantenimiento"
 msgstr "Mantenimiento"
 
-#: app/i18n_values.py:27 app/templates/base.html:69
-#: app/templates/dashboard/base_authenticated.html:68
-#: app/templates/dashboard/menu.html:68
+#: app/i18n_values.py:27 app/templates/dashboard/base_authenticated.html:71
+#: app/templates/dashboard/menu.html:182
 #: app/templates/habitaciones/editar.html:43
 #: app/templates/habitaciones/nueva.html:41 app/templates/menu.html:72
-#: app/templates/sidebar.html:88 app/templates/sidebar.html:146
 msgid "Limpieza"
 msgstr "Limpieza"
 
-#: app/i18n_values.py:30 app/templates/clientes/index.html:204
-#: app/templates/dashboard/menu.html:397
+#: app/i18n_values.py:30 app/templates/clientes/index.html:197
 msgid "En Curso"
 msgstr "En Curso"
 
@@ -146,12 +139,11 @@ msgstr "Pendiente de Limpieza"
 msgid "Completada"
 msgstr "Completada"
 
-#: app/i18n_values.py:36 app/templates/clientes/index.html:70
+#: app/i18n_values.py:36 app/templates/clientes/index.html:94
 msgid "No especificada"
 msgstr "No especificada"
 
-#: app/i18n_values.py:37 app/templates/clientes/index.html:248
-#: app/templates/dashboard/menu.html:226
+#: app/i18n_values.py:37
 msgid "Sin historial de reservas"
 msgstr "Sin historial de reservas"
 
@@ -169,7 +161,7 @@ msgstr "Bienvenido %(usuario)s!"
 msgid "Usuario o contraseña incorrectos"
 msgstr "Usuario o contraseña incorrectos"
 
-#: app/routes/auth.py:72 app/routes/usuarios.py:63
+#: app/routes/auth.py:72 app/routes/usuarios.py:71
 msgid ""
 "La cédula o ID debe contener únicamente dígitos numéricos y tener entre 5"
 " y 15 dígitos."
@@ -177,7 +169,7 @@ msgstr ""
 "La cédula o ID debe contener únicamente dígitos numéricos y tener entre 5"
 " y 15 dígitos."
 
-#: app/routes/auth.py:77 app/routes/usuarios.py:69
+#: app/routes/auth.py:77 app/routes/usuarios.py:77
 msgid "Por favor ingresa un correo electrónico válido."
 msgstr "Por favor ingresa un correo electrónico válido."
 
@@ -185,9 +177,10 @@ msgstr "Por favor ingresa un correo electrónico válido."
 msgid "El nombre y apellido deben contener solo letras y máximo 30 caracteres"
 msgstr "El nombre y apellido deben contener solo letras y máximo 30 caracteres"
 
-#: app/routes/auth.py:87 app/routes/usuarios.py:81
+#: app/routes/auth.py:87 app/routes/usuarios.py:89
 #: app/templates/auth/register.html:130
 #: app/templates/dashboard/usuarios.html:141
+#: app/templates/empleados/index.html:138
 msgid ""
 "El teléfono debe tener entre 7 y 15 dígitos numéricos (puede empezar con "
 "+)"
@@ -195,7 +188,7 @@ msgstr ""
 "El teléfono debe tener entre 7 y 15 dígitos numéricos (puede empezar con "
 "+)"
 
-#: app/routes/auth.py:92 app/routes/usuarios.py:86
+#: app/routes/auth.py:92 app/routes/usuarios.py:94
 msgid ""
 "El nombre de usuario debe tener entre 4 y 20 caracteres y solo contener "
 "letras, números, puntos, guiones o guiones bajos."
@@ -203,17 +196,17 @@ msgstr ""
 "El nombre de usuario debe tener entre 4 y 20 caracteres y solo contener "
 "letras, números, puntos, guiones o guiones bajos."
 
-#: app/routes/auth.py:97 app/routes/auth.py:266 app/routes/usuarios.py:91
+#: app/routes/auth.py:97 app/routes/auth.py:266 app/routes/usuarios.py:99
 msgid "La contraseña debe tener entre 8 y 30 caracteres"
 msgstr "La contraseña debe tener entre 8 y 30 caracteres"
 
 #: app/routes/auth.py:101 app/routes/auth.py:269 app/routes/auth.py:383
-#: app/routes/usuarios.py:95
+#: app/routes/usuarios.py:103
 msgid "La contraseña debe contener al menos una letra y un número"
 msgstr "La contraseña debe contener al menos una letra y un número"
 
 #: app/routes/auth.py:105 app/routes/auth.py:263 app/routes/auth.py:375
-#: app/routes/usuarios.py:99
+#: app/routes/usuarios.py:107
 msgid "Las contraseñas no coinciden"
 msgstr "Las contraseñas no coinciden"
 
@@ -225,7 +218,7 @@ msgstr "El nombre de usuario ya está en uso"
 msgid "Esta cédula ya está registrada"
 msgstr "Esta cédula ya está registrada"
 
-#: app/routes/auth.py:122 app/routes/usuarios.py:75
+#: app/routes/auth.py:122 app/routes/usuarios.py:83
 msgid "El correo electrónico ya está registrado"
 msgstr "El correo electrónico ya está registrado"
 
@@ -233,7 +226,7 @@ msgstr "El correo electrónico ya está registrado"
 msgid "¡Bienvenido! Cuenta creada con éxito. Ahora puedes iniciar sesión."
 msgstr "¡Bienvenido! Cuenta creada con éxito. Ahora puedes iniciar sesión."
 
-#: app/routes/auth.py:151 app/routes/usuarios.py:142
+#: app/routes/auth.py:151 app/routes/usuarios.py:150
 msgid "La cédula, el correo o el nombre de usuario ya están registrados."
 msgstr "La cédula, el correo o el nombre de usuario ya están registrados."
 
@@ -298,16 +291,16 @@ msgstr "¡Contraseña actualizada con éxito! Ahora puedes iniciar sesión"
 msgid "No tienes permiso para realizar esta acción"
 msgstr "No tienes permiso para realizar esta acción"
 
-#: app/routes/auth.py:413
+#: app/routes/auth.py:412
 msgid "Rol original de Administrador restaurado"
 msgstr "Rol original de Administrador restaurado"
 
-#: app/routes/auth.py:416
+#: app/routes/auth.py:415
 #, python-format
 msgid "Simulando rol de: %(rol)s"
 msgstr "Simulando rol de: %(rol)s"
 
-#: app/routes/auth.py:418
+#: app/routes/auth.py:417
 msgid "Rol no válido"
 msgstr "Rol no válido"
 
@@ -439,11 +432,11 @@ msgstr "No tienes permiso para eliminar esta notificación"
 msgid "Notificación eliminada"
 msgstr "Notificación eliminada"
 
-#: app/routes/reportes.py:131
+#: app/routes/reportes.py:133
 msgid "Salario actualizado correctamente"
 msgstr "Salario actualizado correctamente"
 
-#: app/routes/reportes.py:133
+#: app/routes/reportes.py:135
 msgid "Valor de salario inválido"
 msgstr "Valor de salario inválido"
 
@@ -570,11 +563,15 @@ msgstr "No se puede eliminar este tipo porque tiene habitaciones asociadas"
 msgid "No tienes permiso para acceder a esta sección"
 msgstr "No tienes permiso para acceder a esta sección"
 
-#: app/routes/usuarios.py:45
-msgid "Como recepcionista solo puedes crear personal de limpieza."
-msgstr "Como recepcionista solo puedes crear personal de limpieza."
+#: app/routes/usuarios.py:49
+msgid "En esta sección solo se pueden crear clientes."
+msgstr "En esta sección solo se pueden crear clientes."
 
-#: app/routes/usuarios.py:50
+#: app/routes/usuarios.py:53
+msgid "No tienes permiso para crear personal."
+msgstr "No tienes permiso para crear personal."
+
+#: app/routes/usuarios.py:58
 msgid ""
 "Por favor completa todos los campos obligatorios (Usuario, Contraseña, "
 "Cédula, Nombre, Apellido)"
@@ -582,114 +579,62 @@ msgstr ""
 "Por favor completa todos los campos obligatorios (Usuario, Contraseña, "
 "Cédula, Nombre, Apellido)"
 
-#: app/routes/usuarios.py:104
+#: app/routes/usuarios.py:112
 msgid "Rol inválido"
 msgstr "Rol inválido"
 
-#: app/routes/usuarios.py:109
+#: app/routes/usuarios.py:117
 msgid "El usuario ya existe"
 msgstr "El usuario ya existe"
 
-#: app/routes/usuarios.py:137
+#: app/routes/usuarios.py:145
 #, python-format
 msgid "Usuario %(usuario)s creado exitosamente como %(rol)s"
 msgstr "Usuario %(usuario)s creado exitosamente como %(rol)s"
 
-#: app/routes/usuarios.py:147
+#: app/routes/usuarios.py:155
 msgid "Error al crear el usuario"
 msgstr "Error al crear el usuario"
 
-#: app/routes/usuarios.py:167
+#: app/routes/usuarios.py:171
 msgid "Solo el administrador puede editar roles."
 msgstr "Solo el administrador puede editar roles."
 
-#: app/routes/usuarios.py:176
+#: app/routes/usuarios.py:180
 #, python-format
 msgid "Rol de %(usuario)s actualizado a %(rol)s."
 msgstr "Rol de %(usuario)s actualizado a %(rol)s."
 
-#: app/routes/usuarios.py:178
+#: app/routes/usuarios.py:182
 msgid "Rol inválido."
 msgstr "Rol inválido."
 
-#: app/routes/usuarios.py:186
+#: app/routes/usuarios.py:191
 msgid "Solo el administrador puede eliminar usuarios."
 msgstr "Solo el administrador puede eliminar usuarios."
 
-#: app/routes/usuarios.py:192
+#: app/routes/usuarios.py:197
 msgid "No puedes eliminarte a ti mismo."
 msgstr "No puedes eliminarte a ti mismo."
 
-#: app/routes/usuarios.py:196
+#: app/routes/usuarios.py:201
 #, python-format
 msgid "Usuario %(usuario)s eliminado exitosamente."
 msgstr "Usuario %(usuario)s eliminado exitosamente."
 
-#: app/routes/usuarios.py:242
+#: app/routes/usuarios.py:247
 msgid "El usuario seleccionado no es un recepcionista."
 msgstr "El usuario seleccionado no es un recepcionista."
 
-#: app/routes/usuarios.py:301
+#: app/routes/usuarios.py:306
 msgid "El usuario seleccionado no pertenece al personal de limpieza."
 msgstr "El usuario seleccionado no pertenece al personal de limpieza."
-
-#: app/templates/base.html:37
-#: app/templates/dashboard/base_authenticated.html:35
-msgid "Cambiar tema"
-msgstr "Cambiar tema"
-
-#: app/templates/base.html:49
-#: app/templates/dashboard/base_authenticated.html:48
-msgid "Simulador de Roles (Super Admin)"
-msgstr "Simulador de Roles (Super Admin)"
-
-#: app/templates/base.html:54
-#: app/templates/dashboard/base_authenticated.html:53
-msgid "Simular Vista de Rol"
-msgstr "Simular Vista de Rol"
-
-#: app/templates/base.html:83
-#: app/templates/dashboard/base_authenticated.html:82
-msgid "Restaurar Original"
-msgstr "Restaurar Original"
-
-#: app/templates/base.html:121
-#: app/templates/dashboard/base_authenticated.html:124
-msgid "(Simulado)"
-msgstr "(Simulado)"
-
-#: app/templates/base.html:126
-#: app/templates/dashboard/base_authenticated.html:129
-#: app/templates/menu.html:108
-msgid "Salir"
-msgstr "Salir"
-
-#: app/templates/auth/login.html:143
-#: app/templates/auth/recuperar_contrasena.html:52
-#: app/templates/auth/register.html:242
-#: app/templates/auth/restablecer_contrasena.html:57
-#: app/templates/base.html:183
-#: app/templates/dashboard/base_authenticated.html:189
-msgid "¡Hecho!"
-msgstr "¡Hecho!"
-
-#: app/templates/auth/login.html:143 app/templates/auth/perfil.html:123
-#: app/templates/auth/recuperar_contrasena.html:52
-#: app/templates/auth/register.html:242
-#: app/templates/auth/restablecer_contrasena.html:57
-#: app/templates/base.html:183
-#: app/templates/dashboard/base_authenticated.html:189
-#: app/templates/habitaciones/editar.html:71
-#: app/templates/habitaciones/nueva.html:69
-msgid "Atención"
-msgstr "Atención"
 
 #: app/templates/menu.html:19
 msgid "Administración"
 msgstr "Administración"
 
-#: app/templates/dashboard/menu.html:43 app/templates/dashboard/sidebar.html:28
-#: app/templates/menu.html:23 app/templates/sidebar.html:36
+#: app/templates/dashboard/sidebar.html:28 app/templates/menu.html:23
 msgid "Usuarios"
 msgstr "Usuarios"
 
@@ -701,7 +646,7 @@ msgstr "Empleados"
 msgid "Roles de Personal"
 msgstr "Roles de Personal"
 
-#: app/templates/menu.html:32 app/templates/sidebar.html:64
+#: app/templates/menu.html:32 app/templates/sidebar.html:175
 #: app/templates/tipohabitaciones/index.html:10
 msgid "Tipos de Habitación"
 msgstr "Tipos de Habitación"
@@ -711,19 +656,17 @@ msgid "Tipos de Servicio"
 msgstr "Tipos de Servicio"
 
 #: app/templates/comentarios/mis_comentarios.html:54
-#: app/templates/dashboard/menu.html:158 app/templates/menu.html:43
-#: app/templates/sidebar.html:156
+#: app/templates/dashboard/menu.html:36 app/templates/menu.html:43
 msgid "Ver Habitaciones"
 msgstr "Ver Habitaciones"
 
-#: app/templates/menu.html:48 app/templates/sidebar.html:161
+#: app/templates/menu.html:48 app/templates/sidebar.html:42
 msgid "Mis Reservas"
 msgstr "Mis Reservas"
 
-#: app/templates/facturas/index.html:97
-#: app/templates/habitaciones/detalle.html:112
+#: app/templates/facturas/index.html:112
 #: app/templates/habitaciones/publica.html:129 app/templates/menu.html:53
-#: app/templates/sidebar.html:166
+#: app/templates/sidebar.html:48
 msgid "Reservar Ahora"
 msgstr "Reservar Ahora"
 
@@ -731,13 +674,13 @@ msgstr "Reservar Ahora"
 msgid "Instalaciones"
 msgstr "Instalaciones"
 
-#: app/templates/dashboard/menu.html:121
+#: app/templates/dashboard/menu.html:153
 #: app/templates/habitaciones/publica.html:6 app/templates/menu.html:66
-#: app/templates/sidebar.html:76
+#: app/templates/sidebar.html:36 app/templates/sidebar.html:72
 msgid "Habitaciones"
 msgstr "Habitaciones"
 
-#: app/templates/menu.html:68 app/templates/sidebar.html:82
+#: app/templates/menu.html:68
 msgid "Mantenimientos"
 msgstr "Mantenimientos"
 
@@ -749,13 +692,14 @@ msgstr "Catálogo de Servicios"
 msgid "Gestión"
 msgstr "Gestión"
 
-#: app/templates/menu.html:83 app/templates/sidebar.html:97
+#: app/templates/dashboard/menu.html:172 app/templates/menu.html:83
+#: app/templates/sidebar.html:87
 msgid "Clientes"
 msgstr "Clientes"
 
-#: app/templates/dashboard/menu.html:75
+#: app/templates/clientes/index.html:44 app/templates/dashboard/menu.html:163
 #: app/templates/dashboard/recepcionistas.html:84 app/templates/menu.html:85
-#: app/templates/sidebar.html:102
+#: app/templates/sidebar.html:80
 msgid "Reservas"
 msgstr "Reservas"
 
@@ -767,10 +711,15 @@ msgstr "Consumos"
 msgid "Pagos"
 msgstr "Pagos"
 
-#: app/templates/dashboard/menu.html:93 app/templates/menu.html:94
-#: app/templates/sidebar.html:116 app/templates/sidebar.html:141
+#: app/templates/dashboard/menu.html:192 app/templates/menu.html:94
+#: app/templates/sidebar.html:132
 msgid "Facturación"
 msgstr "Facturación"
+
+#: app/templates/dashboard/base_authenticated.html:132
+#: app/templates/menu.html:108
+msgid "Salir"
+msgstr "Salir"
 
 #: app/templates/auth/recuperar_contrasena.html:39
 #: app/templates/auth/restablecer_contrasena.html:44
@@ -778,247 +727,274 @@ msgstr "Facturación"
 msgid "Iniciar Sesión"
 msgstr "Iniciar Sesión"
 
-#: app/templates/sidebar.html:9
-msgid "Cerrar menú"
-msgstr "Cerrar menú"
-
-#: app/templates/dashboard/sidebar.html:13 app/templates/sidebar.html:20
-msgid "Inicio"
-msgstr "Inicio"
-
-#: app/templates/sidebar.html:26
-msgid "ADMINISTRACIÓN"
-msgstr "ADMINISTRACIÓN"
-
-#: app/templates/sidebar.html:30
-msgid "Sistema"
-msgstr "Sistema"
-
-#: app/templates/dashboard/menu.html:48 app/templates/sidebar.html:41
-msgid "Historial Recepción"
-msgstr "Historial Recepción"
-
-#: app/templates/sidebar.html:46
-msgid "Historial Limpieza"
-msgstr "Historial Limpieza"
-
-#: app/templates/sidebar.html:51
-msgid "Reportes y Métricas"
-msgstr "Reportes y Métricas"
-
-#: app/templates/sidebar.html:59
-msgid "Catálogos"
-msgstr "Catálogos"
-
-#: app/templates/sidebar.html:72
-msgid "INSTALACIONES"
-msgstr "INSTALACIONES"
-
-#: app/templates/sidebar.html:93
-msgid "GESTIÓN"
-msgstr "GESTIÓN"
-
-#: app/templates/sidebar.html:107
-msgid "Ver Reservas"
-msgstr "Ver Reservas"
-
-#: app/templates/sidebar.html:113
-msgid "FINANZAS"
-msgstr "FINANZAS"
-
-#: app/templates/sidebar.html:122
-msgid "RECEPCIÓN Y GESTIÓN"
-msgstr "RECEPCIÓN Y GESTIÓN"
-
-#: app/templates/dashboard/menu.html:63 app/templates/sidebar.html:126
-msgid "Estado Habitaciones"
-msgstr "Estado Habitaciones"
-
-#: app/templates/reservas/index.html:2 app/templates/sidebar.html:131
-msgid "Gestión de Reservas"
+#: app/templates/sidebar.html:10
+#, fuzzy
+msgid "Gestión Hotelera"
 msgstr "Gestión de Reservas"
 
-#: app/templates/sidebar.html:136
-msgid "Historial de Usuarios"
-msgstr "Historial de Usuarios"
+#: app/templates/sidebar.html:21
+#, fuzzy
+msgid "Navegación"
+msgstr "Atención"
 
-#: app/templates/sidebar.html:153
-msgid "MI ESTANCIA"
+#: app/templates/sidebar.html:26
+msgid "Dashboard"
+msgstr ""
+
+#: app/templates/sidebar.html:32
+#, fuzzy
+msgid "Mi Estancia"
 msgstr "MI ESTANCIA"
 
-#: app/templates/facturas/index.html:3 app/templates/facturas/index.html:10
-#: app/templates/sidebar.html:171
+#: app/templates/facturas/index.html:10 app/templates/sidebar.html:54
 msgid "Mis Facturas"
 msgstr "Mis Facturas"
 
-#: app/templates/sidebar.html:178
-msgid "PANEL DE LIMPIEZA"
-msgstr "PANEL DE LIMPIEZA"
+#: app/templates/dashboard/sidebar.html:20
+#: app/templates/notificaciones/index.html:2 app/templates/sidebar.html:60
+msgid "Notificaciones"
+msgstr "Notificaciones"
 
-#: app/templates/dashboard/menu.html:110 app/templates/limpieza/tareas.html:11
-#: app/templates/sidebar.html:181
-msgid "Piezas por Limpiar"
-msgstr "Piezas por Limpiar"
+#: app/templates/sidebar.html:67
+#, fuzzy
+msgid "Operaciones"
+msgstr "Operativos"
 
-#: app/templates/sidebar.html:186
-msgid "Historial de Limpiezas"
+#: app/templates/sidebar.html:92
+#, fuzzy
+msgid "Limpieza & Mantenimiento"
+msgstr "Mantenimiento"
+
+#: app/templates/sidebar.html:97
+#, fuzzy
+msgid "Tareas de Limpieza"
+msgstr "Órdenes de Limpieza"
+
+#: app/templates/sidebar.html:105
+#, fuzzy
+msgid "Asignar Nueva Limpieza"
+msgstr "Asignar Tarea de Limpieza"
+
+#: app/templates/sidebar.html:121
+#, fuzzy
+msgid "Historial de Limpieza"
 msgstr "Historial de Limpiezas"
 
-#: app/templates/auth/perfil.html:3 app/templates/sidebar.html:196
-msgid "Mi Perfil"
-msgstr "Mi Perfil"
+#: app/templates/sidebar.html:127
+#, fuzzy
+msgid "Facturación & Finanzas"
+msgstr "Facturación"
 
-#: app/templates/sidebar.html:199
-msgid "Cerrar Sesión"
-msgstr "Cerrar Sesión"
+#: app/templates/dashboard/menu.html:203 app/templates/sidebar.html:140
+msgid "Reportes y Métricas"
+msgstr "Reportes y Métricas"
+
+#: app/templates/sidebar.html:149
+#, fuzzy
+msgid "Personal & Administración"
+msgstr "ADMINISTRACIÓN"
+
+#: app/templates/sidebar.html:154
+#, fuzzy
+msgid "Usuarios (Clientes)"
+msgstr "Comentarios Recientes"
+
+#: app/templates/sidebar.html:161
+#, fuzzy
+msgid "Empleados (Personal)"
+msgstr "Datos Personales"
+
+#: app/templates/sidebar.html:168
+#, fuzzy
+msgid "Historial de Recepción"
+msgstr "Historial Recepción"
 
 #: app/templates/auth/login.html:6
 msgid "Acceso de Personal"
 msgstr "Acceso de Personal"
 
-#: app/templates/auth/login.html:52 app/templates/auth/register.html:78
+#: app/templates/auth/login.html:55 app/templates/auth/register.html:78
 msgid "Su escape de lujo comienza aquí"
 msgstr "Su escape de lujo comienza aquí"
 
-#: app/templates/auth/login.html:58
+#: app/templates/auth/login.html:61
 msgid "Bienvenido"
 msgstr "Bienvenido"
 
-#: app/templates/auth/login.html:59
+#: app/templates/auth/login.html:62
 msgid "Por favor, ingrese sus credenciales para continuar"
 msgstr "Por favor, ingrese sus credenciales para continuar"
 
-#: app/templates/auth/login.html:63
+#: app/templates/auth/login.html:66
 msgid "USUARIO"
 msgstr "USUARIO"
 
-#: app/templates/auth/login.html:64
+#: app/templates/auth/login.html:67
 msgid "Ingrese su usuario"
 msgstr "Ingrese su usuario"
 
-#: app/templates/auth/login.html:68 app/templates/auth/register.html:148
+#: app/templates/auth/login.html:71 app/templates/auth/register.html:148
 msgid "CONTRASEÑA"
 msgstr "CONTRASEÑA"
 
-#: app/templates/auth/login.html:70
+#: app/templates/auth/login.html:73
 msgid "Ingrese su contraseña"
 msgstr "Ingrese su contraseña"
 
-#: app/templates/auth/login.html:71
+#: app/templates/auth/login.html:74
 msgid "Mostrar contraseña"
 msgstr "Mostrar contraseña"
 
-#: app/templates/auth/login.html:79
+#: app/templates/auth/login.html:82
 msgid "Recordarme"
 msgstr "Recordarme"
 
-#: app/templates/auth/login.html:83
+#: app/templates/auth/login.html:86
 msgid "INICIAR SESIÓN"
 msgstr "INICIAR SESIÓN"
 
-#: app/templates/auth/login.html:88
+#: app/templates/auth/login.html:91
 msgid "¿Olvidaste tu contraseña?"
 msgstr "¿Olvidaste tu contraseña?"
 
-#: app/templates/auth/login.html:89
+#: app/templates/auth/login.html:92
 msgid "¿No tiene una cuenta?"
 msgstr "¿No tiene una cuenta?"
 
-#: app/templates/auth/login.html:90
+#: app/templates/auth/login.html:93
 msgid "Regístrese aquí"
 msgstr "Regístrese aquí"
 
-#: app/templates/auth/perfil.html:4
-msgid "Configuración de Cuenta"
+#: app/templates/auth/login.html:146
+#: app/templates/auth/recuperar_contrasena.html:52
+#: app/templates/auth/register.html:242
+#: app/templates/auth/restablecer_contrasena.html:57
+#: app/templates/dashboard/base_authenticated.html:192
+msgid "¡Hecho!"
+msgstr "¡Hecho!"
+
+#: app/templates/auth/login.html:146 app/templates/auth/perfil.html:134
+#: app/templates/auth/recuperar_contrasena.html:52
+#: app/templates/auth/register.html:242
+#: app/templates/auth/restablecer_contrasena.html:57
+#: app/templates/dashboard/base_authenticated.html:192
+#: app/templates/habitaciones/editar.html:71
+#: app/templates/habitaciones/nueva.html:69
+msgid "Atención"
+msgstr "Atención"
+
+#: app/templates/auth/perfil.html:3
+#, fuzzy
+msgid "Mi Perfil - Hotel Gales"
+msgstr "Verificado por Hotel Gales"
+
+#: app/templates/auth/perfil.html:9
+#, fuzzy
+msgid "Configuración de Cuenta & Perfil"
 msgstr "Configuración de Cuenta"
 
-#: app/templates/auth/perfil.html:12
+#: app/templates/auth/perfil.html:19
 msgid "Credenciales de Acceso"
 msgstr "Credenciales de Acceso"
 
-#: app/templates/auth/perfil.html:17
+#: app/templates/auth/perfil.html:24
 msgid "Nombre de Usuario"
 msgstr "Nombre de Usuario"
 
-#: app/templates/auth/perfil.html:25
-msgid "Cambiar Contraseña (dejar en blanco para mantener actual)"
-msgstr "Cambiar Contraseña (dejar en blanco para mantener actual)"
+#: app/templates/auth/perfil.html:32
+#, fuzzy
+msgid "Cambiar Contraseña"
+msgstr "Confirmar Contraseña"
 
-#: app/templates/auth/perfil.html:28
+#: app/templates/auth/perfil.html:32
+msgid "opcional"
+msgstr ""
+
+#: app/templates/auth/perfil.html:35
 msgid "Nueva contraseña"
 msgstr "Nueva contraseña"
 
-#: app/templates/auth/perfil.html:35
-msgid "Confirmar nueva contraseña"
-msgstr "Confirmar nueva contraseña"
+#: app/templates/auth/perfil.html:42
+#, fuzzy
+msgid "Confirmar contraseña"
+msgstr "Confirmar Contraseña"
 
-#: app/templates/auth/perfil.html:40 app/templates/habitaciones/editar.html:51
+#: app/templates/auth/perfil.html:47 app/templates/habitaciones/editar.html:51
 #: app/templates/tipohabitaciones/index.html:73
 msgid "Guardar Cambios"
 msgstr "Guardar Cambios"
 
-#: app/templates/auth/perfil.html:49
+#: app/templates/auth/perfil.html:56
 msgid "Zona de Peligro"
 msgstr "Zona de Peligro"
 
-#: app/templates/auth/perfil.html:50
+#: app/templates/auth/perfil.html:57
 msgid "Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, asegúrate."
 msgstr "Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, asegúrate."
 
-#: app/templates/auth/perfil.html:52
+#: app/templates/auth/perfil.html:59
 msgid "Eliminar mi cuenta definitivamente"
 msgstr "Eliminar mi cuenta definitivamente"
 
-#: app/templates/auth/perfil.html:62
+#: app/templates/auth/perfil.html:69
 msgid "Información Personal"
 msgstr "Información Personal"
 
-#: app/templates/auth/perfil.html:72 app/templates/dashboard/usuarios.html:122
+#: app/templates/auth/perfil.html:78 app/templates/dashboard/usuarios.html:122
+#: app/templates/empleados/index.html:119
 #: app/templates/tipohabitaciones/index.html:26
 #: app/templates/users/detail.html:11
 msgid "Nombre"
 msgstr "Nombre"
 
-#: app/templates/auth/perfil.html:76 app/templates/dashboard/usuarios.html:128
+#: app/templates/auth/perfil.html:82 app/templates/dashboard/usuarios.html:128
+#: app/templates/empleados/index.html:125
 msgid "Apellido"
 msgstr "Apellido"
 
-#: app/templates/auth/perfil.html:82
+#: app/templates/auth/perfil.html:88
 #: app/templates/dashboard/historial_limpieza_detalle.html:50
 #: app/templates/dashboard/historial_recepcionista.html:46
-#: app/templates/reservas/index.html:146
+#: app/templates/reservas/index.html:170
 msgid "Correo Electrónico"
 msgstr "Correo Electrónico"
 
-#: app/templates/auth/perfil.html:87 app/templates/clientes/index.html:185
+#: app/templates/auth/perfil.html:93 app/templates/clientes/index.html:178
 #: app/templates/dashboard/historial_recepcionista.html:50
 #: app/templates/dashboard/usuarios.html:138
-#: app/templates/reservas/index.html:134
+#: app/templates/empleados/index.html:135 app/templates/reservas/index.html:158
 msgid "Teléfono"
 msgstr "Teléfono"
 
-#: app/templates/auth/perfil.html:92 app/templates/clientes/index.html:173
+#: app/templates/auth/perfil.html:98 app/templates/clientes/index.html:166
 #: app/templates/dashboard/usuarios.html:144
+#: app/templates/empleados/index.html:141
 msgid "Dirección"
 msgstr "Dirección"
 
-#: app/templates/auth/perfil.html:97
+#: app/templates/auth/perfil.html:103
 msgid "Actualizar Datos Personales"
 msgstr "Actualizar Datos Personales"
 
-#: app/templates/auth/perfil.html:103
+#: app/templates/auth/perfil.html:111
+#, fuzzy
+msgid "Perfil Administrativo"
+msgstr "Administrador"
+
+#: app/templates/auth/perfil.html:112
 msgid "Esta cuenta corresponde a un perfil de"
 msgstr "Esta cuenta corresponde a un perfil de"
 
-#: app/templates/auth/perfil.html:104
-msgid "No hay datos de cliente vinculados directamente a este perfil de usuario."
+#: app/templates/auth/perfil.html:113
+#, fuzzy
+msgid "No hay datos de cliente directo asociados a esta cuenta."
 msgstr "No hay datos de cliente vinculados directamente a este perfil de usuario."
 
-#: app/templates/auth/perfil.html:117
+#: app/templates/auth/perfil.html:128
 msgid "¿Estás absolutamente seguro?"
 msgstr "¿Estás absolutamente seguro?"
 
-#: app/templates/auth/perfil.html:121
+#: app/templates/auth/perfil.html:132
 msgid ""
 "Esta acción eliminará permanentemente tu usuario y perderás acceso a tus "
 "reservas e historial."
@@ -1026,15 +1002,15 @@ msgstr ""
 "Esta acción eliminará permanentemente tu usuario y perderás acceso a tus "
 "reservas e historial."
 
-#: app/templates/auth/perfil.html:123
+#: app/templates/auth/perfil.html:134
 msgid "Serás redirigido a la pantalla de inicio después de esto."
 msgstr "Serás redirigido a la pantalla de inicio después de esto."
 
-#: app/templates/auth/perfil.html:127 app/templates/comentarios/nuevo.html:11
+#: app/templates/auth/perfil.html:138 app/templates/comentarios/nuevo.html:11
 #: app/templates/comentarios/nuevo.html:51
-#: app/templates/dashboard/reportes.html:189
-#: app/templates/dashboard/reportes.html:224
-#: app/templates/dashboard/usuarios.html:223
+#: app/templates/dashboard/reportes.html:259
+#: app/templates/dashboard/usuarios.html:222
+#: app/templates/empleados/index.html:222
 #: app/templates/habitaciones/nueva.html:52
 #: app/templates/limpieza/asignar.html:54
 #: app/templates/rolempleados/index.html:93
@@ -1046,7 +1022,7 @@ msgstr "Serás redirigido a la pantalla de inicio después de esto."
 msgid "Cancelar"
 msgstr "Cancelar"
 
-#: app/templates/auth/perfil.html:129
+#: app/templates/auth/perfil.html:140
 msgid "Sí, eliminar mi cuenta"
 msgstr "Sí, eliminar mi cuenta"
 
@@ -1099,6 +1075,7 @@ msgstr "Número de identificación"
 
 #: app/templates/auth/register.html:98
 #: app/templates/dashboard/usuarios.html:119
+#: app/templates/empleados/index.html:116
 msgid "La cédula o ID debe tener entre 5 y 15 dígitos numéricos"
 msgstr "La cédula o ID debe tener entre 5 y 15 dígitos numéricos"
 
@@ -1113,6 +1090,8 @@ msgstr "Tu nombre"
 #: app/templates/auth/register.html:107 app/templates/auth/register.html:116
 #: app/templates/dashboard/usuarios.html:125
 #: app/templates/dashboard/usuarios.html:131
+#: app/templates/empleados/index.html:122
+#: app/templates/empleados/index.html:128
 msgid "Solo letras y espacios, máximo 30 caracteres"
 msgstr "Solo letras y espacios, máximo 30 caracteres"
 
@@ -1126,6 +1105,7 @@ msgstr "Tu apellido"
 
 #: app/templates/auth/register.html:123
 #: app/templates/dashboard/usuarios.html:135
+#: app/templates/empleados/index.html:132
 msgid "ejemplo@correo.com"
 msgstr "ejemplo@correo.com"
 
@@ -1135,6 +1115,7 @@ msgstr "TELÉFONO DE CONTACTO"
 
 #: app/templates/auth/register.html:128
 #: app/templates/dashboard/usuarios.html:140
+#: app/templates/empleados/index.html:137
 msgid "Ej: +573101234567"
 msgstr "Ej: +573101234567"
 
@@ -1159,7 +1140,8 @@ msgstr ""
 "bajos)"
 
 #: app/templates/auth/register.html:150
-#: app/templates/dashboard/usuarios.html:174
+#: app/templates/dashboard/usuarios.html:172
+#: app/templates/empleados/index.html:171
 msgid "Mínimo 8 caracteres, con letras y números"
 msgstr "Mínimo 8 caracteres, con letras y números"
 
@@ -1232,143 +1214,152 @@ msgstr "Confirma tu nueva contraseña"
 msgid "Actualizar Contraseña"
 msgstr "Actualizar Contraseña"
 
-#: app/templates/clientes/index.html:8
-msgid "Gestión de Clientes"
+#: app/templates/clientes/index.html:3
+#, fuzzy
+msgid "Gestión de Clientes - Hotel Gales"
 msgstr "Gestión de Clientes"
 
 #: app/templates/clientes/index.html:9
-msgid "Nuevo Cliente"
-msgstr "Nuevo Cliente"
+msgid "Gestión de Clientes"
+msgstr "Gestión de Clientes"
 
-#: app/templates/clientes/index.html:21
-msgid "Buscar cliente por nombre o apellido..."
+#: app/templates/clientes/index.html:23
+#, fuzzy
+msgid "Buscar por nombre o apellido..."
 msgstr "Buscar cliente por nombre o apellido..."
 
-#: app/templates/clientes/index.html:24 app/templates/facturas/index.html:30
-#: app/templates/habitaciones/index.html:56
+#: app/templates/clientes/index.html:27 app/templates/facturas/index.html:32
 #: app/templates/habitaciones/publica.html:83
 msgid "Buscar"
 msgstr "Buscar"
 
-#: app/templates/clientes/index.html:26 app/templates/facturas/index.html:32
+#: app/templates/clientes/index.html:30 app/templates/facturas/index.html:35
+#: app/templates/habitaciones/index.html:64
 msgid "Limpiar"
 msgstr "Limpiar"
 
-#: app/templates/clientes/index.html:36 app/templates/clientes/index.html:169
+#: app/templates/clientes/index.html:41 app/templates/clientes/index.html:162
 #: app/templates/dashboard/historial_limpieza_detalle.html:46
 #: app/templates/dashboard/usuarios.html:116
+#: app/templates/empleados/index.html:113
 #: app/templates/facturas/validar.html:130
 msgid "Cédula"
 msgstr "Cédula"
 
-#: app/templates/clientes/index.html:38
+#: app/templates/clientes/index.html:43
 msgid "Contacto"
 msgstr "Contacto"
 
-#: app/templates/clientes/index.html:39
-msgid "Estadísticas (Reservas)"
-msgstr "Estadísticas (Reservas)"
-
-#: app/templates/clientes/index.html:40
+#: app/templates/clientes/index.html:45
 #: app/templates/dashboard/usuarios.html:43
-#: app/templates/empleados/index.html:22
-#: app/templates/habitaciones/detalle.html:107
+#: app/templates/empleados/index.html:43
 #: app/templates/rolempleados/index.html:26
 #: app/templates/tipohabitaciones/index.html:28
 msgid "Acciones"
 msgstr "Acciones"
 
-#: app/templates/clientes/index.html:55 app/templates/dashboard/menu.html:178
-#: app/templates/dashboard/reportes.html:75
+#: app/templates/clientes/index.html:70 app/templates/dashboard/menu.html:316
 msgid "Total Reservas"
 msgstr "Total Reservas"
 
-#: app/templates/clientes/index.html:55 app/templates/clientes/index.html:229
+#: app/templates/clientes/index.html:71 app/templates/clientes/index.html:222
 msgid "Total"
 msgstr "Total"
 
-#: app/templates/clientes/index.html:56
+#: app/templates/clientes/index.html:73
 msgid "En curso"
 msgstr "En curso"
 
-#: app/templates/clientes/index.html:57 app/templates/clientes/index.html:208
-#: app/templates/dashboard/menu.html:397
+#: app/templates/clientes/index.html:76 app/templates/clientes/index.html:201
 msgid "Finalizadas"
 msgstr "Finalizadas"
 
-#: app/templates/clientes/index.html:58 app/templates/clientes/index.html:212
-#: app/templates/dashboard/menu.html:190 app/templates/dashboard/menu.html:397
+#: app/templates/clientes/index.html:79 app/templates/clientes/index.html:205
+#: app/templates/dashboard/menu.html:328
 msgid "Canceladas"
 msgstr "Canceladas"
 
-#: app/templates/clientes/index.html:62
+#: app/templates/clientes/index.html:86
 msgid "Ver Perfil"
 msgstr "Ver Perfil"
 
-#: app/templates/clientes/index.html:77
+#: app/templates/clientes/index.html:101
 msgid "Perfil Completo"
 msgstr "Perfil Completo"
 
-#: app/templates/clientes/index.html:88
+#: app/templates/clientes/index.html:112
 msgid "ATENDIDO POR"
 msgstr "ATENDIDO POR"
 
-#: app/templates/clientes/index.html:115
+#: app/templates/clientes/index.html:139
 msgid "No hay clientes registrados."
 msgstr "No hay clientes registrados."
 
-#: app/templates/clientes/index.html:163
+#: app/templates/clientes/index.html:155
 msgid "Perfil del Cliente"
 msgstr "Perfil del Cliente"
 
-#: app/templates/clientes/index.html:180 app/templates/empleados/index.html:18
+#: app/templates/clientes/index.html:173
 msgid "Nombre Completo"
 msgstr "Nombre Completo"
 
-#: app/templates/clientes/index.html:189
+#: app/templates/clientes/index.html:182
 #: app/templates/dashboard/usuarios.html:134
+#: app/templates/empleados/index.html:131
 msgid "Email"
 msgstr "Email"
 
-#: app/templates/clientes/index.html:196 app/templates/dashboard/menu.html:255
+#: app/templates/clientes/index.html:189
 msgid "Resumen de Reservas"
 msgstr "Resumen de Reservas"
 
-#: app/templates/clientes/index.html:200
+#: app/templates/clientes/index.html:193
 msgid "Totales"
 msgstr "Totales"
 
-#: app/templates/clientes/index.html:221
+#: app/templates/clientes/index.html:214
 msgid "Historial Detallado"
 msgstr "Historial Detallado"
 
-#: app/templates/clientes/index.html:226 app/templates/pagos/index.html:9
+#: app/templates/clientes/index.html:219 app/templates/pagos/index.html:9
 msgid "Fecha"
 msgstr "Fecha"
 
-#: app/templates/clientes/index.html:227
-msgid "Habitacion"
-msgstr "Habitacion"
+#: app/templates/clientes/index.html:220
+#: app/templates/comentarios/habitacion.html:8
+#: app/templates/comentarios/habitacion.html:20
+#: app/templates/comentarios/mis_comentarios.html:20
+#: app/templates/comentarios/nuevo.html:17
+#: app/templates/dashboard/historial_limpieza_detalle.html:69
+#: app/templates/dashboard/historial_recepcionista.html:71
+#: app/templates/facturas/index.html:73 app/templates/facturas/ver.html:63
+#: app/templates/habitaciones/detalle.html:8
+#: app/templates/habitaciones/index.html:111
+#: app/templates/limpieza/asignar.html:21 app/templates/limpieza/tareas.html:47
+#: app/templates/reservas/index.html:72 app/templates/reservas/index.html:164
+msgid "Habitación"
+msgstr "Habitación"
 
-#: app/templates/clientes/index.html:228
+#: app/templates/clientes/index.html:221
 #: app/templates/dashboard/historial_limpieza_detalle.html:72
 #: app/templates/dashboard/historial_recepcionista.html:73
-#: app/templates/dashboard/menu.html:147
-#: app/templates/habitaciones/detalle.html:35
-#: app/templates/habitaciones/index.html:45
-#: app/templates/habitaciones/index.html:110
+#: app/templates/habitaciones/index.html:51
+#: app/templates/habitaciones/index.html:149
 #: app/templates/habitaciones/publica.html:73
 msgid "Estado"
 msgstr "Estado"
 
-#: app/templates/clientes/index.html:241
-#: app/templates/dashboard/reportes.html:210
+#: app/templates/clientes/index.html:234
+#: app/templates/dashboard/reportes.html:245
 #: app/templates/dashboard/usuarios.html:19
-#: app/templates/dashboard/usuarios.html:211
-#: app/templates/dashboard/usuarios.html:237
+#: app/templates/dashboard/usuarios.html:209
+#: app/templates/dashboard/usuarios.html:236
 #: app/templates/dashboard/usuarios.html:259
 #: app/templates/dashboard/usuarios.html:276
-#: app/templates/reservas/index.html:178
+#: app/templates/empleados/index.html:19 app/templates/empleados/index.html:209
+#: app/templates/empleados/index.html:236
+#: app/templates/empleados/index.html:259
+#: app/templates/empleados/index.html:276 app/templates/reservas/index.html:202
 #: app/templates/rolempleados/index.html:79
 #: app/templates/rolempleados/index.html:110
 #: app/templates/rolempleados/index.html:140
@@ -1378,13 +1369,6 @@ msgstr "Estado"
 msgid "Cerrar"
 msgstr "Cerrar"
 
-#: app/templates/clientes/index.html:249
-#: app/templates/dashboard/historial_limpieza_detalle.html:81
-#: app/templates/dashboard/historial_recepcionista.html:95
-#: app/templates/reservas/nueva.html:30
-msgid "Hab."
-msgstr "Hab."
-
 #: app/templates/comentarios/habitacion.html:2
 msgid "Comentarios - Habitación"
 msgstr "Comentarios - Habitación"
@@ -1393,34 +1377,17 @@ msgstr "Comentarios - Habitación"
 msgid "Comentarios"
 msgstr "Comentarios"
 
-#: app/templates/comentarios/habitacion.html:8
-#: app/templates/comentarios/habitacion.html:20
-#: app/templates/comentarios/mis_comentarios.html:20
-#: app/templates/comentarios/nuevo.html:17
-#: app/templates/dashboard/historial_limpieza_detalle.html:69
-#: app/templates/dashboard/historial_recepcionista.html:71
-#: app/templates/dashboard/menu.html:144 app/templates/dashboard/menu.html:213
-#: app/templates/facturas/index.html:61 app/templates/facturas/ver.html:63
-#: app/templates/habitaciones/detalle.html:8
-#: app/templates/limpieza/asignar.html:21 app/templates/limpieza/tareas.html:48
-#: app/templates/reservas/index.html:50 app/templates/reservas/index.html:140
-msgid "Habitación"
-msgstr "Habitación"
-
 #: app/templates/comentarios/habitacion.html:11
-#: app/templates/habitaciones/detalle.html:11
 #: app/templates/habitaciones/editar.html:54
 #: app/templates/notificaciones/index.html:22
 msgid "Volver"
 msgstr "Volver"
 
 #: app/templates/comentarios/habitacion.html:27
-#: app/templates/habitaciones/detalle.html:49
 msgid "de 5"
 msgstr "de 5"
 
 #: app/templates/comentarios/habitacion.html:29
-#: app/templates/habitaciones/detalle.html:50
 #: app/templates/habitaciones/publica.html:120
 msgid "comentarios"
 msgstr "comentarios"
@@ -1430,7 +1397,6 @@ msgid "Sin comentarios aún"
 msgstr "Sin comentarios aún"
 
 #: app/templates/comentarios/habitacion.html:69
-#: app/templates/habitaciones/detalle.html:97
 msgid "Esta habitación aún no tiene comentarios."
 msgstr "Esta habitación aún no tiene comentarios."
 
@@ -1457,6 +1423,8 @@ msgstr "¿Estás seguro de eliminar este comentario?"
 
 #: app/templates/comentarios/mis_comentarios.html:40
 #: app/templates/dashboard/usuarios.html:79
+#: app/templates/empleados/index.html:77
+#: app/templates/habitaciones/index.html:168
 #: app/templates/notificaciones/index.html:56
 #: app/templates/tipohabitaciones/index.html:48
 msgid "Eliminar"
@@ -1471,19 +1439,18 @@ msgid "Nuevo Comentario"
 msgstr "Nuevo Comentario"
 
 #: app/templates/comentarios/nuevo.html:8
-#: app/templates/habitaciones/detalle.html:126
 msgid "Dejar un Comentario"
 msgstr "Dejar un Comentario"
 
 #: app/templates/comentarios/nuevo.html:18
-#: app/templates/habitaciones/index.html:92
+#: app/templates/habitaciones/detalle.html:29
+#: app/templates/habitaciones/index.html:127
 #: app/templates/habitaciones/publica.html:113
 #: app/templates/reservas/nueva.html:30
 msgid "noche"
 msgstr "noche"
 
 #: app/templates/comentarios/nuevo.html:24
-#: app/templates/habitaciones/detalle.html:45
 msgid "Calificación"
 msgstr "Calificación"
 
@@ -1516,13 +1483,33 @@ msgstr "Reserva #"
 msgid "Servicio"
 msgstr "Servicio"
 
-#: app/templates/consumos/index.html:12 app/templates/dashboard/menu.html:399
+#: app/templates/consumos/index.html:12
 msgid "Cantidad"
 msgstr "Cantidad"
 
 #: app/templates/consumos/index.html:13 app/templates/facturas/ver.html:57
 msgid "Subtotal"
 msgstr "Subtotal"
+
+#: app/templates/dashboard/base_authenticated.html:38
+msgid "Cambiar tema"
+msgstr "Cambiar tema"
+
+#: app/templates/dashboard/base_authenticated.html:51
+msgid "Simulador de Roles (Super Admin)"
+msgstr "Simulador de Roles (Super Admin)"
+
+#: app/templates/dashboard/base_authenticated.html:56
+msgid "Simular Vista de Rol"
+msgstr "Simular Vista de Rol"
+
+#: app/templates/dashboard/base_authenticated.html:85
+msgid "Restaurar Original"
+msgstr "Restaurar Original"
+
+#: app/templates/dashboard/base_authenticated.html:127
+msgid "(Simulado)"
+msgstr "(Simulado)"
 
 #: app/templates/dashboard/historial_limpieza_detalle.html:3
 #: app/templates/dashboard/historial_recepcionista.html:3
@@ -1563,8 +1550,8 @@ msgstr "Usuario de Acceso"
 
 #: app/templates/dashboard/historial_limpieza_detalle.html:54
 #: app/templates/dashboard/historial_recepcionista.html:54
-#: app/templates/dashboard/menu.html:25
 #: app/templates/dashboard/usuarios.html:42
+#: app/templates/empleados/index.html:42
 msgid "Miembro desde"
 msgstr "Miembro desde"
 
@@ -1579,6 +1566,12 @@ msgstr "Fecha Finalización"
 #: app/templates/dashboard/historial_limpieza_detalle.html:73
 msgid "Instrucciones"
 msgstr "Instrucciones"
+
+#: app/templates/dashboard/historial_limpieza_detalle.html:81
+#: app/templates/dashboard/historial_recepcionista.html:95
+#: app/templates/reservas/nueva.html:30
+msgid "Hab."
+msgstr "Hab."
 
 #: app/templates/dashboard/historial_limpieza_detalle.html:91
 msgid "En progreso..."
@@ -1612,6 +1605,7 @@ msgstr "Operaciones Registradas"
 #: app/templates/dashboard/personal_limpieza.html:75
 #: app/templates/dashboard/recepcionistas.html:75
 #: app/templates/dashboard/usuarios.html:264
+#: app/templates/empleados/index.html:264
 msgid "Cédula:"
 msgstr "Cédula:"
 
@@ -1632,185 +1626,143 @@ msgid "No se registran actividades para este recepcionista."
 msgstr "No se registran actividades para este recepcionista."
 
 #: app/templates/dashboard/menu.html:3
-msgid "Hotel - Inicio"
-msgstr "Hotel - Inicio"
+msgid "Dashboard Principal - Hotel Gales"
+msgstr "Dashboard Principal - Hotel Gales"
 
-#: app/templates/dashboard/menu.html:8
-msgid "¡Bienvenido,"
-msgstr "¡Bienvenido,"
+#: app/templates/dashboard/menu.html:18
+#, python-format
+msgid "¡Bienvenido, %(usuario)s!"
+msgstr "¡Bienvenido, %(usuario)s!"
 
-#: app/templates/dashboard/menu.html:9
-msgid "Sistema de Gestión del Hotel"
-msgstr "Sistema de Gestión del Hotel"
-
-#: app/templates/dashboard/menu.html:20
-msgid "Perfil"
-msgstr "Perfil"
-
-#: app/templates/dashboard/menu.html:23
-#: app/templates/dashboard/usuarios.html:40
-#: app/templates/dashboard/usuarios.html:152 app/templates/users/detail.html:2
-msgid "Usuario"
-msgstr "Usuario"
+#: app/templates/dashboard/menu.html:22
+msgid ""
+"Gestione sus reservaciones y disfrute de una experiencia inolvidable de "
+"lujo."
+msgstr ""
+"Gestione sus reservaciones y disfrute de una experiencia inolvidable de "
+"lujo."
 
 #: app/templates/dashboard/menu.html:24
-#: app/templates/dashboard/usuarios.html:41
-#: app/templates/dashboard/usuarios.html:161
-msgid "Rol"
-msgstr "Rol"
+msgid ""
+"Resumen en tiempo real del estado de las instalaciones, ocupación y "
+"reservaciones."
+msgstr ""
+"Resumen en tiempo real del estado de las instalaciones, ocupación y "
+"reservaciones."
 
-#: app/templates/dashboard/menu.html:34
-msgid "Acciones Rápidas"
-msgstr "Acciones Rápidas"
+#: app/templates/dashboard/menu.html:32 app/templates/reservas/index.html:29
+#: app/templates/reservas/nueva.html:6
+msgid "Nueva Reserva"
+msgstr "Nueva Reserva"
 
-#: app/templates/dashboard/menu.html:41
-msgid "Gestionar todos los usuarios del sistema"
-msgstr "Gestionar todos los usuarios del sistema"
+#: app/templates/dashboard/menu.html:57
+msgid "Habitaciones Libres"
+msgstr "Habitaciones Libres"
 
-#: app/templates/dashboard/menu.html:46
-msgid "Ver historial de trabajo de recepcionistas"
-msgstr "Ver historial de trabajo de recepcionistas"
+#: app/templates/dashboard/menu.html:62
+msgid "Listas para check-in"
+msgstr "Listas para check-in"
 
-#: app/templates/dashboard/menu.html:56
-msgid "Verificar clientes en lista y realizar Check-in"
-msgstr "Verificar clientes en lista y realizar Check-in"
-
-#: app/templates/dashboard/menu.html:58
-msgid "Verificar Lista"
-msgstr "Verificar Lista"
-
-#: app/templates/dashboard/menu.html:61
-msgid "Cambiar estados a Ocupada/Mantenimiento"
-msgstr "Cambiar estados a Ocupada/Mantenimiento"
-
-#: app/templates/dashboard/menu.html:66
-msgid "Asignar y ver tareas de limpieza"
-msgstr "Asignar y ver tareas de limpieza"
-
-#: app/templates/dashboard/menu.html:73
-msgid "Ver y gestionar reservas"
-msgstr "Ver y gestionar reservas"
-
-#: app/templates/dashboard/menu.html:81
-msgid "Gestionar información de huéspedes"
-msgstr "Gestionar información de huéspedes"
+#: app/templates/dashboard/menu.html:78
+msgid "Habitaciones Ocupadas"
+msgstr "Habitaciones Ocupadas"
 
 #: app/templates/dashboard/menu.html:83
-msgid "Huéspedes"
-msgstr "Huéspedes"
-
-#: app/templates/dashboard/menu.html:91
-msgid "Gestionar facturación"
-msgstr "Gestionar facturación"
+msgid "Huéspedes alojados"
+msgstr "Huéspedes alojados"
 
 #: app/templates/dashboard/menu.html:99
-msgid "Ver reportes del sistema"
-msgstr "Ver reportes del sistema"
+msgid "Reservas Pendientes"
+msgstr "Reservas Pendientes"
 
-#: app/templates/dashboard/menu.html:101
-msgid "Reportes"
-msgstr "Reportes"
+#: app/templates/dashboard/menu.html:104
+msgid "Por confirmar"
+msgstr "Por confirmar"
 
-#: app/templates/dashboard/menu.html:108
-msgid "Ver tareas pendientes"
-msgstr "Ver tareas pendientes"
+#: app/templates/dashboard/menu.html:120
+msgid "Reservas En Curso"
+msgstr "Reservas En Curso"
 
-#: app/templates/dashboard/menu.html:113
-msgid "Ver historial de tareas"
-msgstr "Ver historial de tareas"
+#: app/templates/dashboard/menu.html:125
+msgid "Actualmente activas"
+msgstr "Actualmente activas"
 
-#: app/templates/dashboard/menu.html:115
-msgid "Historial Limpiezas"
-msgstr "Historial Limpiezas"
+#: app/templates/dashboard/menu.html:143
+msgid "Módulos de Gestión"
+msgstr "Módulos de Gestión"
 
-#: app/templates/dashboard/menu.html:119
-msgid "Ver estado de habitaciones"
-msgstr "Ver estado de habitaciones"
+#: app/templates/dashboard/menu.html:154
+msgid "Catálogo y estados"
+msgstr "Catálogo y estados"
 
-#: app/templates/dashboard/menu.html:139
-msgid "Mi Reserva Actual"
-msgstr "Mi Reserva Actual"
+#: app/templates/dashboard/menu.html:164
+msgid "Gestionar estancias"
+msgstr "Gestionar estancias"
 
-#: app/templates/dashboard/menu.html:145 app/templates/reservas/index.html:59
-msgid "Entrada"
-msgstr "Entrada"
+#: app/templates/dashboard/menu.html:173
+msgid "Directorio de huéspedes"
+msgstr "Directorio de huéspedes"
 
-#: app/templates/dashboard/menu.html:146 app/templates/reservas/index.html:63
-msgid "Salida"
-msgstr "Salida"
+#: app/templates/dashboard/menu.html:183
+msgid "Tareas e higienización"
+msgstr "Tareas e higienización"
 
-#: app/templates/dashboard/menu.html:156
-msgid "No tienes reservas activas"
-msgstr "No tienes reservas activas"
+#: app/templates/dashboard/menu.html:193
+msgid "Comprobantes de pago"
+msgstr "Comprobantes de pago"
 
-#: app/templates/dashboard/menu.html:171
-msgid "Mis Estadísticas"
-msgstr "Mis Estadísticas"
+#: app/templates/dashboard/menu.html:204
+msgid "Ganancias y nómina"
+msgstr "Ganancias y nómina"
 
-#: app/templates/dashboard/menu.html:184
-msgid "Completadas"
-msgstr "Completadas"
+#: app/templates/dashboard/menu.html:218
+msgid "Resumen Operativo"
+msgstr "Resumen Operativo"
 
-#: app/templates/dashboard/menu.html:205
-msgid "Historial de Reservas"
-msgstr "Historial de Reservas"
+#: app/templates/dashboard/menu.html:224
+msgid "Habitaciones en Mantenimiento"
+msgstr "Habitaciones en Mantenimiento"
 
-#: app/templates/dashboard/menu.html:223 app/templates/reservas/index.html:11
-msgid "Ver todas"
-msgstr "Ver todas"
+#: app/templates/dashboard/menu.html:236
+msgid "Reservas Finalizadas"
+msgstr "Reservas Finalizadas"
 
-#: app/templates/dashboard/menu.html:241
-#: app/templates/habitaciones/index.html:8
-msgid "Estado de Habitaciones"
-msgstr "Estado de Habitaciones"
+#: app/templates/dashboard/menu.html:252
+msgid "Sistema Operativo Normal"
+msgstr "Sistema Operativo Normal"
 
-#: app/templates/dashboard/menu.html:272
-msgid "Permisos Asignados"
-msgstr "Permisos Asignados"
+#: app/templates/dashboard/menu.html:253
+msgid "Todos los servicios activos"
+msgstr "Todos los servicios activos"
 
-#: app/templates/dashboard/menu.html:278
-msgid "Permisos Activos"
-msgstr "Permisos Activos"
+#: app/templates/dashboard/menu.html:269
+msgid "Su Reserva Actual"
+msgstr "Su Reserva Actual"
 
-#: app/templates/dashboard/menu.html:284
-msgid "Control total del sistema"
-msgstr "Control total del sistema"
+#: app/templates/dashboard/menu.html:277
+msgid "Habitación #"
+msgstr "Habitación #"
 
-#: app/templates/dashboard/menu.html:290
-msgid "Ver reservas"
-msgstr "Ver reservas"
+#: app/templates/dashboard/menu.html:287
+msgid "Ver Detalles de Reserva"
+msgstr "Ver Detalles de Reserva"
 
-#: app/templates/dashboard/menu.html:296
-msgid "Ver huéspedes"
-msgstr "Ver huéspedes"
+#: app/templates/dashboard/menu.html:293
+msgid "No tiene ninguna reserva activa actualmente."
+msgstr "No tiene ninguna reserva activa actualmente."
 
-#: app/templates/dashboard/menu.html:302
-msgid "Ver facturación"
-msgstr "Ver facturación"
+#: app/templates/dashboard/menu.html:295
+#: app/templates/habitaciones/detalle.html:126
+msgid "Reservar Habitación"
+msgstr "Reservar Habitación"
 
 #: app/templates/dashboard/menu.html:308
-msgid "Ver habitaciones"
-msgstr "Ver habitaciones"
+msgid "Resumen de Estancias"
+msgstr "Resumen de Estancias"
 
-#: app/templates/dashboard/menu.html:314
-msgid "Ver perfil personal"
-msgstr "Ver perfil personal"
-
-#: app/templates/dashboard/menu.html:321
-msgid "Tu Rol"
-msgstr "Tu Rol"
-
-#: app/templates/dashboard/menu.html:377
-msgid "Disponibles"
-msgstr "Disponibles"
-
-#: app/templates/dashboard/menu.html:377
-msgid "Ocupadas"
-msgstr "Ocupadas"
-
-#: app/templates/dashboard/menu.html:397
-msgid "Pendientes"
-msgstr "Pendientes"
+#: app/templates/dashboard/menu.html:322
+msgid "Completadas"
+msgstr "Completadas"
 
 #: app/templates/dashboard/personal_limpieza.html:3
 msgid "Historial Personal de Limpieza"
@@ -1830,12 +1782,12 @@ msgstr "Buscar por nombre de usuario..."
 #: app/templates/dashboard/personal_limpieza.html:40
 #: app/templates/dashboard/recepcionistas.html:40
 #: app/templates/mantenimientos/index.html:70
+#: app/templates/reservas/index.html:18
 msgid "Filtrar"
 msgstr "Filtrar"
 
 #: app/templates/dashboard/personal_limpieza.html:43
 #: app/templates/dashboard/recepcionistas.html:43
-#: app/templates/habitaciones/index.html:59
 #: app/templates/habitaciones/publica.html:86
 #: app/templates/mantenimientos/index.html:73
 msgid "Limpiar filtros"
@@ -1847,7 +1799,6 @@ msgstr "PERSONAL DE LIMPIEZA"
 
 #: app/templates/dashboard/personal_limpieza.html:59
 #: app/templates/dashboard/recepcionistas.html:59
-#: app/templates/empleados/index.html:17
 #: app/templates/rolempleados/index.html:23
 #: app/templates/tipohabitaciones/index.html:25
 #: app/templates/users/detail.html:7
@@ -1861,6 +1812,7 @@ msgstr "No registrada"
 
 #: app/templates/dashboard/personal_limpieza.html:79
 #: app/templates/dashboard/usuarios.html:267
+#: app/templates/empleados/index.html:267
 msgid "Teléfono:"
 msgstr "Teléfono:"
 
@@ -1921,6 +1873,7 @@ msgstr "RECEPCIONISTA"
 
 #: app/templates/dashboard/recepcionistas.html:79
 #: app/templates/dashboard/usuarios.html:266
+#: app/templates/empleados/index.html:266
 msgid "Email:"
 msgstr "Email:"
 
@@ -1945,115 +1898,148 @@ msgstr ""
 "para empezar a ver su actividad."
 
 #: app/templates/dashboard/reportes.html:3
-msgid "Reportes y Estadísticas Administrativas"
-msgstr "Reportes y Estadísticas Administrativas"
+#, fuzzy
+msgid "Reportes y Métricas - Hotel Gales"
+msgstr "Reportes y Métricas"
 
-#: app/templates/dashboard/reportes.html:13
-msgid "Panel de Reportes"
-msgstr "Panel de Reportes"
+#: app/templates/dashboard/reportes.html:9
+#, fuzzy
+msgid "Reportes & Métricas Financieras"
+msgstr "Reportes y Métricas"
 
-#: app/templates/dashboard/reportes.html:14
-msgid "Estadísticas detalladas por meses"
-msgstr "Estadísticas detalladas por meses"
+#: app/templates/dashboard/reportes.html:12
+#, fuzzy
+msgid "Mes:"
+msgstr "Desde:"
 
-#: app/templates/dashboard/reportes.html:18
-msgid "Filtrar Mes:"
-msgstr "Filtrar Mes:"
-
-#: app/templates/dashboard/reportes.html:36
+#: app/templates/dashboard/reportes.html:24
 msgid "Ganancias"
 msgstr "Ganancias"
 
-#: app/templates/dashboard/reportes.html:38
-msgid "Margen de Ganancia (Ingresos vs Nómina)"
-msgstr "Margen de Ganancia (Ingresos vs Nómina)"
-
-#: app/templates/dashboard/reportes.html:39
+#: app/templates/dashboard/reportes.html:32
 msgid "Margen:"
 msgstr "Margen:"
 
-#: app/templates/dashboard/reportes.html:51
+#: app/templates/dashboard/reportes.html:42
 msgid "Ganancias Históricas"
 msgstr "Ganancias Históricas"
 
-#: app/templates/dashboard/reportes.html:63
-msgid "Nómina a Pagar"
-msgstr "Nómina a Pagar"
+#: app/templates/dashboard/reportes.html:48
+#, fuzzy
+msgid "Acumulado Total"
+msgstr "Monto Total"
 
-#: app/templates/dashboard/reportes.html:76
-msgid "Reservaciones"
-msgstr "Reservaciones"
+#: app/templates/dashboard/reportes.html:56
+#, fuzzy
+msgid "Nómina de Personal"
+msgstr "Asignar a Personal"
 
-#: app/templates/dashboard/reportes.html:88
-msgid "Top 5 Clientes (Ganancias del Mes)"
+#: app/templates/dashboard/reportes.html:62
+#, fuzzy
+msgid "empleados"
+msgstr "Empleados"
+
+#: app/templates/dashboard/reportes.html:70
+#, fuzzy
+msgid "Reservas del Mes"
+msgstr "Reservas"
+
+#: app/templates/dashboard/reportes.html:87
+#, fuzzy
+msgid "Métricas Financieras del Mes"
 msgstr "Top 5 Clientes (Ganancias del Mes)"
 
-#: app/templates/dashboard/reportes.html:96
-msgid "Ganancia"
-msgstr "Ganancia"
+#: app/templates/dashboard/reportes.html:92
+msgid "Ganancias vs Nómina (Rentabilidad)"
+msgstr ""
 
-#: app/templates/dashboard/reportes.html:123
+#: app/templates/dashboard/reportes.html:102
+msgid "Ingreso Promedio por Reserva"
+msgstr ""
+
+#: app/templates/dashboard/reportes.html:121
+msgid "Balance Neto del Mes"
+msgstr ""
+
+#: app/templates/dashboard/reportes.html:122
+msgid "Ingresos menos Nómina"
+msgstr ""
+
+#: app/templates/dashboard/reportes.html:138
+#, fuzzy
+msgid "Top Clientes (Ganancias del Mes)"
+msgstr "Top 5 Clientes (Ganancias del Mes)"
+
+#: app/templates/dashboard/reportes.html:147
+#, fuzzy
+msgid "Total Generado"
+msgstr "Total Pagado"
+
+#: app/templates/dashboard/reportes.html:168
+msgid "No hay datos en el periodo seleccionado."
+msgstr ""
+
+#: app/templates/dashboard/reportes.html:182
 msgid "Nómina de Empleados"
 msgstr "Nómina de Empleados"
 
-#: app/templates/dashboard/reportes.html:125
-msgid "Imprimir Nómina"
-msgstr "Imprimir Nómina"
+#: app/templates/dashboard/reportes.html:185
+#, fuzzy
+msgid "Imprimir Reporte"
+msgstr "Imprimir Factura"
 
-#: app/templates/dashboard/reportes.html:132
+#: app/templates/dashboard/reportes.html:192
 msgid "Empleado"
 msgstr "Empleado"
 
-#: app/templates/dashboard/reportes.html:133
-#: app/templates/empleados/index.html:19
+#: app/templates/dashboard/reportes.html:193
 msgid "Cargo"
 msgstr "Cargo"
 
-#: app/templates/dashboard/reportes.html:134
-#: app/templates/empleados/index.html:21
+#: app/templates/dashboard/reportes.html:194
 msgid "Fecha Ingreso"
 msgstr "Fecha Ingreso"
 
-#: app/templates/dashboard/reportes.html:135
+#: app/templates/dashboard/reportes.html:195
 msgid "Salario Actual"
 msgstr "Salario Actual"
 
-#: app/templates/dashboard/reportes.html:136
+#: app/templates/dashboard/reportes.html:196
 msgid "Acción"
 msgstr "Acción"
 
-#: app/templates/dashboard/reportes.html:150
+#: app/templates/dashboard/reportes.html:213
 msgid "No asignado"
 msgstr "No asignado"
 
-#: app/templates/dashboard/reportes.html:155
-msgid "Modificar"
-msgstr "Modificar"
-
-#: app/templates/dashboard/reportes.html:174
-#: app/templates/dashboard/reportes.html:208
+#: app/templates/dashboard/reportes.html:218
 msgid "Ajustar Salario"
 msgstr "Ajustar Salario"
 
-#: app/templates/dashboard/reportes.html:179
-#: app/templates/dashboard/reportes.html:214
+#: app/templates/dashboard/reportes.html:224
+msgid "No hay empleados registrados."
+msgstr "No hay empleados registrados."
+
+#: app/templates/dashboard/reportes.html:243
+#, fuzzy
+msgid "Ajustar Salario de Empleado"
+msgstr "Ajustar Salario"
+
+#: app/templates/dashboard/reportes.html:249
 msgid "Empleado:"
 msgstr "Empleado:"
 
-#: app/templates/dashboard/reportes.html:181
-#: app/templates/dashboard/reportes.html:216
+#: app/templates/dashboard/reportes.html:251
 msgid "Nuevo Salario Mensual (COP)"
 msgstr "Nuevo Salario Mensual (COP)"
 
-#: app/templates/dashboard/reportes.html:190
-#: app/templates/dashboard/reportes.html:226
+#: app/templates/dashboard/reportes.html:261
 msgid "Actualizar Salario"
 msgstr "Actualizar Salario"
 
-#: app/templates/dashboard/sidebar.html:20
-#: app/templates/notificaciones/index.html:2
-msgid "Notificaciones"
-msgstr "Notificaciones"
+#: app/templates/dashboard/sidebar.html:13
+msgid "Inicio"
+msgstr "Inicio"
 
 #: app/templates/dashboard/sidebar.html:44
 msgid "Cerrar sesión"
@@ -2064,202 +2050,260 @@ msgid "Historial de Clientes"
 msgstr "Historial de Clientes"
 
 #: app/templates/dashboard/usuarios.html:31
-msgid "Usuarios del Sistema"
-msgstr "Usuarios del Sistema"
-
-#: app/templates/dashboard/usuarios.html:31
 msgid "Clientes Registrados"
 msgstr "Clientes Registrados"
 
+#: app/templates/dashboard/usuarios.html:40
+#: app/templates/dashboard/usuarios.html:152
+#: app/templates/empleados/index.html:40 app/templates/empleados/index.html:149
+#: app/templates/users/detail.html:2
+msgid "Usuario"
+msgstr "Usuario"
+
+#: app/templates/dashboard/usuarios.html:41
+#: app/templates/dashboard/usuarios.html:161
+#: app/templates/empleados/index.html:41 app/templates/empleados/index.html:158
+msgid "Rol"
+msgstr "Rol"
+
 #: app/templates/dashboard/usuarios.html:52
+#: app/templates/empleados/index.html:52
 msgid "Tú"
 msgstr "Tú"
 
 #: app/templates/dashboard/usuarios.html:72
+#: app/templates/empleados/index.html:70
 msgid "Ver Datos Personales"
 msgstr "Ver Datos Personales"
 
 #: app/templates/dashboard/usuarios.html:76
+#: app/templates/empleados/index.html:74
 #: app/templates/rolempleados/index.html:44
 msgid "Editar Rol"
 msgstr "Editar Rol"
 
 #: app/templates/dashboard/usuarios.html:84
+#: app/templates/empleados/index.html:82
 msgid "Protegido"
 msgstr "Protegido"
 
 #: app/templates/dashboard/usuarios.html:95
-msgid "No hay usuarios registrados en el sistema"
-msgstr "No hay usuarios registrados en el sistema"
+msgid "No hay clientes registrados en el sistema"
+msgstr "No hay clientes registrados en el sistema"
 
 #: app/templates/dashboard/usuarios.html:108
 msgid "Crear Nuevo Usuario"
 msgstr "Crear Nuevo Usuario"
 
 #: app/templates/dashboard/usuarios.html:113
+#: app/templates/empleados/index.html:110
 msgid "Datos Personales"
 msgstr "Datos Personales"
 
 #: app/templates/dashboard/usuarios.html:118
+#: app/templates/empleados/index.html:115
 msgid "Número de documento"
 msgstr "Número de documento"
 
 #: app/templates/dashboard/usuarios.html:150
+#: app/templates/empleados/index.html:147
 msgid "Datos de la Cuenta"
 msgstr "Datos de la Cuenta"
 
 #: app/templates/dashboard/usuarios.html:154
+#: app/templates/empleados/index.html:151
 msgid "De 4 a 20 caracteres (letras, números, ., -, _)"
 msgstr "De 4 a 20 caracteres (letras, números, ., -, _)"
 
 #: app/templates/dashboard/usuarios.html:156
+#: app/templates/empleados/index.html:153
 msgid "Entre 4 y 20 caracteres (letras, números, puntos, guiones o guiones bajos)"
 msgstr "Entre 4 y 20 caracteres (letras, números, puntos, guiones o guiones bajos)"
 
 #: app/templates/dashboard/usuarios.html:157
+#: app/templates/empleados/index.html:154
 msgid "Nombre único del usuario"
 msgstr "Nombre único del usuario"
 
-#: app/templates/dashboard/usuarios.html:163
-msgid "Selecciona un rol"
-msgstr "Selecciona un rol"
+#: app/templates/dashboard/usuarios.html:164
+msgid "Solo lectura de información"
+msgstr "Solo lectura de información"
 
-#: app/templates/dashboard/usuarios.html:168
-msgid "Selecciona el acceso del usuario"
-msgstr "Selecciona el acceso del usuario"
-
-#: app/templates/dashboard/usuarios.html:172 app/templates/users/detail.html:15
+#: app/templates/dashboard/usuarios.html:170
+#: app/templates/empleados/index.html:169 app/templates/users/detail.html:15
 msgid "Contraseña"
 msgstr "Contraseña"
 
-#: app/templates/dashboard/usuarios.html:176
-#: app/templates/dashboard/usuarios.html:185
+#: app/templates/dashboard/usuarios.html:174
+#: app/templates/dashboard/usuarios.html:183
+#: app/templates/empleados/index.html:173
+#: app/templates/empleados/index.html:182
 msgid "Mínimo 8 caracteres, incluyendo al menos una letra y un número"
 msgstr "Mínimo 8 caracteres, incluyendo al menos una letra y un número"
 
-#: app/templates/dashboard/usuarios.html:177
+#: app/templates/dashboard/usuarios.html:175
+#: app/templates/empleados/index.html:174
 msgid "Contraseña temporal segura"
 msgstr "Contraseña temporal segura"
 
-#: app/templates/dashboard/usuarios.html:181
+#: app/templates/dashboard/usuarios.html:179
+#: app/templates/empleados/index.html:178
 msgid "Confirmar Contraseña"
 msgstr "Confirmar Contraseña"
 
-#: app/templates/dashboard/usuarios.html:183
+#: app/templates/dashboard/usuarios.html:181
+#: app/templates/empleados/index.html:180
 msgid "Repite tu contraseña"
 msgstr "Repite tu contraseña"
 
-#: app/templates/dashboard/usuarios.html:189
+#: app/templates/dashboard/usuarios.html:187
 msgid "Crear Usuario"
 msgstr "Crear Usuario"
 
-#: app/templates/dashboard/usuarios.html:210
+#: app/templates/dashboard/usuarios.html:208
+#: app/templates/empleados/index.html:208
 msgid "Cambiar Rol de"
 msgstr "Cambiar Rol de"
 
-#: app/templates/dashboard/usuarios.html:215
+#: app/templates/dashboard/usuarios.html:214
+#: app/templates/empleados/index.html:214
 msgid "Nuevo Rol"
 msgstr "Nuevo Rol"
 
-#: app/templates/dashboard/usuarios.html:224
+#: app/templates/dashboard/usuarios.html:223
+#: app/templates/empleados/index.html:223
 msgid "Actualizar Rol"
 msgstr "Actualizar Rol"
 
-#: app/templates/dashboard/usuarios.html:236
+#: app/templates/dashboard/usuarios.html:235
 msgid "Eliminar Usuario"
 msgstr "Eliminar Usuario"
 
-#: app/templates/dashboard/usuarios.html:240
+#: app/templates/dashboard/usuarios.html:239
 msgid "¿Seguro que quieres eliminar al usuario"
 msgstr "¿Seguro que quieres eliminar al usuario"
 
-#: app/templates/dashboard/usuarios.html:240
+#: app/templates/dashboard/usuarios.html:239
+#: app/templates/empleados/index.html:239
 msgid "Esta acción no se puede deshacer."
 msgstr "Esta acción no se puede deshacer."
 
-#: app/templates/dashboard/usuarios.html:243
+#: app/templates/dashboard/usuarios.html:242
+#: app/templates/empleados/index.html:242
 #: app/templates/tipohabitaciones/index.html:94
 msgid "No, cancelar"
 msgstr "No, cancelar"
 
 #: app/templates/dashboard/usuarios.html:245
+#: app/templates/empleados/index.html:245
 #: app/templates/tipohabitaciones/index.html:96
 msgid "Sí, eliminar"
 msgstr "Sí, eliminar"
 
 #: app/templates/dashboard/usuarios.html:258
+#: app/templates/empleados/index.html:258
 msgid "Datos de"
 msgstr "Datos de"
 
 #: app/templates/dashboard/usuarios.html:265
+#: app/templates/empleados/index.html:265
 msgid "Nombre completo:"
 msgstr "Nombre completo:"
 
 #: app/templates/dashboard/usuarios.html:268
+#: app/templates/empleados/index.html:268
 msgid "Dirección:"
 msgstr "Dirección:"
 
 #: app/templates/dashboard/usuarios.html:271
+#: app/templates/empleados/index.html:271
 msgid "No hay datos personales registrados para este usuario."
 msgstr "No hay datos personales registrados para este usuario."
 
-#: app/templates/empleados/index.html:3
+#: app/templates/empleados/index.html:8
 msgid "Gestión de Empleados"
 msgstr "Gestión de Empleados"
 
-#: app/templates/empleados/index.html:7
-msgid "Lista de Empleados"
-msgstr "Lista de Empleados"
+#: app/templates/empleados/index.html:31
+msgid "Personal del Hotel"
+msgstr "Personal del Hotel"
 
-#: app/templates/empleados/index.html:9
-msgid "Nuevo Empleado"
-msgstr "Nuevo Empleado"
+#: app/templates/empleados/index.html:93
+msgid "No hay personal registrado en el sistema"
+msgstr "No hay personal registrado en el sistema"
 
-#: app/templates/empleados/index.html:20
-msgid "Salario"
-msgstr "Salario"
+#: app/templates/empleados/index.html:105
+msgid "Crear Nuevo Empleado"
+msgstr "Crear Nuevo Empleado"
 
-#: app/templates/empleados/index.html:40
-msgid "No hay empleados registrados."
-msgstr "No hay empleados registrados."
+#: app/templates/empleados/index.html:160
+msgid "Selecciona un rol"
+msgstr "Selecciona un rol"
+
+#: app/templates/empleados/index.html:165
+msgid "Selecciona el acceso del personal"
+msgstr "Selecciona el acceso del personal"
+
+#: app/templates/empleados/index.html:188
+msgid "Crear Empleado"
+msgstr "Crear Empleado"
+
+#: app/templates/empleados/index.html:235
+msgid "Eliminar Empleado"
+msgstr "Eliminar Empleado"
+
+#: app/templates/empleados/index.html:239
+msgid "¿Seguro que quieres eliminar al empleado"
+msgstr "¿Seguro que quieres eliminar al empleado"
+
+#: app/templates/facturas/index.html:3
+#, fuzzy
+msgid "Gestión de Facturación - Hotel Gales"
+msgstr "Gestión de Facturación"
 
 #: app/templates/facturas/index.html:10
 msgid "Gestión de Facturación"
 msgstr "Gestión de Facturación"
 
 #: app/templates/facturas/index.html:13
-msgid "Registros Encontrados"
-msgstr "Registros Encontrados"
+#, fuzzy
+msgid "Facturas Registradas"
+msgstr "Tareas Registradas"
 
-#: app/templates/facturas/index.html:27
+#: app/templates/facturas/index.html:28
 msgid "Buscar por nombre o apellido del cliente..."
 msgstr "Buscar por nombre o apellido del cliente..."
 
-#: app/templates/facturas/index.html:65
+#: app/templates/facturas/index.html:56
+#, fuzzy
+msgid "PAGADA"
+msgstr "OCUPADA"
+
+#: app/templates/facturas/index.html:77
 msgid "Reserva"
 msgstr "Reserva"
 
-#: app/templates/facturas/index.html:71
+#: app/templates/facturas/index.html:83
 msgid "TOTAL"
 msgstr "TOTAL"
 
-#: app/templates/facturas/index.html:77
+#: app/templates/facturas/index.html:92
 msgid "Ver Detalle"
 msgstr "Ver Detalle"
 
-#: app/templates/facturas/index.html:86
+#: app/templates/facturas/index.html:101
 msgid "No se encontraron resultados"
 msgstr "No se encontraron resultados"
 
-#: app/templates/facturas/index.html:89
+#: app/templates/facturas/index.html:104
 msgid "No existen facturas asociadas a la búsqueda"
 msgstr "No existen facturas asociadas a la búsqueda"
 
-#: app/templates/facturas/index.html:91
+#: app/templates/facturas/index.html:106
 msgid "Cuando realices una reserva, tu factura aparecerá aquí."
 msgstr "Cuando realices una reserva, tu factura aparecerá aquí."
 
-#: app/templates/facturas/index.html:95
+#: app/templates/facturas/index.html:110
 msgid "Ver todas las facturas"
 msgstr "Ver todas las facturas"
 
@@ -2408,46 +2452,97 @@ msgstr "Volver a Facturas"
 msgid "Detalle Habitación"
 msgstr "Detalle Habitación"
 
-#: app/templates/habitaciones/detalle.html:22
-#: app/templates/habitaciones/editar.html:19
-#: app/templates/habitaciones/nueva.html:19
-msgid "Tipo de Habitación"
-msgstr "Tipo de Habitación"
+#: app/templates/habitaciones/detalle.html:11
+#, fuzzy
+msgid "Volver al Listado"
+msgstr "Volver al inicio"
 
-#: app/templates/habitaciones/detalle.html:26
+#: app/templates/habitaciones/detalle.html:23
+msgid "Categoría"
+msgstr ""
+
+#: app/templates/habitaciones/detalle.html:27
 msgid "Precio por Noche"
 msgstr "Precio por Noche"
 
-#: app/templates/habitaciones/detalle.html:52
-#: app/templates/habitaciones/publica.html:123
-msgid "Sin calificaciones"
-msgstr "Sin calificaciones"
+#: app/templates/habitaciones/detalle.html:38
+#: app/templates/habitaciones/editar.html:38
+msgid "Estado Actual"
+msgstr "Estado Actual"
 
-#: app/templates/habitaciones/detalle.html:63
-msgid "Comentarios Recientes"
-msgstr "Comentarios Recientes"
+#: app/templates/habitaciones/detalle.html:41
+#: app/templates/habitaciones/index.html:96
+#: app/templates/habitaciones/publica.html:105
+msgid "DISPONIBLE"
+msgstr "DISPONIBLE"
+
+#: app/templates/habitaciones/detalle.html:45
+#: app/templates/habitaciones/index.html:100
+#: app/templates/habitaciones/publica.html:107
+msgid "OCUPADA"
+msgstr "OCUPADA"
+
+#: app/templates/habitaciones/detalle.html:54
+#, fuzzy
+msgid "Calificación Promedio"
+msgstr "Calificación"
+
+#: app/templates/habitaciones/detalle.html:61
+msgid "de 5 estrellas"
+msgstr ""
+
+#: app/templates/habitaciones/detalle.html:62
+#, fuzzy
+msgid "reseñas de huéspedes"
+msgstr "Ver huéspedes"
 
 #: app/templates/habitaciones/detalle.html:65
+#, fuzzy
+msgid "Aún sin calificaciones"
+msgstr "Sin calificaciones"
+
+#: app/templates/habitaciones/detalle.html:77
+#, fuzzy
+msgid "Comentarios y Experiencias"
+msgstr "Comentarios Recientes"
+
+#: app/templates/habitaciones/detalle.html:80
 msgid "Ver todos"
 msgstr "Ver todos"
 
-#: app/templates/habitaciones/detalle.html:116
-#: app/templates/habitaciones/index.html:103
-msgid "Ya tienes una reserva activa"
-msgstr "Ya tienes una reserva activa"
+#: app/templates/habitaciones/detalle.html:110
+#, fuzzy
+msgid "Esta habitación aún no cuenta con reseñas de huéspedes."
+msgstr "Esta habitación aún no tiene comentarios."
 
-#: app/templates/habitaciones/detalle.html:120
-#: app/templates/habitaciones/publica.html:133
-msgid "No disponible"
-msgstr "No disponible"
+#: app/templates/habitaciones/detalle.html:121
+#, fuzzy
+msgid "Opciones de Habitación"
+msgstr "Tipos de Habitación"
 
 #: app/templates/habitaciones/detalle.html:130
-msgid "Ver Comentarios"
+#, fuzzy
+msgid "Ya tiene una reserva activa"
+msgstr "Ya tienes una reserva activa"
+
+#: app/templates/habitaciones/detalle.html:134
+#, fuzzy
+msgid "No disponible para reserva"
+msgstr "No disponible"
+
+#: app/templates/habitaciones/detalle.html:140
+msgid "Escribir una Reseña"
+msgstr ""
+
+#: app/templates/habitaciones/detalle.html:144
+#, fuzzy
+msgid "Ver Mis Comentarios"
 msgstr "Ver Comentarios"
 
-#: app/templates/habitaciones/detalle.html:136
-msgid "Ver todas las calificaciones"
-msgstr "Ver todas las calificaciones"
+#: app/templates/habitaciones/detalle.html:150
+#, fuzzy
+msgid "Ver Calificaciones Completas"
+msgstr "Sin calificaciones"
 
 #: app/templates/habitaciones/editar.html:3
 msgid "Editar Habitación"
@@ -2467,6 +2562,11 @@ msgstr "Número de Habitación"
 msgid "(Máx. 4)"
 msgstr "(Máx. 4)"
 
+#: app/templates/habitaciones/editar.html:19
+#: app/templates/habitaciones/nueva.html:19
+msgid "Tipo de Habitación"
+msgstr "Tipo de Habitación"
+
 #: app/templates/habitaciones/editar.html:30
 #: app/templates/habitaciones/nueva.html:29
 msgid "Precio por Noche (COP)"
@@ -2477,82 +2577,102 @@ msgstr "Precio por Noche (COP)"
 msgid "(Máx. 7 dígitos)"
 msgstr "(Máx. 7 dígitos)"
 
-#: app/templates/habitaciones/editar.html:38
-msgid "Estado Actual"
-msgstr "Estado Actual"
+#: app/templates/habitaciones/index.html:3
+#, fuzzy
+msgid "Gestión de Habitaciones - Hotel Gales"
+msgstr "Estado de Habitaciones"
 
-#: app/templates/habitaciones/index.html:11
+#: app/templates/habitaciones/index.html:9
+#, fuzzy
+msgid "Habitaciones de Hotel Gales"
+msgstr "Habitaciones"
+
+#: app/templates/habitaciones/index.html:13
 msgid "Nueva Habitación"
 msgstr "Nueva Habitación"
 
-#: app/templates/habitaciones/index.html:22
+#: app/templates/habitaciones/index.html:25
 #: app/templates/habitaciones/publica.html:50
 msgid "Buscar por número"
 msgstr "Buscar por número"
 
-#: app/templates/habitaciones/index.html:23
-#: app/templates/habitaciones/publica.html:51
-msgid "Número"
-msgstr "Número"
+#: app/templates/habitaciones/index.html:28
+#, fuzzy
+msgid "Ej. 101"
+msgstr "Ej: 101"
 
-#: app/templates/habitaciones/index.html:26
+#: app/templates/habitaciones/index.html:32
 #: app/templates/habitaciones/publica.html:54
 msgid "Tipo de habitación"
 msgstr "Tipo de habitación"
 
-#: app/templates/habitaciones/index.html:28
-#: app/templates/habitaciones/index.html:47
-#: app/templates/habitaciones/publica.html:56
-msgid "Todos"
-msgstr "Todos"
+#: app/templates/habitaciones/index.html:34
+msgid "Todos los tipos"
+msgstr ""
 
-#: app/templates/habitaciones/index.html:37
+#: app/templates/habitaciones/index.html:43
 #: app/templates/habitaciones/publica.html:65
 msgid "Precio mínimo"
 msgstr "Precio mínimo"
 
-#: app/templates/habitaciones/index.html:38
+#: app/templates/habitaciones/index.html:44
 #: app/templates/habitaciones/publica.html:66
 msgid "Min"
 msgstr "Min"
 
-#: app/templates/habitaciones/index.html:41
+#: app/templates/habitaciones/index.html:47
 #: app/templates/habitaciones/publica.html:69
 msgid "Precio máximo"
 msgstr "Precio máximo"
 
-#: app/templates/habitaciones/index.html:42
+#: app/templates/habitaciones/index.html:48
 #: app/templates/habitaciones/publica.html:70
 msgid "Max"
 msgstr "Max"
 
-#: app/templates/habitaciones/index.html:82
-#: app/templates/habitaciones/publica.html:105
-msgid "DISPONIBLE"
-msgstr "DISPONIBLE"
+#: app/templates/habitaciones/index.html:53
+#: app/templates/habitaciones/publica.html:56
+msgid "Todos"
+msgstr "Todos"
 
-#: app/templates/habitaciones/index.html:84
-#: app/templates/habitaciones/publica.html:107
-msgid "OCUPADA"
-msgstr "OCUPADA"
+#: app/templates/habitaciones/index.html:61
+#, fuzzy
+msgid "Aplicar Filtros"
+msgstr "Limpiar Filtros"
 
-#: app/templates/habitaciones/index.html:86
-msgid "Huesped"
-msgstr "Huesped"
+#: app/templates/habitaciones/index.html:119
+#, fuzzy
+msgid "Huésped"
+msgstr "Huéspedes"
 
-#: app/templates/habitaciones/index.html:98
-msgid "Pieza Limpiada"
-msgstr "Pieza Limpiada"
+#: app/templates/habitaciones/index.html:125
+#, fuzzy
+msgid "Tarifa por noche"
+msgstr "Precio por Noche"
 
-#: app/templates/habitaciones/index.html:104
+#: app/templates/habitaciones/index.html:137
+#, fuzzy
+msgid "Marcar Limpia"
+msgstr "Iniciar Limpieza"
+
+#: app/templates/habitaciones/index.html:142
+msgid "Ya tienes una reserva activa"
+msgstr "Ya tienes una reserva activa"
+
+#: app/templates/habitaciones/index.html:143
 msgid "Reservar"
 msgstr "Reservar"
 
-#: app/templates/habitaciones/index.html:129
+#: app/templates/habitaciones/index.html:160
+#: app/templates/tipohabitaciones/index.html:42
+msgid "Editar"
+msgstr "Editar"
+
+#: app/templates/habitaciones/index.html:169
 msgid "¿Está seguro de eliminar la habitación"
 msgstr "¿Está seguro de eliminar la habitación"
 
-#: app/templates/habitaciones/index.html:138
+#: app/templates/habitaciones/index.html:181
 msgid "No hay habitaciones registradas."
 msgstr "No hay habitaciones registradas."
 
@@ -2595,6 +2715,18 @@ msgstr "Registrarse"
 #: app/templates/habitaciones/publica.html:47
 msgid "Filtrar Habitaciones"
 msgstr "Filtrar Habitaciones"
+
+#: app/templates/habitaciones/publica.html:51
+msgid "Número"
+msgstr "Número"
+
+#: app/templates/habitaciones/publica.html:123
+msgid "Sin calificaciones"
+msgstr "Sin calificaciones"
+
+#: app/templates/habitaciones/publica.html:133
+msgid "No disponible"
+msgstr "No disponible"
 
 #: app/templates/habitaciones/publica.html:144
 msgid "No se encontraron habitaciones"
@@ -2645,8 +2777,13 @@ msgid "Confirmar Asignación"
 msgstr "Confirmar Asignación"
 
 #: app/templates/limpieza/tareas.html:3
-msgid "Tareas de Aseo"
-msgstr "Tareas de Aseo"
+#, fuzzy
+msgid "Tareas de Limpieza - Hotel Gales"
+msgstr "Tarea de limpieza asignada correctamente."
+
+#: app/templates/limpieza/tareas.html:11
+msgid "Piezas por Limpiar"
+msgstr "Piezas por Limpiar"
 
 #: app/templates/limpieza/tareas.html:13
 msgid "Historial de Limpiezas Completadas"
@@ -2657,48 +2794,46 @@ msgid "Órdenes de Limpieza"
 msgstr "Órdenes de Limpieza"
 
 #: app/templates/limpieza/tareas.html:20
-msgid "Asignar Nueva Tarea"
+#, fuzzy
+msgid "Asignar Tarea"
 msgstr "Asignar Nueva Tarea"
 
-#: app/templates/limpieza/tareas.html:54
+#: app/templates/limpieza/tareas.html:53
 msgid "Indicaciones:"
 msgstr "Indicaciones:"
 
-#: app/templates/limpieza/tareas.html:59
+#: app/templates/limpieza/tareas.html:58
 msgid "Asignado a:"
 msgstr "Asignado a:"
 
-#: app/templates/limpieza/tareas.html:63
+#: app/templates/limpieza/tareas.html:62
 msgid "Asignado el:"
 msgstr "Asignado el:"
 
-#: app/templates/limpieza/tareas.html:72
+#: app/templates/limpieza/tareas.html:71
 msgid "Iniciar Limpieza"
 msgstr "Iniciar Limpieza"
 
-#: app/templates/limpieza/tareas.html:76
+#: app/templates/limpieza/tareas.html:75
 msgid "Marcar como Finalizado"
 msgstr "Marcar como Finalizado"
 
-#: app/templates/limpieza/tareas.html:80
+#: app/templates/limpieza/tareas.html:79
 msgid "Tarea Completada"
 msgstr "Tarea Completada"
 
-#: app/templates/limpieza/tareas.html:85
+#: app/templates/limpieza/tareas.html:84
 msgid "Actualizado:"
 msgstr "Actualizado:"
 
-#: app/templates/limpieza/tareas.html:85
+#: app/templates/limpieza/tareas.html:84
 msgid "En proceso"
 msgstr "En proceso"
 
-#: app/templates/limpieza/tareas.html:95
-msgid "No hay órdenes de limpieza pendientes"
+#: app/templates/limpieza/tareas.html:93
+#, fuzzy
+msgid "No hay órdenes de limpieza pendientes."
 msgstr "No hay órdenes de limpieza pendientes"
-
-#: app/templates/limpieza/tareas.html:96
-msgid "Todo el hotel está reluciente en este momento."
-msgstr "Todo el hotel está reluciente en este momento."
 
 #: app/templates/mantenimientos/index.html:3
 msgid "Mantenimiento de Habitaciones"
@@ -2792,84 +2927,90 @@ msgstr "Valor"
 msgid "Sin registros de pago."
 msgstr "Sin registros de pago."
 
-#: app/templates/reservas/index.html:7
+#: app/templates/reservas/index.html:2
+#, fuzzy
+msgid "Control de Reservas - Hotel Gales"
+msgstr "Control de Reservas"
+
+#: app/templates/reservas/index.html:8
 msgid "Control de Reservas"
 msgstr "Control de Reservas"
 
-#: app/templates/reservas/index.html:9
+#: app/templates/reservas/index.html:10
 msgid "Filtrado"
 msgstr "Filtrado"
 
-#: app/templates/reservas/index.html:10
+#: app/templates/reservas/index.html:21
 msgid "Quitar filtro"
 msgstr "Quitar filtro"
 
-#: app/templates/reservas/index.html:20
-msgid "Filtrar por Fecha"
-msgstr "Filtrar por Fecha"
+#: app/templates/reservas/index.html:82
+msgid "Entrada"
+msgstr "Entrada"
 
-#: app/templates/reservas/index.html:25 app/templates/reservas/nueva.html:6
-msgid "Nueva Reserva"
-msgstr "Nueva Reserva"
+#: app/templates/reservas/index.html:86
+msgid "Salida"
+msgstr "Salida"
 
-#: app/templates/reservas/index.html:67 app/templates/reservas/index.html:165
+#: app/templates/reservas/index.html:90 app/templates/reservas/index.html:189
 msgid "Atendido por"
 msgstr "Atendido por"
 
-#: app/templates/reservas/index.html:79
+#: app/templates/reservas/index.html:102
 msgid "Ver Detalles"
 msgstr "Ver Detalles"
 
-#: app/templates/reservas/index.html:85
+#: app/templates/reservas/index.html:108
 msgid "¿Estás seguro de cancelar tu reserva?"
 msgstr "¿Estás seguro de cancelar tu reserva?"
 
-#: app/templates/reservas/index.html:86
+#: app/templates/reservas/index.html:109
 msgid "Cancelar Reserva"
 msgstr "Cancelar Reserva"
 
-#: app/templates/reservas/index.html:97
+#: app/templates/reservas/index.html:120
 msgid "Ocupada (Check-In)"
 msgstr "Ocupada (Check-In)"
 
-#: app/templates/reservas/index.html:98
+#: app/templates/reservas/index.html:121
 msgid "Finalizada (Hab. Disponible)"
 msgstr "Finalizada (Hab. Disponible)"
 
-#: app/templates/reservas/index.html:99
+#: app/templates/reservas/index.html:122
 msgid "Finalizada (Pasar a Limpieza)"
 msgstr "Finalizada (Pasar a Limpieza)"
 
-#: app/templates/reservas/index.html:102
+#: app/templates/reservas/index.html:125
 #: app/templates/rolempleados/index.html:126
 msgid "Actualizar"
 msgstr "Actualizar"
 
-#: app/templates/reservas/index.html:119
+#: app/templates/reservas/index.html:142
 msgid "Detalles de la Estadía"
 msgstr "Detalles de la Estadía"
 
-#: app/templates/reservas/index.html:128
+#: app/templates/reservas/index.html:152
 msgid "C.C."
 msgstr "C.C."
 
-#: app/templates/reservas/index.html:135 app/templates/reservas/index.html:147
+#: app/templates/reservas/index.html:159 app/templates/reservas/index.html:171
 msgid "No registrado"
 msgstr "No registrado"
 
-#: app/templates/reservas/index.html:154
-msgid "Periodo"
-msgstr "Periodo"
+#: app/templates/reservas/index.html:178
+#, fuzzy
+msgid "Periodo de Reserva"
+msgstr "Gestión de Reservas"
 
-#: app/templates/reservas/index.html:158 app/templates/reservas/nueva.html:36
-msgid "Personas"
-msgstr "Personas"
+#: app/templates/reservas/index.html:182
+msgid "Huéspedes"
+msgstr "Huéspedes"
 
-#: app/templates/reservas/index.html:169
+#: app/templates/reservas/index.html:193
 msgid "Pendiente de atención"
 msgstr "Pendiente de atención"
 
-#: app/templates/reservas/index.html:186
+#: app/templates/reservas/index.html:210
 msgid "No hay reservas registradas en este momento."
 msgstr "No hay reservas registradas en este momento."
 
@@ -2896,6 +3037,10 @@ msgstr "Habitación Disponible"
 #: app/templates/reservas/nueva.html:27
 msgid "Elige una habitación..."
 msgstr "Elige una habitación..."
+
+#: app/templates/reservas/nueva.html:36
+msgid "Personas"
+msgstr "Personas"
 
 #: app/templates/reservas/nueva.html:42
 msgid "Fecha de Entrada"
@@ -3004,10 +3149,6 @@ msgstr "Gestión de Tipos de Habitación"
 #: app/templates/tipohabitaciones/index.html:13
 msgid "Nuevo Tipo"
 msgstr "Nuevo Tipo"
-
-#: app/templates/tipohabitaciones/index.html:42
-msgid "Editar"
-msgstr "Editar"
 
 #: app/templates/tipohabitaciones/index.html:57
 msgid "Editar Tipo de Habitación"
@@ -3137,63 +3278,243 @@ msgstr "Actualizar Usuario"
 #~ msgid "Aún no has dejado comentarios"
 #~ msgstr "Aún no has dejado comentarios"
 
-#: app/utils/roles.py:8
-msgid "Cliente - Solo lectura de información"
-msgstr "Cliente - Solo lectura de información"
+#~ msgid "Como recepcionista solo puedes crear personal de limpieza."
+#~ msgstr "Como recepcionista solo puedes crear personal de limpieza."
 
-#: app/utils/roles.py:9
-msgid "Administrador - Control total del sistema"
-msgstr "Administrador - Control total del sistema"
+#~ msgid "Cerrar menú"
+#~ msgstr "Cerrar menú"
 
-#: app/utils/roles.py:10
-msgid "Recepcionista - Gestión de huéspedes y reservas"
-msgstr "Recepcionista - Gestión de huéspedes y reservas"
+#~ msgid "Sistema"
+#~ msgstr "Sistema"
 
-#: app/utils/roles.py:11
-msgid "Servicio de Limpieza - Mantenimiento y aseo"
-msgstr "Servicio de Limpieza - Mantenimiento y aseo"
+#~ msgid "Historial Limpieza"
+#~ msgstr "Historial Limpieza"
 
-#: app/routes/usuarios.py:48
-msgid "En esta sección solo se pueden crear clientes."
-msgstr "En esta sección solo se pueden crear clientes."
+#~ msgid "INSTALACIONES"
+#~ msgstr "INSTALACIONES"
 
-#: app/routes/usuarios.py:52
-msgid "No tienes permiso para crear personal."
-msgstr "No tienes permiso para crear personal."
+#~ msgid "GESTIÓN"
+#~ msgstr "GESTIÓN"
 
-#: app/templates/dashboard/usuarios.html:96
-msgid "No hay clientes registrados en el sistema"
-msgstr "No hay clientes registrados en el sistema"
+#~ msgid "Ver Reservas"
+#~ msgstr "Ver Reservas"
 
-#: app/templates/dashboard/usuarios.html:166 app/templates/empleados/index.html:124
-msgid "Solo lectura de información"
-msgstr "Solo lectura de información"
+#~ msgid "FINANZAS"
+#~ msgstr "FINANZAS"
 
-#: app/templates/empleados/index.html:32
-msgid "Personal del Hotel"
-msgstr "Personal del Hotel"
+#~ msgid "RECEPCIÓN Y GESTIÓN"
+#~ msgstr "RECEPCIÓN Y GESTIÓN"
 
-#: app/templates/empleados/index.html:95
-msgid "No hay personal registrado en el sistema"
-msgstr "No hay personal registrado en el sistema"
+#~ msgid "Estado Habitaciones"
+#~ msgstr "Estado Habitaciones"
 
-#: app/templates/empleados/index.html:110
-msgid "Crear Nuevo Empleado"
-msgstr "Crear Nuevo Empleado"
+#~ msgid "Historial de Usuarios"
+#~ msgstr "Historial de Usuarios"
 
-#: app/templates/empleados/index.html:171
-msgid "Selecciona el acceso del personal"
-msgstr "Selecciona el acceso del personal"
+#~ msgid "PANEL DE LIMPIEZA"
+#~ msgstr "PANEL DE LIMPIEZA"
 
-#: app/templates/empleados/index.html:191
-msgid "Crear Empleado"
-msgstr "Crear Empleado"
+#~ msgid "Mi Perfil"
+#~ msgstr "Mi Perfil"
 
-#: app/templates/empleados/index.html:241
-msgid "Eliminar Empleado"
-msgstr "Eliminar Empleado"
+#~ msgid "Cerrar Sesión"
+#~ msgstr "Cerrar Sesión"
 
-#: app/templates/empleados/index.html:247
-msgid "¿Seguro que quieres eliminar al empleado"
-msgstr "¿Seguro que quieres eliminar al empleado"
+#~ msgid "Cambiar Contraseña (dejar en blanco para mantener actual)"
+#~ msgstr "Cambiar Contraseña (dejar en blanco para mantener actual)"
+
+#~ msgid "Confirmar nueva contraseña"
+#~ msgstr "Confirmar nueva contraseña"
+
+#~ msgid "Nuevo Cliente"
+#~ msgstr "Nuevo Cliente"
+
+#~ msgid "Estadísticas (Reservas)"
+#~ msgstr "Estadísticas (Reservas)"
+
+#~ msgid "Habitacion"
+#~ msgstr "Habitacion"
+
+#~ msgid "Hotel - Inicio"
+#~ msgstr "Hotel - Inicio"
+
+#~ msgid "¡Bienvenido,"
+#~ msgstr "¡Bienvenido,"
+
+#~ msgid "Sistema de Gestión del Hotel"
+#~ msgstr "Sistema de Gestión del Hotel"
+
+#~ msgid "Perfil"
+#~ msgstr "Perfil"
+
+#~ msgid "Acciones Rápidas"
+#~ msgstr "Acciones Rápidas"
+
+#~ msgid "Gestionar todos los usuarios del sistema"
+#~ msgstr "Gestionar todos los usuarios del sistema"
+
+#~ msgid "Ver historial de trabajo de recepcionistas"
+#~ msgstr "Ver historial de trabajo de recepcionistas"
+
+#~ msgid "Verificar clientes en lista y realizar Check-in"
+#~ msgstr "Verificar clientes en lista y realizar Check-in"
+
+#~ msgid "Verificar Lista"
+#~ msgstr "Verificar Lista"
+
+#~ msgid "Cambiar estados a Ocupada/Mantenimiento"
+#~ msgstr "Cambiar estados a Ocupada/Mantenimiento"
+
+#~ msgid "Asignar y ver tareas de limpieza"
+#~ msgstr "Asignar y ver tareas de limpieza"
+
+#~ msgid "Ver y gestionar reservas"
+#~ msgstr "Ver y gestionar reservas"
+
+#~ msgid "Gestionar información de huéspedes"
+#~ msgstr "Gestionar información de huéspedes"
+
+#~ msgid "Gestionar facturación"
+#~ msgstr "Gestionar facturación"
+
+#~ msgid "Ver reportes del sistema"
+#~ msgstr "Ver reportes del sistema"
+
+#~ msgid "Reportes"
+#~ msgstr "Reportes"
+
+#~ msgid "Ver historial de tareas"
+#~ msgstr "Ver historial de tareas"
+
+#~ msgid "Historial Limpiezas"
+#~ msgstr "Historial Limpiezas"
+
+#~ msgid "Ver estado de habitaciones"
+#~ msgstr "Ver estado de habitaciones"
+
+#~ msgid "No tienes reservas activas"
+#~ msgstr "No tienes reservas activas"
+
+#~ msgid "Mis Estadísticas"
+#~ msgstr "Mis Estadísticas"
+
+#~ msgid "Historial de Reservas"
+#~ msgstr "Historial de Reservas"
+
+#~ msgid "Ver todas"
+#~ msgstr "Ver todas"
+
+#~ msgid "Permisos Asignados"
+#~ msgstr "Permisos Asignados"
+
+#~ msgid "Control total del sistema"
+#~ msgstr "Control total del sistema"
+
+#~ msgid "Ver reservas"
+#~ msgstr "Ver reservas"
+
+#~ msgid "Ver facturación"
+#~ msgstr "Ver facturación"
+
+#~ msgid "Ver habitaciones"
+#~ msgstr "Ver habitaciones"
+
+#~ msgid "Ver perfil personal"
+#~ msgstr "Ver perfil personal"
+
+#~ msgid "Tu Rol"
+#~ msgstr "Tu Rol"
+
+#~ msgid "Disponibles"
+#~ msgstr "Disponibles"
+
+#~ msgid "Ocupadas"
+#~ msgstr "Ocupadas"
+
+#~ msgid "Pendientes"
+#~ msgstr "Pendientes"
+
+#~ msgid "Reportes y Estadísticas Administrativas"
+#~ msgstr "Reportes y Estadísticas Administrativas"
+
+#~ msgid "Panel de Reportes"
+#~ msgstr "Panel de Reportes"
+
+#~ msgid "Estadísticas detalladas por meses"
+#~ msgstr "Estadísticas detalladas por meses"
+
+#~ msgid "Filtrar Mes:"
+#~ msgstr "Filtrar Mes:"
+
+#~ msgid "Margen de Ganancia (Ingresos vs Nómina)"
+#~ msgstr "Margen de Ganancia (Ingresos vs Nómina)"
+
+#~ msgid "Nómina a Pagar"
+#~ msgstr "Nómina a Pagar"
+
+#~ msgid "Reservaciones"
+#~ msgstr "Reservaciones"
+
+#~ msgid "Ganancia"
+#~ msgstr "Ganancia"
+
+#~ msgid "Imprimir Nómina"
+#~ msgstr "Imprimir Nómina"
+
+#~ msgid "Modificar"
+#~ msgstr "Modificar"
+
+#~ msgid "Usuarios del Sistema"
+#~ msgstr "Usuarios del Sistema"
+
+#~ msgid "No hay usuarios registrados en el sistema"
+#~ msgstr "No hay usuarios registrados en el sistema"
+
+#~ msgid "Selecciona el acceso del usuario"
+#~ msgstr "Selecciona el acceso del usuario"
+
+#~ msgid "Lista de Empleados"
+#~ msgstr "Lista de Empleados"
+
+#~ msgid "Nuevo Empleado"
+#~ msgstr "Nuevo Empleado"
+
+#~ msgid "Salario"
+#~ msgstr "Salario"
+
+#~ msgid "Registros Encontrados"
+#~ msgstr "Registros Encontrados"
+
+#~ msgid "Ver todas las calificaciones"
+#~ msgstr "Ver todas las calificaciones"
+
+#~ msgid "Huesped"
+#~ msgstr "Huesped"
+
+#~ msgid "Pieza Limpiada"
+#~ msgstr "Pieza Limpiada"
+
+#~ msgid "Tareas de Aseo"
+#~ msgstr "Tareas de Aseo"
+
+#~ msgid "Todo el hotel está reluciente en este momento."
+#~ msgstr "Todo el hotel está reluciente en este momento."
+
+#~ msgid "Filtrar por Fecha"
+#~ msgstr "Filtrar por Fecha"
+
+#~ msgid "Periodo"
+#~ msgstr "Periodo"
+
+#~ msgid "Cliente - Solo lectura de información"
+#~ msgstr "Cliente - Solo lectura de información"
+
+#~ msgid "Administrador - Control total del sistema"
+#~ msgstr "Administrador - Control total del sistema"
+
+#~ msgid "Recepcionista - Gestión de huéspedes y reservas"
+#~ msgstr "Recepcionista - Gestión de huéspedes y reservas"
+
+#~ msgid "Servicio de Limpieza - Mantenimiento y aseo"
+#~ msgstr "Servicio de Limpieza - Mantenimiento y aseo"
 
