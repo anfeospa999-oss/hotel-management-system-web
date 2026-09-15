@@ -1523,7 +1523,8 @@ body.dark-mode .btn-outline-secondary:hover {
 
 /* Fondos Blancos/Claros genéricos */
 body.dark-mode .bg-white,
-body.dark-mode .bg-light {
+body.dark-mode .bg-light,
+body.dark-mode .bg-light-subtle {
     background-color: var(--card-bg) !important;
 }
 
