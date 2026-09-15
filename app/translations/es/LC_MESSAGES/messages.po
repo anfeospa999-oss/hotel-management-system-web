@@ -728,23 +728,20 @@ msgid "Iniciar Sesión"
 msgstr "Iniciar Sesión"
 
 #: app/templates/sidebar.html:10
-#, fuzzy
 msgid "Gestión Hotelera"
-msgstr "Gestión de Reservas"
+msgstr "Gestión Hotelera"
 
 #: app/templates/sidebar.html:21
-#, fuzzy
 msgid "Navegación"
-msgstr "Atención"
+msgstr "Navegación"
 
 #: app/templates/sidebar.html:26
 msgid "Dashboard"
-msgstr ""
+msgstr "Dashboard"
 
 #: app/templates/sidebar.html:32
-#, fuzzy
 msgid "Mi Estancia"
-msgstr "MI ESTANCIA"
+msgstr "Mi Estancia"
 
 #: app/templates/facturas/index.html:10 app/templates/sidebar.html:54
 msgid "Mis Facturas"
@@ -756,58 +753,48 @@ msgid "Notificaciones"
 msgstr "Notificaciones"
 
 #: app/templates/sidebar.html:67
-#, fuzzy
 msgid "Operaciones"
-msgstr "Operativos"
+msgstr "Operaciones"
 
 #: app/templates/sidebar.html:92
-#, fuzzy
 msgid "Limpieza & Mantenimiento"
-msgstr "Mantenimiento"
+msgstr "Limpieza & Mantenimiento"
 
 #: app/templates/sidebar.html:97
-#, fuzzy
 msgid "Tareas de Limpieza"
-msgstr "Órdenes de Limpieza"
+msgstr "Tareas de Limpieza"
 
 #: app/templates/sidebar.html:105
-#, fuzzy
 msgid "Asignar Nueva Limpieza"
-msgstr "Asignar Tarea de Limpieza"
+msgstr "Asignar Nueva Limpieza"
 
 #: app/templates/sidebar.html:121
-#, fuzzy
 msgid "Historial de Limpieza"
-msgstr "Historial de Limpiezas"
+msgstr "Historial de Limpieza"
 
 #: app/templates/sidebar.html:127
-#, fuzzy
 msgid "Facturación & Finanzas"
-msgstr "Facturación"
+msgstr "Facturación & Finanzas"
 
 #: app/templates/dashboard/menu.html:203 app/templates/sidebar.html:140
 msgid "Reportes y Métricas"
 msgstr "Reportes y Métricas"
 
 #: app/templates/sidebar.html:149
-#, fuzzy
 msgid "Personal & Administración"
-msgstr "ADMINISTRACIÓN"
+msgstr "Personal & Administración"
 
 #: app/templates/sidebar.html:154
-#, fuzzy
 msgid "Usuarios (Clientes)"
-msgstr "Comentarios Recientes"
+msgstr "Usuarios (Clientes)"
 
 #: app/templates/sidebar.html:161
-#, fuzzy
 msgid "Empleados (Personal)"
-msgstr "Datos Personales"
+msgstr "Empleados (Personal)"
 
 #: app/templates/sidebar.html:168
-#, fuzzy
 msgid "Historial de Recepción"
-msgstr "Historial Recepción"
+msgstr "Historial de Recepción"
 
 #: app/templates/auth/login.html:6
 msgid "Acceso de Personal"
@@ -884,14 +871,12 @@ msgid "Atención"
 msgstr "Atención"
 
 #: app/templates/auth/perfil.html:3
-#, fuzzy
 msgid "Mi Perfil - Hotel Gales"
-msgstr "Verificado por Hotel Gales"
+msgstr "Mi Perfil - Hotel Gales"
 
 #: app/templates/auth/perfil.html:9
-#, fuzzy
 msgid "Configuración de Cuenta & Perfil"
-msgstr "Configuración de Cuenta"
+msgstr "Configuración de Cuenta & Perfil"
 
 #: app/templates/auth/perfil.html:19
 msgid "Credenciales de Acceso"
@@ -902,22 +887,20 @@ msgid "Nombre de Usuario"
 msgstr "Nombre de Usuario"
 
 #: app/templates/auth/perfil.html:32
-#, fuzzy
 msgid "Cambiar Contraseña"
-msgstr "Confirmar Contraseña"
+msgstr "Cambiar Contraseña"
 
 #: app/templates/auth/perfil.html:32
 msgid "opcional"
-msgstr ""
+msgstr "opcional"
 
 #: app/templates/auth/perfil.html:35
 msgid "Nueva contraseña"
 msgstr "Nueva contraseña"
 
 #: app/templates/auth/perfil.html:42
-#, fuzzy
 msgid "Confirmar contraseña"
-msgstr "Confirmar Contraseña"
+msgstr "Confirmar contraseña"
 
 #: app/templates/auth/perfil.html:47 app/templates/habitaciones/editar.html:51
 #: app/templates/tipohabitaciones/index.html:73
@@ -977,18 +960,16 @@ msgid "Actualizar Datos Personales"
 msgstr "Actualizar Datos Personales"
 
 #: app/templates/auth/perfil.html:111
-#, fuzzy
 msgid "Perfil Administrativo"
-msgstr "Administrador"
+msgstr "Perfil Administrativo"
 
 #: app/templates/auth/perfil.html:112
 msgid "Esta cuenta corresponde a un perfil de"
 msgstr "Esta cuenta corresponde a un perfil de"
 
 #: app/templates/auth/perfil.html:113
-#, fuzzy
 msgid "No hay datos de cliente directo asociados a esta cuenta."
-msgstr "No hay datos de cliente vinculados directamente a este perfil de usuario."
+msgstr "No hay datos de cliente directo asociados a esta cuenta."
 
 #: app/templates/auth/perfil.html:128
 msgid "¿Estás absolutamente seguro?"
@@ -1215,18 +1196,16 @@ msgid "Actualizar Contraseña"
 msgstr "Actualizar Contraseña"
 
 #: app/templates/clientes/index.html:3
-#, fuzzy
 msgid "Gestión de Clientes - Hotel Gales"
-msgstr "Gestión de Clientes"
+msgstr "Gestión de Clientes - Hotel Gales"
 
 #: app/templates/clientes/index.html:9
 msgid "Gestión de Clientes"
 msgstr "Gestión de Clientes"
 
 #: app/templates/clientes/index.html:23
-#, fuzzy
 msgid "Buscar por nombre o apellido..."
-msgstr "Buscar cliente por nombre o apellido..."
+msgstr "Buscar por nombre o apellido..."
 
 #: app/templates/clientes/index.html:27 app/templates/facturas/index.html:32
 #: app/templates/habitaciones/publica.html:83
@@ -1898,19 +1877,16 @@ msgstr ""
 "para empezar a ver su actividad."
 
 #: app/templates/dashboard/reportes.html:3
-#, fuzzy
 msgid "Reportes y Métricas - Hotel Gales"
-msgstr "Reportes y Métricas"
+msgstr "Reportes y Métricas - Hotel Gales"
 
 #: app/templates/dashboard/reportes.html:9
-#, fuzzy
 msgid "Reportes & Métricas Financieras"
-msgstr "Reportes y Métricas"
+msgstr "Reportes & Métricas Financieras"
 
 #: app/templates/dashboard/reportes.html:12
-#, fuzzy
 msgid "Mes:"
-msgstr "Desde:"
+msgstr "Mes:"
 
 #: app/templates/dashboard/reportes.html:24
 msgid "Ganancias"
@@ -1925,68 +1901,60 @@ msgid "Ganancias Históricas"
 msgstr "Ganancias Históricas"
 
 #: app/templates/dashboard/reportes.html:48
-#, fuzzy
 msgid "Acumulado Total"
-msgstr "Monto Total"
+msgstr "Acumulado Total"
 
 #: app/templates/dashboard/reportes.html:56
-#, fuzzy
 msgid "Nómina de Personal"
-msgstr "Asignar a Personal"
+msgstr "Nómina de Personal"
 
 #: app/templates/dashboard/reportes.html:62
-#, fuzzy
 msgid "empleados"
-msgstr "Empleados"
+msgstr "empleados"
 
 #: app/templates/dashboard/reportes.html:70
-#, fuzzy
 msgid "Reservas del Mes"
-msgstr "Reservas"
+msgstr "Reservas del Mes"
 
 #: app/templates/dashboard/reportes.html:87
-#, fuzzy
 msgid "Métricas Financieras del Mes"
-msgstr "Top 5 Clientes (Ganancias del Mes)"
+msgstr "Métricas Financieras del Mes"
 
 #: app/templates/dashboard/reportes.html:92
 msgid "Ganancias vs Nómina (Rentabilidad)"
-msgstr ""
+msgstr "Ganancias vs Nómina (Rentabilidad)"
 
 #: app/templates/dashboard/reportes.html:102
 msgid "Ingreso Promedio por Reserva"
-msgstr ""
+msgstr "Ingreso Promedio por Reserva"
 
 #: app/templates/dashboard/reportes.html:121
 msgid "Balance Neto del Mes"
-msgstr ""
+msgstr "Balance Neto del Mes"
 
 #: app/templates/dashboard/reportes.html:122
 msgid "Ingresos menos Nómina"
-msgstr ""
+msgstr "Ingresos menos Nómina"
 
 #: app/templates/dashboard/reportes.html:138
-#, fuzzy
 msgid "Top Clientes (Ganancias del Mes)"
-msgstr "Top 5 Clientes (Ganancias del Mes)"
+msgstr "Top Clientes (Ganancias del Mes)"
 
 #: app/templates/dashboard/reportes.html:147
-#, fuzzy
 msgid "Total Generado"
-msgstr "Total Pagado"
+msgstr "Total Generado"
 
 #: app/templates/dashboard/reportes.html:168
 msgid "No hay datos en el periodo seleccionado."
-msgstr ""
+msgstr "No hay datos en el periodo seleccionado."
 
 #: app/templates/dashboard/reportes.html:182
 msgid "Nómina de Empleados"
 msgstr "Nómina de Empleados"
 
 #: app/templates/dashboard/reportes.html:185
-#, fuzzy
 msgid "Imprimir Reporte"
-msgstr "Imprimir Factura"
+msgstr "Imprimir Reporte"
 
 #: app/templates/dashboard/reportes.html:192
 msgid "Empleado"
@@ -2021,9 +1989,8 @@ msgid "No hay empleados registrados."
 msgstr "No hay empleados registrados."
 
 #: app/templates/dashboard/reportes.html:243
-#, fuzzy
 msgid "Ajustar Salario de Empleado"
-msgstr "Ajustar Salario"
+msgstr "Ajustar Salario de Empleado"
 
 #: app/templates/dashboard/reportes.html:249
 msgid "Empleado:"
@@ -2257,27 +2224,24 @@ msgid "¿Seguro que quieres eliminar al empleado"
 msgstr "¿Seguro que quieres eliminar al empleado"
 
 #: app/templates/facturas/index.html:3
-#, fuzzy
 msgid "Gestión de Facturación - Hotel Gales"
-msgstr "Gestión de Facturación"
+msgstr "Gestión de Facturación - Hotel Gales"
 
 #: app/templates/facturas/index.html:10
 msgid "Gestión de Facturación"
 msgstr "Gestión de Facturación"
 
 #: app/templates/facturas/index.html:13
-#, fuzzy
 msgid "Facturas Registradas"
-msgstr "Tareas Registradas"
+msgstr "Facturas Registradas"
 
 #: app/templates/facturas/index.html:28
 msgid "Buscar por nombre o apellido del cliente..."
 msgstr "Buscar por nombre o apellido del cliente..."
 
 #: app/templates/facturas/index.html:56
-#, fuzzy
 msgid "PAGADA"
-msgstr "OCUPADA"
+msgstr "PAGADA"
 
 #: app/templates/facturas/index.html:77
 msgid "Reserva"
@@ -2453,13 +2417,12 @@ msgid "Detalle Habitación"
 msgstr "Detalle Habitación"
 
 #: app/templates/habitaciones/detalle.html:11
-#, fuzzy
 msgid "Volver al Listado"
-msgstr "Volver al inicio"
+msgstr "Volver al Listado"
 
 #: app/templates/habitaciones/detalle.html:23
 msgid "Categoría"
-msgstr ""
+msgstr "Categoría"
 
 #: app/templates/habitaciones/detalle.html:27
 msgid "Precio por Noche"
@@ -2483,66 +2446,56 @@ msgid "OCUPADA"
 msgstr "OCUPADA"
 
 #: app/templates/habitaciones/detalle.html:54
-#, fuzzy
 msgid "Calificación Promedio"
-msgstr "Calificación"
+msgstr "Calificación Promedio"
 
 #: app/templates/habitaciones/detalle.html:61
 msgid "de 5 estrellas"
-msgstr ""
+msgstr "de 5 estrellas"
 
 #: app/templates/habitaciones/detalle.html:62
-#, fuzzy
 msgid "reseñas de huéspedes"
-msgstr "Ver huéspedes"
+msgstr "reseñas de huéspedes"
 
 #: app/templates/habitaciones/detalle.html:65
-#, fuzzy
 msgid "Aún sin calificaciones"
-msgstr "Sin calificaciones"
+msgstr "Aún sin calificaciones"
 
 #: app/templates/habitaciones/detalle.html:77
-#, fuzzy
 msgid "Comentarios y Experiencias"
-msgstr "Comentarios Recientes"
+msgstr "Comentarios y Experiencias"
 
 #: app/templates/habitaciones/detalle.html:80
 msgid "Ver todos"
 msgstr "Ver todos"
 
 #: app/templates/habitaciones/detalle.html:110
-#, fuzzy
 msgid "Esta habitación aún no cuenta con reseñas de huéspedes."
-msgstr "Esta habitación aún no tiene comentarios."
+msgstr "Esta habitación aún no cuenta con reseñas de huéspedes."
 
 #: app/templates/habitaciones/detalle.html:121
-#, fuzzy
 msgid "Opciones de Habitación"
-msgstr "Tipos de Habitación"
+msgstr "Opciones de Habitación"
 
 #: app/templates/habitaciones/detalle.html:130
-#, fuzzy
 msgid "Ya tiene una reserva activa"
-msgstr "Ya tienes una reserva activa"
+msgstr "Ya tiene una reserva activa"
 
 #: app/templates/habitaciones/detalle.html:134
-#, fuzzy
 msgid "No disponible para reserva"
-msgstr "No disponible"
+msgstr "No disponible para reserva"
 
 #: app/templates/habitaciones/detalle.html:140
 msgid "Escribir una Reseña"
-msgstr ""
+msgstr "Escribir una Reseña"
 
 #: app/templates/habitaciones/detalle.html:144
-#, fuzzy
 msgid "Ver Mis Comentarios"
-msgstr "Ver Comentarios"
+msgstr "Ver Mis Comentarios"
 
 #: app/templates/habitaciones/detalle.html:150
-#, fuzzy
 msgid "Ver Calificaciones Completas"
-msgstr "Sin calificaciones"
+msgstr "Ver Calificaciones Completas"
 
 #: app/templates/habitaciones/editar.html:3
 msgid "Editar Habitación"
@@ -2578,14 +2531,12 @@ msgid "(Máx. 7 dígitos)"
 msgstr "(Máx. 7 dígitos)"
 
 #: app/templates/habitaciones/index.html:3
-#, fuzzy
 msgid "Gestión de Habitaciones - Hotel Gales"
-msgstr "Estado de Habitaciones"
+msgstr "Gestión de Habitaciones - Hotel Gales"
 
 #: app/templates/habitaciones/index.html:9
-#, fuzzy
 msgid "Habitaciones de Hotel Gales"
-msgstr "Habitaciones"
+msgstr "Habitaciones de Hotel Gales"
 
 #: app/templates/habitaciones/index.html:13
 msgid "Nueva Habitación"
@@ -2597,9 +2548,8 @@ msgid "Buscar por número"
 msgstr "Buscar por número"
 
 #: app/templates/habitaciones/index.html:28
-#, fuzzy
 msgid "Ej. 101"
-msgstr "Ej: 101"
+msgstr "Ej. 101"
 
 #: app/templates/habitaciones/index.html:32
 #: app/templates/habitaciones/publica.html:54
@@ -2608,7 +2558,7 @@ msgstr "Tipo de habitación"
 
 #: app/templates/habitaciones/index.html:34
 msgid "Todos los tipos"
-msgstr ""
+msgstr "Todos los tipos"
 
 #: app/templates/habitaciones/index.html:43
 #: app/templates/habitaciones/publica.html:65
@@ -2636,24 +2586,20 @@ msgid "Todos"
 msgstr "Todos"
 
 #: app/templates/habitaciones/index.html:61
-#, fuzzy
 msgid "Aplicar Filtros"
-msgstr "Limpiar Filtros"
+msgstr "Aplicar Filtros"
 
 #: app/templates/habitaciones/index.html:119
-#, fuzzy
 msgid "Huésped"
-msgstr "Huéspedes"
+msgstr "Huésped"
 
 #: app/templates/habitaciones/index.html:125
-#, fuzzy
 msgid "Tarifa por noche"
-msgstr "Precio por Noche"
+msgstr "Tarifa por noche"
 
 #: app/templates/habitaciones/index.html:137
-#, fuzzy
 msgid "Marcar Limpia"
-msgstr "Iniciar Limpieza"
+msgstr "Marcar Limpia"
 
 #: app/templates/habitaciones/index.html:142
 msgid "Ya tienes una reserva activa"
@@ -2777,9 +2723,8 @@ msgid "Confirmar Asignación"
 msgstr "Confirmar Asignación"
 
 #: app/templates/limpieza/tareas.html:3
-#, fuzzy
 msgid "Tareas de Limpieza - Hotel Gales"
-msgstr "Tarea de limpieza asignada correctamente."
+msgstr "Tareas de Limpieza - Hotel Gales"
 
 #: app/templates/limpieza/tareas.html:11
 msgid "Piezas por Limpiar"
@@ -2794,9 +2739,8 @@ msgid "Órdenes de Limpieza"
 msgstr "Órdenes de Limpieza"
 
 #: app/templates/limpieza/tareas.html:20
-#, fuzzy
 msgid "Asignar Tarea"
-msgstr "Asignar Nueva Tarea"
+msgstr "Asignar Tarea"
 
 #: app/templates/limpieza/tareas.html:53
 msgid "Indicaciones:"
@@ -2831,9 +2775,8 @@ msgid "En proceso"
 msgstr "En proceso"
 
 #: app/templates/limpieza/tareas.html:93
-#, fuzzy
 msgid "No hay órdenes de limpieza pendientes."
-msgstr "No hay órdenes de limpieza pendientes"
+msgstr "No hay órdenes de limpieza pendientes."
 
 #: app/templates/mantenimientos/index.html:3
 msgid "Mantenimiento de Habitaciones"
@@ -2928,9 +2871,8 @@ msgid "Sin registros de pago."
 msgstr "Sin registros de pago."
 
 #: app/templates/reservas/index.html:2
-#, fuzzy
 msgid "Control de Reservas - Hotel Gales"
-msgstr "Control de Reservas"
+msgstr "Control de Reservas - Hotel Gales"
 
 #: app/templates/reservas/index.html:8
 msgid "Control de Reservas"
@@ -2998,9 +2940,8 @@ msgid "No registrado"
 msgstr "No registrado"
 
 #: app/templates/reservas/index.html:178
-#, fuzzy
 msgid "Periodo de Reserva"
-msgstr "Gestión de Reservas"
+msgstr "Periodo de Reserva"
 
 #: app/templates/reservas/index.html:182
 msgid "Huéspedes"
