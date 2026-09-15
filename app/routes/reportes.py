@@ -67,11 +67,13 @@ def index():
             Factura.fechaFactura <= fecha_fin,
             Reserva.estadoReserva.in_(['confirmada', 'finalizada'])
         ).scalar() or 0
+    total_ganancias_mes = float(total_ganancias_mes)
         
     # 5.1 Total ganancias histórico
     total_ganancias_historico = db.session.query(func.sum(Factura.totalFactura))\
         .join(Reserva)\
         .filter(Reserva.estadoReserva.in_(['confirmada', 'finalizada'])).scalar() or 0
+    total_ganancias_historico = float(total_ganancias_historico)
 
     # 6. Listado de Empleados (Basado en usuarios con roles operativos)
     roles_empleados = ['recepcionista', 'servicio_limpieza']
