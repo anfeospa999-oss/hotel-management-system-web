@@ -82,7 +82,7 @@
                            {% elif hab.estadoHabitacion == 'ocupada' %}#ef4444
                            {% else %}#f59e0b{% endif %};"></div>
 
-          <div class="card-body p-4 text-center d-flex flex-direction-column justify-content-between">
+          <div class="card-body p-4 text-center d-flex flex-column justify-content-between">
             <div>
               <!-- Header Badges -->
               <div class="d-flex justify-content-between align-items-center mb-3">
@@ -123,7 +123,7 @@
               <!-- Room Price -->
               <div class="my-3 py-2 px-3 rounded-3" style="background: rgba(11, 25, 44, 0.03);">
                 <span class="text-muted small d-block mb-1">{{ _('Tarifa por noche') }}</span>
-                <h3 class="fw-bold mb-0 text-primary" style="color: #0b192c !important;">
+                <h3 class="fw-bold mb-0 text-primary">
                   {{ hab.precioNoche | cop }} <span class="fs-6 text-muted fw-normal">/ {{ _('noche') }}</span>
                 </h3>
               </div>

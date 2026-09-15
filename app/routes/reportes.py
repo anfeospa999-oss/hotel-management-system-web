@@ -100,19 +100,20 @@ def index():
         
     total_nomina = sum([e['salario'] for e in empleados])
     
-    # Margen de Ganancia (Porcentaje)
+    # Margen de Ganancia (Porcentaje) y Balance Neto
+    beneficio_neto = float(total_ganancias_mes) - float(total_nomina)
     margen_ganancia = 0
     if total_ganancias_mes > 0:
-        beneficio_neto = float(total_ganancias_mes) - float(total_nomina)
         margen_ganancia = (beneficio_neto / float(total_ganancias_mes)) * 100
 
-    return render_template('dashboard/reportes.html', 
+    return render_template('dashboard/reportes.html',
                            reservas_mes=reservas_mes,
                            ganancias_clientes=ganancias_clientes,
                            empleados=empleados,
                            total_nomina=total_nomina,
                            total_ganancias_mes=total_ganancias_mes,
                            total_ganancias_historico=total_ganancias_historico,
+                           beneficio_neto=beneficio_neto,
                            margen_ganancia=margen_ganancia,
                            mes_seleccionado=mes_seleccionado,
                            hoy=datetime.now().strftime('%d/%m/%Y'))
